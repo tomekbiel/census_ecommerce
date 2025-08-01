@@ -21,11 +21,46 @@ load_dotenv()
 # FRED API key (optional but recommended for higher rate limits)
 FRED_API_KEY = os.getenv('FRED_API_KEY', None)
 
-# FRED Series IDs for economic data - focusing on most reliable series
+# FRED Series IDs for economic data - comprehensive e-commerce and retail data
 FRED_SERIES = {
+    # E-commerce and Total Retail
     'ECOMSA': 'Ecommerce_Retail_Sales_Millions',  # E-commerce Retail Sales (Millions of Dollars, Monthly)
     'RSXFS': 'Retail_Sales_Total_Millions',       # Retail Sales: Total (Millions of Dollars, Monthly)
     'ECOMPCT': 'Ecommerce_Percent_Of_Total_Retail',  # E-commerce as Percent of Total Retail Sales
+    
+    # Retail Categories (NAICS)
+    'MRTSSM44X72USN': 'Retail_Food_Beverage_Stores',  # Retail Trade: Food and Beverage Stores
+    'MRTSSM4451USN': 'Retail_Grocery_Stores',        # Retail Trade: Grocery Stores
+    'MRTSSM448USN': 'Retail_Clothing_Stores',        # Retail Trade: Clothing and Clothing Accessory Stores
+    'MRTSSM452USN': 'Retail_General_Merchandise',    # Retail Trade: General Merchandise Stores
+    'MRTSSM453USN': 'Retail_Misc_Store_Retailers',   # Retail Trade: Miscellaneous Store Retailers
+    'MRTSSM4541USN': 'Retail_Electronic_Shopping',   # Retail Trade: Electronic Shopping and Mail-Order Houses
+    
+    # E-commerce by Category (Quarterly, Seasonally Adjusted)
+    'ECOM442XAY': 'Ecomm_Furniture_Home_Furnishings',  # E-commerce: Furniture and Home Furnishings
+    'ECOM4422XAY': 'Ecomm_Home_Furnishings',          # E-commerce: Home Furnishings Stores
+    'ECOM4431XAY': 'Ecomm_Electronics_Appliances',    # E-commerce: Electronics and Appliance Stores
+    'ECOM4441XAY': 'Ecomm_Building_Materials',        # E-commerce: Building Material and Garden Equipment
+    'ECOM4451XAY': 'Ecomm_Food_Beverage',             # E-commerce: Food and Beverage Stores
+    'ECOM4481XAY': 'Ecomm_Clothing_Accessories',      # E-commerce: Clothing and Clothing Accessories
+    'ECOM4511XAY': 'Ecomm_Sporting_Goods',            # E-commerce: Sporting Goods, Hobby, Book, and Music Stores
+    'ECOM4532XAY': 'Ecomm_Office_Supplies',           # E-commerce: Office Equipment and Supplies
+    'ECOM4541XAY': 'Ecomm_Electronic_Shopping',       # E-commerce: Electronic Shopping and Mail-Order Houses
+    
+    # Economic Indicators
+    'UNRATE': 'Unemployment_Rate',                    # Unemployment Rate
+    'CPIAUCSL': 'CPI_All_Items',                      # Consumer Price Index for All Urban Consumers
+    'RSAFS': 'Retail_Sales_Excl_Auto',                # Retail Sales Excluding Autos
+    'RETAILMPCSMSA': 'Retail_Sales_Index',            # Retail Sales Index (2012=100)
+    
+    # Consumer Confidence and Spending
+    'UMCSENT': 'Consumer_Sentiment',                  # University of Michigan: Consumer Sentiment
+    'DSPIC96': 'Disposable_Income',                   # Real Disposable Personal Income
+    'PCE': 'Personal_Consumption_Expenditures',       # Personal Consumption Expenditures
+    
+    # E-commerce Growth Rates
+    'ECOMYOY': 'Ecomm_Year_Over_Year_Growth',         # E-commerce Year-over-Year Growth Rate
+    'ECOMQ': 'Ecomm_Quarterly_Growth',                # E-commerce Quarterly Growth Rate
 }
 
 def fetch_fred_data(series_dict, start_date, end_date):
@@ -70,26 +105,54 @@ def fetch_fred_data(series_dict, start_date, end_date):
     return pd.DataFrame()
 
 def clean_data(df):
-    """Clean and process the raw FRED data."""
+    """Clean and process the raw FRED data for Power BI analysis."""
     if df.empty:
         return df
     
-    # Convert index to datetime if it's not already
+    # Make a copy to avoid SettingWithCopyWarning
     df = df.copy()
+    
+    # Convert index to datetime if it's not already
     if not isinstance(df.index, pd.DatetimeIndex):
         df.index = pd.to_datetime(df.index)
+    
+    # Create a date column from the index
+    df['Date'] = df.index
     
     # Forward fill missing values for monthly data
     df = df.ffill()
     
-    # Reset index to make Date a column
-    df = df.reset_index().rename(columns={'index': 'Date'})
-    
-    # Calculate additional metrics if we have the required columns
-    if 'Ecommerce_Retail_Sales_Millions' in df.columns and 'Retail_Sales_Total_Millions' in df.columns:
+    # Calculate additional metrics
+    if all(col in df.columns for col in ['Ecommerce_Retail_Sales_Millions', 'Retail_Sales_Total_Millions']):
         df['Ecommerce_Percent_Of_Total'] = (
             df['Ecommerce_Retail_Sales_Millions'] / df['Retail_Sales_Total_Millions']
         ) * 100
+    
+    # Calculate year and month for time-based analysis in Power BI
+    df['Year'] = df['Date'].dt.year
+    df['Month'] = df['Date'].dt.month
+    df['Quarter'] = df['Date'].dt.quarter
+    df['Month_Name'] = df['Date'].dt.month_name()
+    df['Quarter_Year'] = df['Date'].dt.to_period('Q').astype(str)
+    
+    # Calculate year-over-year growth for key metrics
+    numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+    for col in numeric_cols:
+        if col not in ['Year', 'Month', 'Quarter']:
+            # Calculate monthly change
+            df[f'{col}_MoM_Change'] = df[col].pct_change() * 100
+            
+            # Calculate year-over-year change
+            if len(df) > 12:  # Ensure we have enough data for YoY
+                df[f'{col}_YoY_Change'] = df[col].pct_change(periods=12) * 100
+    
+    # Reorder columns to have Date and time-related columns first
+    date_cols = ['Date', 'Year', 'Month', 'Month_Name', 'Quarter', 'Quarter_Year']
+    other_cols = [col for col in df.columns if col not in date_cols]
+    df = df[date_cols + other_cols]
+    
+    # Sort by date to ensure proper time series
+    df = df.sort_values('Date')
     
     return df
 
