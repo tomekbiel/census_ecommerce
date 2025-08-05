@@ -183,9 +183,9 @@ def main():
     if not FRED_API_KEY:
         print("Note: FRED_API_KEY not found in .env file. Using public access (rate limited).\n")
     
-    # Set date range (last 5 years)
+    # Set date range (from January 1, 2018 to current date)
     end_date = datetime.now()
-    start_date = datetime(end_date.year - 5, 1, 1)
+    start_date = datetime(2018, 1, 1)
     
     print(f"Fetching data from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}...\n")
     
