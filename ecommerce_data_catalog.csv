@@ -1,9 +1,0 @@
-﻿series_id,name,description,frequency,start_year,notes,source
-ECOMSA,E-commerce Retail Sales,Total e-commerce retail sales in millions of dollars,Monthly,2019,,FRED (Federal Reserve Economic Data)
-ECOMPCTSA,E-commerce as % of Total Retail,E-commerce as a percentage of total retail sales,Monthly,2019,,FRED (Federal Reserve Economic Data)
-MRTSSM44X72USN,Retail Trade: Food and Beverage Stores,Retail sales for food and beverage stores,Monthly,1992,,FRED (Federal Reserve Economic Data)
-MRTSSM4541USN,Retail Trade: Electronic Shopping and Mail-Order Houses,Retail sales for electronic shopping and mail-order houses,Monthly,1992,,FRED (Federal Reserve Economic Data)
-ECNS48,Quarterly Retail E-commerce Sales,Quarterly e-commerce retail sales estimates,Quarterly,1999,,US Census Bureau
-DP05,Demographic and Housing Estimates,Demographic and housing characteristics,Annual,2009,,US Census Bureau
-COMSCORE_ECS,Comscore E-commerce Measurement,"Detailed e-commerce metrics including traffic, transactions, and conversion",Monthly,2000,Requires enterprise subscription,Commercial Data Providers
-EMARKETER_EST,eMarketer Estimates,"E-commerce market size, users, and penetration rates",Monthly,2000,Subscription required,Commercial Data Providers

@@ -1,0 +1,5 @@
+# This .gitignore file is intentionally left blank to track all files in the powerbi directory
+# All files in this directory should be tracked by Git
+
+# Note: No files are being ignored in this directory
+# All files, including .pbix and other Power BI files, will be tracked by Git
