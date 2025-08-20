@@ -1,0 +1,85 @@
+Month,Month_Number,Year,Quarter,Is_Peak_Month,Promotion_Type,Sales_Weight,Total sales (USD mln),GMV (USD bln),Gross profit (USD mln),Operating profit (USD mln),Avg. order value (USD),Active stores (mln),Est. Customer repeat rate (orders/customer),Top sales categories,Estimated_customers
+2018-01,1,2018,2018 Q1,0,Spring sales,0.25,55.5,10.25,25.75,-5.75,37.5,0.6,2.0,"Electronics, fashion, health",740000.0
+2018-02,2,2018,2018 Q1,0,Spring sales,0.45,99.9,18.45,46.35,-10.35,67.5,0.6,2.0,"Electronics, fashion, health",740000.0
+2018-03,3,2018,2018 Q1,1,Spring sales,0.3,66.6,12.3,30.9,-6.9,45.0,0.6,2.0,"Electronics, fashion, health",740000.0
+2018-04,4,2018,2018 Q2,0,Summer sales,0.25,67.25,11.25,30.0,-5.0,38.75,0.65,1.9,"Fashion, electronics",913413.0
+2018-05,5,2018,2018 Q2,0,Summer sales,0.4,107.6,18.0,48.0,-8.0,62.0,0.65,1.9,"Fashion, electronics",913413.0
+2018-06,6,2018,2018 Q2,1,Summer sales,0.35,94.15,15.749999999999998,42.0,-7.0,54.25,0.65,1.9,"Fashion, electronics",913413.0
+2018-07,7,2018,2018 Q3,0,Back to school specials,0.4,126.0,19.200000000000003,60.0,-6.0,64.0,0.68,1.8,"Health, home",1093750.0
+2018-08,8,2018,2018 Q3,0,Back to school specials,0.35,110.25,16.799999999999997,52.5,-5.25,56.0,0.68,1.8,"Health, home",1093750.0
+2018-09,9,2018,2018 Q3,0,Back to school specials,0.25,78.75,12.0,37.5,-3.75,40.0,0.68,1.8,"Health, home",1093750.0
+2018-10,10,2018,2018 Q4,0,"Cyber 5, Black Friday",0.15,51.6,8.1,27.9,-1.35,24.0,0.7,1.9,"Electronics, home, sports",1131579.0
+2018-11,11,2018,2018 Q4,0,"Cyber 5, Black Friday",0.7,240.8,37.8,130.2,-6.3,112.0,0.7,1.9,"Electronics, home, sports",1131579.0
+2018-12,12,2018,2018 Q4,1,"Cyber 5, Black Friday",0.15,51.6,8.1,27.9,-1.35,24.0,0.7,1.9,"Electronics, home, sports",1131579.0
+2019-01,1,2019,2019 Q1,0,"Spring sales, Prime Day",0.6,231.0,33.6,126.0,3.0,99.0,0.75,2.0,"Electronics, fashion, health",1166666.0
+2019-02,2,2019,2019 Q1,1,"Spring sales, Prime Day",0.25,96.25,14.0,52.5,1.25,41.25,0.75,2.0,"Electronics, fashion, health",1166666.0
+2019-03,3,2019,2019 Q1,0,"Spring sales, Prime Day",0.15,57.75,8.4,31.5,0.75,24.75,0.75,2.0,"Electronics, fashion, health",1166666.0
+2019-04,4,2019,2019 Q2,0,Summer sales,0.25,100.0,14.5,56.25,3.75,42.5,0.8,2.0,"Fashion, electronics",1176470.0
+2019-05,5,2019,2019 Q2,0,Summer sales,0.4,160.0,23.200000000000003,90.0,6.0,68.0,0.8,2.0,"Fashion, electronics",1176470.0
+2019-06,6,2019,2019 Q2,1,Summer sales,0.35,140.0,20.3,78.75,5.25,59.49999999999999,0.8,2.0,"Fashion, electronics",1176470.0
+2019-07,7,2019,2019 Q3,0,Back to school specials,0.4,168.0,23.200000000000003,92.0,4.0,70.0,0.85,1.9,"Health, home",1263158.0
+2019-08,8,2019,2019 Q3,0,Back to school specials,0.35,147.0,20.3,80.5,3.5,61.24999999999999,0.85,1.9,"Health, home",1263158.0
+2019-09,9,2019,2019 Q3,0,Back to school specials,0.25,105.0,14.5,57.5,2.5,43.75,0.85,1.9,"Health, home",1263158.0
+2019-10,10,2019,2019 Q4,0,"Cyber 5, Black Friday",0.15,90.0,8.85,46.5,4.5,27.0,1.0,2.2,"Electronics, home, sports",1515151.0
+2019-11,11,2019,2019 Q4,0,"Cyber 5, Black Friday",0.7,420.0,41.3,217.0,21.0,126.0,1.0,2.2,"Electronics, home, sports",1515151.0
+2019-12,12,2019,2019 Q4,1,"Cyber 5, Black Friday",0.15,90.0,8.85,46.5,4.5,27.0,1.0,2.2,"Electronics, home, sports",1515151.0
+2020-01,1,2020,2020 Q1,0,"Pandemic start, e-commerce boom",0.3,150.0,12.9,84.0,15.0,49.5,1.0,2.1,"Electronics, health, home",1443001.0
+2020-02,2,2020,2020 Q1,0,"Pandemic start, e-commerce boom",0.3,150.0,12.9,84.0,15.0,49.5,1.0,2.1,"Electronics, health, home",1443001.0
+2020-03,3,2020,2020 Q1,0,"Pandemic start, e-commerce boom",0.4,200.0,17.2,112.0,20.0,66.0,1.0,2.1,"Electronics, health, home",1443001.0
+2020-04,4,2020,2020 Q2,0,"Pandemic, early Black Friday sales",0.15,120.0,8.25,67.5,12.0,25.5,1.1,2.3,"Fashion, electronics",2046036.0
+2020-05,5,2020,2020 Q2,0,"Pandemic, early Black Friday sales",0.7,560.0,38.5,315.0,56.0,119.0,1.1,2.3,"Fashion, electronics",2046036.0
+2020-06,6,2020,2020 Q2,1,"Pandemic, early Black Friday sales",0.15,120.0,8.25,67.5,12.0,25.5,1.1,2.3,"Fashion, electronics",2046036.0
+2020-07,7,2020,2020 Q3,0,Back to school specials,0.4,350.0,22.8,192.0,34.0,68.8,1.2,2.2,"Health, home",2312368.0
+2020-08,8,2020,2020 Q3,0,Back to school specials,0.35,306.25,19.95,168.0,29.75,60.2,1.2,2.2,"Health, home",2312368.0
+2020-09,9,2020,2020 Q3,0,Back to school specials,0.25,218.75,14.25,120.0,21.25,43.0,1.2,2.2,"Health, home",2312368.0
+2020-10,10,2020,2020 Q4,0,"Cyber 5, Black Friday",0.15,150.0,9.0,90.0,13.5,26.25,1.3,2.4,"Electronics, home, sports",2380952.0
+2020-11,11,2020,2020 Q4,0,"Cyber 5, Black Friday",0.7,700.0,42.0,420.0,62.99999999999999,122.5,1.3,2.4,"Electronics, home, sports",2380952.0
+2020-12,12,2020,2020 Q4,1,"Cyber 5, Black Friday",0.15,150.0,9.0,90.0,13.5,26.25,1.3,2.4,"Electronics, home, sports",2380952.0
+2021-01,1,2021,2021 Q1,0,"Pandemic, new shopping trends",0.3,330.0,18.0,195.0,27.0,54.0,1.4,2.3,"Electronics, apparel, health",2657005.0
+2021-02,2,2021,2021 Q1,0,"Pandemic, new shopping trends",0.3,330.0,18.0,195.0,27.0,54.0,1.4,2.3,"Electronics, apparel, health",2657005.0
+2021-03,3,2021,2021 Q1,0,"Pandemic, new shopping trends",0.4,440.0,24.0,260.0,36.0,72.0,1.4,2.3,"Electronics, apparel, health",2657005.0
+2021-04,4,2021,2021 Q2,0,Summer sales,0.25,300.0,15.5,175.0,25.0,46.25,1.5,2.3,"Fashion, electronics, home",2820211.0
+2021-05,5,2021,2021 Q2,0,Summer sales,0.4,480.0,24.8,280.0,40.0,74.0,1.5,2.3,"Fashion, electronics, home",2820211.0
+2021-06,6,2021,2021 Q2,1,Summer sales,0.35,420.0,21.7,245.0,35.0,64.75,1.5,2.3,"Fashion, electronics, home",2820211.0
+2021-07,7,2021,2021 Q3,0,Back to school specials,0.4,500.0,25.200000000000003,300.0,42.0,74.4,1.55,2.4,"Health, apparel, electronics",2800179.0
+2021-08,8,2021,2021 Q3,0,Back to school specials,0.35,437.5,22.05,262.5,36.75,65.1,1.55,2.4,"Health, apparel, electronics",2800179.0
+2021-09,9,2021,2021 Q3,0,Back to school specials,0.25,312.5,15.75,187.5,26.25,46.5,1.55,2.4,"Health, apparel, electronics",2800179.0
+2021-10,10,2021,2021 Q4,0,"Holiday season, Cyber 5",0.25,400.0,16.25,225.0,32.5,47.5,1.6,2.5,"Electronics, home",3368421.0
+2021-11,11,2021,2021 Q4,0,"Holiday season, Cyber 5",0.6,960.0,39.0,540.0,78.0,114.0,1.6,2.5,"Electronics, home",3368421.0
+2021-12,12,2021,2021 Q4,1,"Holiday season, Cyber 5",0.15,240.0,9.75,135.0,19.5,28.5,1.6,2.5,"Electronics, home",3368421.0
+2022-01,1,2022,2022 Q1,0,"Spring season, Prime Day",0.6,1002.0,39.6,570.0,84.0,117.0,1.65,2.5,"Electronics, fashion, health",3425641.0
+2022-02,2,2022,2022 Q1,1,"Spring season, Prime Day",0.25,417.5,16.5,237.5,35.0,48.75,1.65,2.5,"Electronics, fashion, health",3425641.0
+2022-03,3,2022,2022 Q1,0,"Spring season, Prime Day",0.15,250.5,9.9,142.5,21.0,29.25,1.65,2.5,"Electronics, fashion, health",3425641.0
+2022-04,4,2022,2022 Q2,0,Summer sales,0.25,430.0,16.625,243.75,36.25,48.75,1.7,2.5,"Electronics, home, furnishings",3528205.0
+2022-05,5,2022,2022 Q2,0,Summer sales,0.4,688.0,26.6,390.0,58.0,78.0,1.7,2.5,"Electronics, home, furnishings",3528205.0
+2022-06,6,2022,2022 Q2,1,Summer sales,0.35,602.0,23.275,341.25,50.75,68.25,1.7,2.5,"Electronics, home, furnishings",3528205.0
+2022-07,7,2022,2022 Q3,0,Back to school,0.4,696.0,26.72,396.0,60.0,78.4,1.71,2.6,"Health, electronics, apparel",3414443.0
+2022-08,8,2022,2022 Q3,0,Back to school,0.35,609.0,23.38,346.5,52.5,68.6,1.71,2.6,"Health, electronics, apparel",3414443.0
+2022-09,9,2022,2022 Q3,0,Back to school,0.25,435.0,16.7,247.5,37.5,49.0,1.71,2.6,"Health, electronics, apparel",3414443.0
+2022-10,10,2022,2022 Q4,0,"Cyber 5, Black Friday, holidays",0.15,277.5,10.05,162.0,24.0,29.7,1.75,2.7,"Electronics, home",3460531.0
+2022-11,11,2022,2022 Q4,0,"Cyber 5, Black Friday, holidays",0.7,1295.0,46.9,756.0,112.0,138.6,1.75,2.7,"Electronics, home",3460531.0
+2022-12,12,2022,2022 Q4,1,"Cyber 5, Black Friday, holidays",0.15,277.5,10.05,162.0,24.0,29.7,1.75,2.7,"Electronics, home",3460531.0
+2023-01,1,2023,2023 Q1,0,Post-holiday season,0.3,510.0,18.6,255.0,36.0,52.5,1.5,2.1,"Electronics, luxury goods",4625850.0
+2023-02,2,2023,2023 Q1,0,Post-holiday season,0.3,510.0,18.6,255.0,36.0,52.5,1.5,2.1,"Electronics, luxury goods",4625850.0
+2023-03,3,2023,2023 Q1,0,Post-holiday season,0.4,680.0,24.8,340.0,48.0,70.0,1.5,2.1,"Electronics, luxury goods",4625850.0
+2023-04,4,2023,2023 Q2,0,Summer sales,0.25,462.5,15.75,225.0,32.5,44.5,1.55,2.2,"Fashion, electronics",4724208.0
+2023-05,5,2023,2023 Q2,0,Summer sales,0.4,740.0,25.200000000000003,360.0,52.0,71.2,1.55,2.2,"Fashion, electronics",4724208.0
+2023-06,6,2023,2023 Q2,1,Summer sales,0.35,647.5,22.05,315.0,45.5,62.3,1.55,2.2,"Fashion, electronics",4724208.0
+2023-07,7,2023,2023 Q3,0,Back to school,0.4,800.0,26.0,420.0,64.0,74.0,1.6,2.3,"Health, home, electronics",4700353.0
+2023-08,8,2023,2023 Q3,0,Back to school,0.35,700.0,22.75,367.5,56.0,64.75,1.6,2.3,"Health, home, electronics",4700353.0
+2023-09,9,2023,2023 Q3,0,Back to school,0.25,500.0,16.25,262.5,40.0,46.25,1.6,2.3,"Health, home, electronics",4700353.0
+2023-10,10,2023,2023 Q4,0,"Fall season, Black Friday",0.15,354.0,10.08,180.0,30.0,28.5,1.7,2.3,"Electronics, fashion, home furnishings",5400458.0
+2023-11,11,2023,2023 Q4,0,"Fall season, Black Friday",0.7,1652.0,47.04,840.0,140.0,133.0,1.7,2.3,"Electronics, fashion, home furnishings",5400458.0
+2023-12,12,2023,2023 Q4,1,"Fall season, Black Friday",0.15,354.0,10.08,180.0,30.0,28.5,1.7,2.3,"Electronics, fashion, home furnishings",5400458.0
+2024-01,1,2024,2024 Q1,0,"Spring season, Prime Day",0.6,1140.0,39.9,690.0,108.0,117.0,1.8,2.4,"Electronics, fashion, home furnishings",4059829.0
+2024-02,2,2024,2024 Q1,1,"Spring season, Prime Day",0.25,475.0,16.625,287.5,45.0,48.75,1.8,2.4,"Electronics, fashion, home furnishings",4059829.0
+2024-03,3,2024,2024 Q1,0,"Spring season, Prime Day",0.15,285.0,9.975,172.5,27.0,29.25,1.8,2.4,"Electronics, fashion, home furnishings",4059829.0
+2024-04,4,2024,2024 Q2,0,Summer sales,0.25,500.0,16.75,300.0,47.5,49.5,1.85,2.4,"Fashion, electronics, home",4208754.0
+2024-05,5,2024,2024 Q2,0,Summer sales,0.4,800.0,26.8,480.0,76.0,79.2,1.85,2.4,"Fashion, electronics, home",4208754.0
+2024-06,6,2024,2024 Q2,1,Summer sales,0.35,700.0,23.45,420.0,66.5,69.3,1.85,2.4,"Fashion, electronics, home",4208754.0
+2024-07,7,2024,2024 Q3,0,Back to school,0.4,840.0,27.0,500.0,80.0,80.0,1.9,2.5,"Health, electronics, home",4200000.0
+2024-08,8,2024,2024 Q3,0,Back to school,0.35,735.0,23.625,437.5,70.0,70.0,1.9,2.5,"Health, electronics, home",4200000.0
+2024-09,9,2024,2024 Q3,0,Back to school,0.25,525.0,16.875,312.5,50.0,50.0,1.9,2.5,"Health, electronics, home",4200000.0
+2024-10,10,2024,2024 Q4,0,"Fall season, Black Friday",0.15,375.0,10.2,202.5,33.0,30.75,2.0,2.6,"Electronics, fashion, home furnishings",4690432.0
+2024-11,11,2024,2024 Q4,0,"Fall season, Black Friday",0.7,1750.0,47.6,945.0,154.0,143.5,2.0,2.6,"Electronics, fashion, home furnishings",4690432.0
+2024-12,12,2024,2024 Q4,1,"Fall season, Black Friday",0.15,375.0,10.2,202.5,33.0,30.75,2.0,2.6,"Electronics, fashion, home furnishings",4690432.0
