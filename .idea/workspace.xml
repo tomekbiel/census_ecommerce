@@ -5,22 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43167f0c-ce05-42fb-bcad-777c08ba6b6d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gen_faker/add_customers_estimation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen_faker/analyze_customers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen_faker/gen_faker3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/ecommerce_analysis_20250729_161542.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/ecommerce_analysis_20250801_075449.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/ecommerce_analysis_20250801_080233.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/ecommerce_analysis_20250805_103756.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/ecommerce_macro_indicators.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/customers.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/orders.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/products.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/shopify_monthly_reports_2018-2024.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/shopify_monthly_reports_2018-2024.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/processed/customers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/processed/customers.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/processed/orders.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/processed/orders.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/processed/products.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/processed/products.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ecommerce_analysis/ecommerce_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/ecommerce_analysis/ecommerce_visualization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker1.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen_faker/gen_faker3.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,47 +52,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests in test_connection.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.add_customers_estimation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.all_categories.executor&quot;: &quot;Run&quot;,
-    &quot;Python.analyze_customers.executor&quot;: &quot;Run&quot;,
-    &quot;Python.analyze_orders.executor&quot;: &quot;Run&quot;,
-    &quot;Python.basic_presentation (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.basic_presentation .executor&quot;: &quot;Run&quot;,
-    &quot;Python.basic_presentation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.convert_shopify_to_monthly.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ebay1_production.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ebay1_sandbox.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ebay_api_explorer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ebay_sales_analytics.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ecommerce_visualization.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gen_ecom_data_2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gen_ecom_faker.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gen_ecom_faker2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.plot_shopify_sales.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests in test_connection.py.executor": "Run",
+    "Python.add_customers_estimation.executor": "Run",
+    "Python.all_categories.executor": "Run",
+    "Python.analyze_customers.executor": "Run",
+    "Python.analyze_orders.executor": "Run",
+    "Python.basic_presentation (1).executor": "Run",
+    "Python.basic_presentation .executor": "Run",
+    "Python.basic_presentation.executor": "Run",
+    "Python.convert_shopify_to_monthly.executor": "Run",
+    "Python.ebay1_production.executor": "Run",
+    "Python.ebay1_sandbox.executor": "Run",
+    "Python.ebay_api_explorer.executor": "Run",
+    "Python.ebay_sales_analytics.executor": "Run",
+    "Python.ecommerce_visualization.executor": "Run",
+    "Python.gen_ecom_data_2.executor": "Run",
+    "Python.gen_ecom_faker.executor": "Run",
+    "Python.gen_ecom_faker2.executor": "Run",
+    "Python.gen_ecom_faker3 (1).executor": "Run",
+    "Python.gen_faker3.executor": "Run",
+    "Python.plot_shopify_sales.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="pip install -r requirements.txt" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.ecommerce_visualization">
+  <component name="RunManager" selected="Python.gen_ecom_faker3 (1)">
     <configuration name="all_categories" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="census_ecommerce" />
       <option name="ENV_FILES" value="" />
@@ -168,50 +162,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="gen_ecom_faker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="census_ecommerce" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\python\census_ecommerce\gen_faker\gen_ecom_faker.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="gen_ecom_faker1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="census_ecommerce" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\python\census_ecommerce\gen_faker\gen_ecom_faker1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="gen_ecom_faker2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="census_ecommerce" />
       <option name="ENV_FILES" value="" />
@@ -234,21 +184,65 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="gen_ecom_faker3 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="census_ecommerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_faker/gen_ecom_faker3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gen_ecom_faker3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="census_ecommerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\python\census_ecommerce\gen_faker\gen_ecom_faker3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.basic_presentation" />
+      <item itemvalue="Python.gen_ecom_faker3" />
+      <item itemvalue="Python.gen_ecom_faker3 (1)" />
       <item itemvalue="Python.all_categories" />
       <item itemvalue="Python.ecommerce_visualization" />
-      <item itemvalue="Python.gen_ecom_faker" />
-      <item itemvalue="Python.gen_ecom_faker1" />
       <item itemvalue="Python.gen_ecom_faker2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.gen_ecom_faker3 (1)" />
+        <item itemvalue="Python.gen_ecom_faker3" />
         <item itemvalue="Python.ecommerce_visualization" />
         <item itemvalue="Python.gen_ecom_faker2" />
         <item itemvalue="Python.all_categories" />
-        <item itemvalue="Python.gen_ecom_faker1" />
-        <item itemvalue="Python.gen_ecom_faker" />
       </list>
     </recent_temporary>
   </component>
