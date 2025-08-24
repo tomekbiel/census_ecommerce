@@ -11,7 +11,7 @@ plt.style.use('seaborn-v0_8')
 sns.set_palette("viridis")
 
 # Constants
-DATA_DIR = Path(__file__).parent.parent / "data" / "processed"
+DATA_DIR = Path(__file__).parent.parent / "data" / "synthetic"
 OUTPUT_DIR = Path(__file__).parent.parent / "reports"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
@@ -20,13 +20,43 @@ print("Loading data...")
 customers = pd.read_csv(DATA_DIR / "customers.csv", parse_dates=['join_date'])
 orders = pd.read_csv(DATA_DIR / "orders.csv", parse_dates=['order_date'])
 products = pd.read_csv(DATA_DIR / "products.csv")
-order_items = pd.read_csv(DATA_DIR / "order_items.csv")
 
 # Data Preparation
 print("Preparing data...")
-# Merge order items with products
-order_details = order_items.merge(products[['product_id', 'name', 'category', 'price']], 
-                                 on='product_id', how='left')
+# Create order_details from orders data
+order_details = orders.copy()
+# Extract product information from the products_list column
+order_details['products'] = order_details['products_list'].str.split('|')
+order_details = order_details.explode('products')
+
+# Extract product_id and quantity from products string (format: "PROD123(x1)")
+# First, handle any potential NaN values in the products column
+order_details = order_details.dropna(subset=['products'])
+
+# Extract product_id and quantity with proper error handling
+extracted = order_details['products'].str.extract(r'([A-Z0-9]+)\(x(\d+)\)')
+extracted.columns = ['product_id', 'quantity']
+
+# Only keep rows where we successfully extracted both product_id and quantity
+order_details = order_details[extracted['product_id'].notna() & extracted['quantity'].notna()].copy()
+order_details['product_id'] = extracted['product_id']
+order_details['quantity'] = extracted['quantity'].astype(int)
+
+# Merge with products to get product details
+order_details = order_details.merge(
+    products[['product_id', 'name', 'category', 'price']], 
+    on='product_id', 
+    how='left'
+)
+
+# Calculate item total
+order_details['item_total'] = order_details['price'] * order_details['quantity'] * (1 - order_details['avg_discount'])
+
+# Keep only relevant columns
+order_details = order_details[[
+    'order_id', 'customer_id', 'product_id', 'name', 'category', 
+    'price', 'quantity', 'avg_discount', 'item_total', 'order_date'
+]]
 
 # Add year, month, and day of week to orders
 orders['order_year'] = orders['order_date'].dt.year
@@ -116,8 +146,9 @@ category_sales = order_details.groupby('category').agg(
 
 # Top Categories by Revenue
 plt.figure(figsize=(10, 6))
-top_cats = category_sales.head(10)
-sns.barplot(x='item_total', y='category', data=top_cats, palette='viridis')
+top_cats = category_sales.head(10).copy()
+top_cats['dummy'] = 'Revenue'  # Add a dummy variable for hue
+sns.barplot(x='item_total', y='category', data=top_cats, hue='dummy', palette='viridis', legend=False)
 plt.title('Top 10 Categories by Revenue', fontsize=14, pad=20)
 plt.xlabel('Total Revenue ($)', fontsize=12, labelpad=10)
 plt.ylabel('Category', fontsize=12, labelpad=10)
@@ -125,141 +156,11 @@ plt.tight_layout()
 plt.savefig(OUTPUT_DIR / 'top_categories.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-# Generate HTML report
-print("Generating HTML report...")
-html_content = f"""
-<!DOCTYPE html>
-<html>
-<head>
-    <title>E-commerce Data Visualizations</title>
-    <style>
-        body {{
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }}
-        h1 {{
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-        }}
-        .visualization {{
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            padding: 20px;
-        }}
-        .visualization h2 {{
-            color: #3498db;
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }}
-        .visualization img {{
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border: 1px solid #eee;
-        }}
-        .description {{
-            margin: 15px 0;
-            color: #555;
-        }}
-        .metrics {{
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }}
-        .metric {{
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            min-width: 200px;
-            margin: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }}
-        .metric-value {{
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 5px 0;
-        }}
-        .metric-label {{
-            color: #7f8c8d;
-            font-size: 14px;
-        }}
-    </style>
-</head>
-<body>
-    <h1>E-commerce Data Visualizations</h1>
-    
-    <div class="metrics">
-        <div class="metric">
-            <div class="metric-value">{customers:,.0f}</div>
-            <div class="metric-label">Total Customers</div>
-        </div>
-        <div class="metric">
-            <div class="metric-value">${revenue:,.2f}</div>
-            <div class="metric-label">Total Revenue</div>
-        </div>
-        <div class="metric">
-            <div class="metric-value">{orders:,.0f}</div>
-            <div class="metric-label">Total Orders</div>
-        </div>
-        <div class="metric">
-            <div class="metric-value">${aov:,.2f}</div>
-            <div class="metric-label">Avg. Order Value</div>
-        </div>
-    </div>
-    
-    <div class="visualization">
-        <h2>1. Monthly Revenue Trend</h2>
-        <div class="description">
-            This chart shows the monthly revenue trend over time, highlighting seasonality and growth patterns.
-        </div>
-        <img src="monthly_revenue_trend.png" alt="Monthly Revenue Trend">
-    </div>
-    
-    <div class="visualization">
-        <h2>2. Customer Retention by Cohort</h2>
-        <div class="description">
-            This heatmap shows the retention rate of customers over time, grouped by their initial purchase month (cohort).
-        </div>
-        <img src="customer_retention_heatmap.png" alt="Customer Retention by Cohort">
-    </div>
-    
-    <div class="visualization">
-        <h2>3. Top Categories by Revenue</h2>
-        <div class="description">
-            This chart displays the top 10 product categories by total revenue.
-        </div>
-        <img src="top_categories.png" alt="Top Categories by Revenue">
-    </div>
-</body>
-</html>
-""".format(
-    customers=customers['customer_id'].nunique(),
-    revenue=orders['total_amount'].sum(),
-    orders=orders['order_id'].nunique(),
-    aov=orders['total_amount'].mean()
-)
-
-with open(OUTPUT_DIR / 'view_visualizations.html', 'w') as f:
-    f.write(html_content)
-
-print(f"Visualizations saved to {OUTPUT_DIR}")
-print("\nKey Metrics:")
-print(f"Total Customers: {customers['customer_id'].nunique():,}")
-print(f"Total Orders: {orders['order_id'].nunique():,}")
+# Print summary statistics
+print("\n=== Summary Statistics ===")
+print(f"Total Customers: {len(customers):,}")
+print(f"Total Orders: {len(orders):,}")
 print(f"Total Revenue: ${orders['total_amount'].sum():,.2f}")
 print(f"Average Order Value: ${orders['total_amount'].mean():.2f}")
 print(f"Top Category by Revenue: {category_sales.iloc[0]['category']} (${category_sales.iloc[0]['item_total']:,.2f})")
 print(f"\nVisualization files saved to: {OUTPUT_DIR.absolute()}")
-print("Open 'view_visualizations.html' in your browser to view the dashboard.")
