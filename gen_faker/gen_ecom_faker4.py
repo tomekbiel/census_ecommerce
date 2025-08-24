@@ -218,6 +218,34 @@ class EcommerceDataGenerator:
             email = f"{email_format}{random.randint(100, 999)}@{random.choice(domains)}"
 
         return email
+        
+    def _generate_phone_number(self) -> str:
+        """Generate a phone number with inconsistent formatting.
+        
+        Returns:
+            str: A phone number in one of several possible formats
+        """
+        # Generate a 9-digit number
+        number = self.fake.numerify('#########')
+        
+        # Choose a random format
+        format_choice = random.randint(1, 5)
+        
+        if format_choice == 1:
+            # Format: +48 123 456 789
+            return f"+48 {number[:3]} {number[3:6]} {number[6:]}"
+        elif format_choice == 2:
+            # Format: 123-456-789
+            return f"{number[:3]}-{number[3:6]}-{number[6:]}"
+        elif format_choice == 3:
+            # Format: (123) 456-789
+            return f"({number[:3]}) {number[3:6]}-{number[6:]}"
+        elif format_choice == 4:
+            # Format: 123 456 789
+            return f"{number[:3]} {number[3:6]} {number[6:]}"
+        else:
+            # Format: 123456789 (no formatting)
+            return number
 
     def _get_monthly_parameters(self, year: int, month: int) -> Dict:
         key = (year, month)
@@ -227,7 +255,7 @@ class EcommerceDataGenerator:
         # Base parameters
         params = {
             'sales_weight': 1.0,  # Will be scaled by year
-            'repeat_rate': 1.5,   # Average repeat rate (orders per customer)
+            'repeat_rate': 1.5,  # Average repeat rate (orders per customer)
             'avg_order_value': 85.0,
             'top_categories': ['Electronics', 'Fashion', 'Health'],
             'estimated_customers': 1000000
@@ -241,7 +269,7 @@ class EcommerceDataGenerator:
             2021: 0.8,  # Approaching peak
             2022: 1.0,  # Peak (€2.3M revenue)
             2023: 1.0,  # Plateau
-            2024: 1.0   # Plateau
+            2024: 1.0  # Plateau
         }
 
         # Adjust for monthly seasonality (higher in Q4)
@@ -296,7 +324,7 @@ class EcommerceDataGenerator:
 
     def generate_customers(self) -> pd.DataFrame:
         """
-        Generate customers with realistic retention & scaling, 
+        Generate customers with realistic retention & scaling,
         but normalize so that final year (2024) has ~15,000 customers.
         Adds 500 duplicates at the end for data quality testing.
         """
@@ -331,7 +359,9 @@ class EcommerceDataGenerator:
                 customers.append({
                     'customer_id': f"C{customer_id:05d}",
                     'name': name,
-                    'email': self._generate_email_from_name(name) if random.random() > self.missing_email_rate else None,
+                    'email': self._generate_email_from_name(
+                        name) if random.random() > self.missing_email_rate else None,
+                    'phone': self._generate_phone_number(),
                     'join_date': join_date,
                     'region': self.fake.state(),
                     'loyalty_score': round(np.random.beta(2, 5), 3),
@@ -358,23 +388,23 @@ class EcommerceDataGenerator:
         orders = []
         order_id = 1
         total_revenue = 0
-        
+
         # Target revenue for 2022 (peak year)
         target_peak_revenue = 2300000  # €2.3M
-        
+
         active_products = products_df[products_df['is_active'] == True]
         date_range = pd.date_range(start='2018-01-01', end='2024-12-31', freq='D')
 
         # Pre-calculate customer counts by join date
         customers_df['join_year'] = pd.to_datetime(customers_df['join_date']).dt.year
         customers_by_year = customers_df.groupby('join_year').size().to_dict()
-        
+
         # Track yearly revenue to ensure we hit targets
         yearly_revenue = {year: 0 for year in range(2018, 2025)}
-        
+
         # Track order counts by year for analysis
         yearly_orders = {year: 0 for year in range(2018, 2025)}
-        
+
         # Initialize order template
         order_template = {
             'order_id': '',
@@ -400,31 +430,31 @@ class EcommerceDataGenerator:
                 year_factor = {
                     2018: 0.15,  # Startup
                     2019: 0.35,  # Early growth
-                    2020: 0.6,   # Gaining traction
+                    2020: 0.6,  # Gaining traction
                     2021: 0.85,  # Approaching peak
-                    2022: 1.0    # Peak
+                    2022: 1.0  # Peak
                 }.get(year, 1.0)
             else:  # Plateau phase (2023-2024)
                 # Calculate how much we've already generated for this year
                 year_start = pd.Timestamp(datetime(date.year, 1, 1))
                 days_elapsed = (date - year_start).days
                 year_progress = days_elapsed / 365.0
-                
+
                 target_yearly_revenue = yearly_revenue[2022]  # Target is 2022's revenue
                 current_yearly_revenue = yearly_revenue[year]
-                
+
                 # If we've already hit our target for this year, don't generate more orders
                 if current_yearly_revenue >= target_yearly_revenue * 1.05:  # Allow 5% over target
                     continue
-                    
+
                 # Adjust factor down as we approach the target
                 remaining_revenue = max(0, target_yearly_revenue * 1.05 - current_yearly_revenue)
                 days_remaining = 365 - days_elapsed
-                
+
                 if days_remaining > 0:
                     # Calculate how much we can spend per remaining day to hit target
                     daily_budget = remaining_revenue / days_remaining
-                    
+
                     # Reduce the year factor to slow down order generation
                     year_factor = min(0.8, daily_budget / 1000)  # Adjust divisor based on your average order value
                 else:
@@ -433,24 +463,25 @@ class EcommerceDataGenerator:
             # Calculate eligible customers (who could have ordered by this date)
             eligible_years = [y for y in customers_by_year.keys() if y <= year]
             eligible_customers = sum(customers_by_year[y] for y in eligible_years)
-            
+
             # Calculate daily order volume with seasonal adjustments
-            base_daily_orders = (eligible_customers * monthly_params['repeat_rate'] / 365) * monthly_params['sales_weight']
-            
+            base_daily_orders = (eligible_customers * monthly_params['repeat_rate'] / 365) * monthly_params[
+                'sales_weight']
+
             # For plateau years, we need to be more aggressive about capping orders
             if year > 2022:
                 # Reduce the base number of orders to slow down growth
                 base_daily_orders *= 0.7  # 30% reduction in order volume
-                
+
                 # Calculate how much revenue we've already generated this year
                 year_start = pd.Timestamp(datetime(date.year, 1, 1))
                 year_progress = (date - year_start).days / 365.0
                 target_yearly_revenue = yearly_revenue[2022]  # Target is 2022's revenue
-                
+
                 # If we're already at or above target, significantly reduce orders
                 if yearly_revenue[year] >= target_yearly_revenue * 0.95:  # 95% of target
                     base_daily_orders *= 0.3  # 70% reduction if we're close to target
-            
+
             daily_orders = int(base_daily_orders * year_factor)
             daily_orders = max(1, min(daily_orders, 300))  # Cap at 300 orders/day
 
@@ -470,7 +501,7 @@ class EcommerceDataGenerator:
                     'order_date': order_date,
                     'status': order_status,
                     'payment_method': random.choices(
-                        ['credit_card', 'paypal', 'bank_transfer'], 
+                        ['credit_card', 'paypal', 'bank_transfer'],
                         weights=[0.70, 0.20, 0.10]
                     )[0],
                     'total_amount': 0.0,
@@ -490,13 +521,13 @@ class EcommerceDataGenerator:
                 # Adjust number of items based on year (slightly more items per order in later years)
                 base_items = 1.2 if year <= 2020 else 1.5
                 num_items = min(int(np.random.poisson(lam=base_items) + 1), 10)
-                
+
                 order_total = 0.0
                 total_quantity = 0
                 total_discount = 0.0
                 categories = []
                 products_info = []
-                
+
                 # Adjust discount rate based on year (higher discounts in later years to stimulate sales)
                 base_discount = 0.1 if year <= 2020 else 0.15
                 if year >= 2023:  # Even higher discounts during plateau
@@ -527,12 +558,12 @@ class EcommerceDataGenerator:
                     inflation_year = min(year, 2022)
                     price_multiplier = 1.0 + (inflation_year - 2018) * 0.03  # 3% annual price increase, capped at 2022
                     adjusted_price = product['price'] * price_multiplier
-                    
+
                     item_total = adjusted_price * quantity * (1 - discount)
                     order_total += item_total
                     total_quantity += quantity
                     total_discount += discount * quantity  # Track total discount amount
-                    
+
                     # Track revenue by year
                     yearly_revenue[year] += item_total
 
@@ -549,58 +580,58 @@ class EcommerceDataGenerator:
                         'products_list': '|'.join(products_info),
                         'status': 'completed'  # Explicitly set status for completed orders
                     })
-                    
+
                     # Add order to the list
                     orders.append(order_data)
                     order_id += 1
                     yearly_orders[year] += 1
                     total_revenue += order_total
                     continue
-                    
+
                 # If we get here, it's a completed order, so ensure status is set
                 order_data['status'] = 'completed'
-                
+
                 # Add the completed order to the list
                 orders.append(order_data)
                 order_id += 1
                 yearly_orders[year] += 1
                 total_revenue += order_total
-                
+
         # Print yearly summary
         print("\n=== Yearly Order Summary ===")
         for year in range(2018, 2025):
             if yearly_orders[year] > 0:
                 print(f"{year}: {yearly_orders[year]:,} orders (€{yearly_revenue[year]:,.2f})")
-        
+
         # Convert to DataFrame and ensure proper types
         orders_df = pd.DataFrame(orders)
-        
+
         # Ensure proper date format
         orders_df['order_date'] = pd.to_datetime(orders_df['order_date'])
-        
+
         # Ensure numeric columns are float
         numeric_cols = ['total_amount', 'avg_discount']
         for col in numeric_cols:
             if col in orders_df.columns:
                 orders_df[col] = pd.to_numeric(orders_df[col], errors='coerce').fillna(0.0)
-        
+
         # Ensure integer columns are int
         int_cols = ['item_count', 'total_quantity']
         for col in int_cols:
             if col in orders_df.columns:
                 orders_df[col] = pd.to_numeric(orders_df[col], errors='coerce').fillna(0).astype(int)
-        
+
         print("\n=== Order Generation Summary ===")
         print(f"Total orders generated: {len(orders_df):,}")
         print(f"Total revenue: €{orders_df['total_amount'].sum():,.2f}")
         print(f"Average order value: €{orders_df['total_amount'].mean():.2f}")
-        
+
         # Print status distribution
         if 'status' in orders_df.columns:
             status_counts = orders_df['status'].value_counts()
             print("\nOrder Status Distribution:")
             print(status_counts)
-        
+
         return orders_df
 
     def save_to_csv(self, df: pd.DataFrame, filename: str):
