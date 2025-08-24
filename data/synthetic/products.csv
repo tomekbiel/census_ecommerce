@@ -1,0 +1,201 @@
+product_id,name,category,price,cost,is_active
+P00001,Product 1 - Free,Fashion,54.88,31.57,True
+P00002,Product 2 - Rate,Fashion,37.2,20.68,True
+P00003,Product 3 - Moment,Electronics,228.97,108.02,True
+P00004,Product 4 - Choice,Health,61.56,26.17,True
+P00005,Product 5 - Fight,Home,90.01,62.92,False
+P00006,Product 6 - Letter,Home,138.46,70.4,True
+P00007,Product 7 - Who,Fashion,174.59,97.67,True
+P00008,Product 8 - Hear,Apparel,190.79,115.24,False
+P00009,Product 9 - Trial,Fashion,60.49,38.54,True
+P00010,Product 10 - Let,Home,34.53,19.87,True
+P00011,Product 11 - Live,Home Furnishings,37.25,25.86,False
+P00012,Product 12 - Do,Home Furnishings,52.53,32.31,True
+P00013,Product 13 - Strong,Health,120.25,67.25,True
+P00014,Product 14 - Either,Luxury Goods,78.62,36.09,False
+P00015,Product 15 - Leave,Electronics,198.41,128.88,True
+P00016,Product 16 - Usually,Electronics,96.5,56.56,True
+P00017,Product 17 - Either,Furnishings,41.83,21.8,True
+P00018,Product 18 - Million,Electronics,205.74,135.23,True
+P00019,Product 19 - House,Electronics,94.63,63.16,False
+P00020,Product 20 - Say,Electronics,48.63,29.82,True
+P00021,Product 21 - Not,Health,141.7,75.98,True
+P00022,Product 22 - Big,Electronics,140.14,68.66,True
+P00023,Product 23 - Draw,Electronics,84.04,43.63,True
+P00024,Product 24 - Congress,Sports,38.29,16.85,True
+P00025,Product 25 - Administration,Home,148.05,92.19,True
+P00026,Product 26 - Yet,Electronics,52.69,26.71,True
+P00027,Product 27 - Better,Home,44.63,21.86,True
+P00028,Product 28 - Wish,Luxury Goods,39.64,25.62,False
+P00029,Product 29 - Only,Electronics,144.83,86.42,True
+P00030,Product 30 - Especially,Home Furnishings,146.7,99.84,True
+P00031,Product 31 - Majority,Sports,49.06,28.6,False
+P00032,Product 32 - Exactly,Fashion,91.01,60.37,True
+P00033,Product 33 - Question,Fashion,69.19,38.04,False
+P00034,Product 34 - News,Fashion,53.97,24.59,True
+P00035,Product 35 - Someone,Luxury Goods,134.78,61.71,False
+P00036,Product 36 - Plan,Health,52.99,30.95,True
+P00037,Product 37 - Development,Electronics,156.19,96.29,True
+P00038,Product 38 - Attention,Home Furnishings,26.71,13.31,True
+P00039,Product 39 - Real,Electronics,161.79,91.01,True
+P00040,Product 40 - Art,Health,194.94,115.59,True
+P00041,Product 41 - Go,Electronics,67.06,33.19,True
+P00042,Product 42 - Scene,Sports,32.37,17.5,True
+P00043,Product 43 - Determine,Home,116.4,50.69,True
+P00044,Product 44 - Become,Home,171.81,71.28,False
+P00045,Product 45 - It,Home Furnishings,98.51,50.58,False
+P00046,Product 46 - Low,Home,102.41,71.41,True
+P00047,Product 47 - Group,Electronics,202.36,117.58,True
+P00048,Product 48 - Investment,Electronics,227.24,129.49,True
+P00049,Product 49 - Up,Sports,140.15,71.13,True
+P00050,Product 50 - Heart,Home,116.73,77.01,True
+P00051,Product 51 - Side,Apparel,195.1,92.86,True
+P00052,Product 52 - Wife,Luxury Goods,94.8,47.13,True
+P00053,Product 53 - Let,Health,117.32,79.49,True
+P00054,Product 54 - Laugh,Home,177.67,109.02,True
+P00055,Product 55 - Others,Fashion,116.27,51.95,False
+P00056,Product 56 - Night,Furnishings,71.79,38.31,True
+P00057,Product 57 - Kitchen,Apparel,210.76,115.54,False
+P00058,Product 58 - Watch,Home,59.73,34.31,True
+P00059,Product 59 - Learn,Furnishings,115.24,52.37,True
+P00060,Product 60 - Decision,Health,183.05,118.83,True
+P00061,Product 61 - Power,Home,176.71,123.02,True
+P00062,Product 62 - Report,Luxury Goods,47.42,22.74,True
+P00063,Product 63 - Listen,Electronics,90.38,60.33,True
+P00064,Product 64 - So,Health,88.56,60.0,True
+P00065,Product 65 - Green,Health,160.89,79.84,True
+P00066,Product 66 - Sometimes,Electronics,113.78,53.48,True
+P00067,Product 67 - Before,Electronics,182.84,105.99,True
+P00068,Product 68 - Choice,Fashion,125.5,63.77,True
+P00069,Product 69 - Ability,Fashion,220.44,134.03,True
+P00070,Product 70 - Maybe,Fashion,180.48,109.98,True
+P00071,Product 71 - Treatment,Electronics,105.52,43.15,False
+P00072,Product 72 - Congress,Home Furnishings,164.82,109.03,True
+P00073,Product 73 - Stay,Home Furnishings,151.0,70.36,True
+P00074,Product 74 - Window,Health,49.39,24.72,False
+P00075,Product 75 - Impact,Furnishings,120.91,55.78,True
+P00076,Product 76 - Town,Electronics,148.54,59.74,True
+P00077,Product 77 - Wall,Sports,138.69,75.74,True
+P00078,Product 78 - Head,Home Furnishings,167.78,107.8,True
+P00079,Product 79 - Now,Home,62.89,42.98,True
+P00080,Product 80 - Light,Electronics,38.67,23.23,True
+P00081,Product 81 - Total,Home,119.23,81.51,True
+P00082,Product 82 - Someone,Fashion,126.94,84.74,True
+P00083,Product 83 - Continue,Home,130.94,81.99,True
+P00084,Product 84 - Letter,Fashion,133.25,57.98,False
+P00085,Product 85 - Rich,Home Furnishings,90.4,39.74,True
+P00086,Product 86 - Report,Luxury Goods,25.29,16.61,True
+P00087,Product 87 - Fear,Electronics,54.69,35.9,True
+P00088,Product 88 - Dinner,Apparel,53.7,23.21,True
+P00089,Product 89 - Generation,Electronics,90.89,40.11,True
+P00090,Product 90 - Lawyer,Electronics,45.56,18.9,False
+P00091,Product 91 - Head,Health,114.42,55.38,True
+P00092,Product 92 - All,Apparel,252.97,113.82,True
+P00093,Product 93 - Fight,Home,58.57,39.85,True
+P00094,Product 94 - Future,Home,53.48,27.31,True
+P00095,Product 95 - Church,Furnishings,140.73,78.4,True
+P00096,Product 96 - Beautiful,Home,36.65,15.85,False
+P00097,Product 97 - Film,Health,41.8,23.29,True
+P00098,Product 98 - Cultural,Home,157.24,74.44,True
+P00099,Product 99 - Black,Health,145.68,96.87,True
+P00100,Product 100 - Until,Furnishings,75.35,35.98,True
+P00101,Product 101 - Already,Health,102.91,70.33,False
+P00102,Product 102 - Toward,Electronics,225.57,121.48,True
+P00103,Product 103 - Feeling,Fashion,123.74,77.66,True
+P00104,Product 104 - Per,Electronics,96.39,60.04,True
+P00105,Product 105 - Management,Sports,94.63,50.15,True
+P00106,Product 106 - Focus,Electronics,218.55,104.01,True
+P00107,Product 107 - Pull,Apparel,77.1,49.25,True
+P00108,Product 108 - Executive,Sports,106.04,65.09,True
+P00109,Product 109 - Avoid,Sports,44.21,18.18,True
+P00110,Product 110 - Character,Home,59.51,26.92,True
+P00111,Product 111 - Moment,Fashion,119.71,53.11,True
+P00112,Product 112 - Bed,Furnishings,195.9,81.73,True
+P00113,Product 113 - Off,Fashion,102.52,65.04,True
+P00114,Product 114 - Citizen,Electronics,132.34,87.73,True
+P00115,Product 115 - Meet,Health,90.41,46.54,True
+P00116,Product 116 - Ask,Home,185.53,75.12,True
+P00117,Product 117 - Full,Sports,59.48,35.02,True
+P00118,Product 118 - Ask,Luxury Goods,57.42,27.97,True
+P00119,Product 119 - Explain,Electronics,53.04,31.0,True
+P00120,Product 120 - Finally,Fashion,170.44,98.74,True
+P00121,Product 121 - Customer,Electronics,221.23,88.75,False
+P00122,Product 122 - Line,Health,192.94,128.01,True
+P00123,Product 123 - Street,Sports,61.6,39.05,True
+P00124,Product 124 - Others,Home,48.42,23.22,False
+P00125,Product 125 - Science,Luxury Goods,65.65,35.79,True
+P00126,Product 126 - Employee,Fashion,192.24,108.8,False
+P00127,Product 127 - Life,Home,103.82,70.0,True
+P00128,Product 128 - Friend,Electronics,200.66,84.37,True
+P00129,Product 129 - Professional,Home,68.52,33.19,False
+P00130,Product 130 - War,Health,52.09,32.54,True
+P00131,Product 131 - Former,Home,163.03,97.45,False
+P00132,Product 132 - Before,Fashion,63.39,43.44,True
+P00133,Product 133 - Audience,Electronics,115.73,65.43,True
+P00134,Product 134 - Because,Health,181.95,76.09,True
+P00135,Product 135 - Of,Electronics,47.32,25.93,True
+P00136,Product 136 - Miss,Home,108.73,68.5,True
+P00137,Product 137 - Imagine,Apparel,110.06,61.66,True
+P00138,Product 138 - Year,Electronics,222.05,92.17,True
+P00139,Product 139 - Commercial,Health,90.5,37.54,True
+P00140,Product 140 - Clearly,Furnishings,134.59,79.06,True
+P00141,Product 141 - Between,Home,63.44,30.17,True
+P00142,Product 142 - Voice,Home,139.37,83.72,True
+P00143,Product 143 - Experience,Home Furnishings,88.2,38.11,True
+P00144,Product 144 - Contain,Sports,62.92,29.52,True
+P00145,Product 145 - Through,Home,84.15,39.11,True
+P00146,Product 146 - Board,Sports,96.35,66.44,True
+P00147,Product 147 - Course,Electronics,195.75,92.27,True
+P00148,Product 148 - Discover,Electronics,166.07,93.58,True
+P00149,Product 149 - Debate,Luxury Goods,51.67,29.0,True
+P00150,Product 150 - Attorney,Electronics,93.21,57.29,False
+P00151,Product 151 - After,Home,161.12,95.83,False
+P00152,Product 152 - Attorney,Luxury Goods,115.76,48.26,False
+P00153,Product 153 - Purpose,Fashion,179.48,92.95,True
+P00154,Product 154 - Concern,Luxury Goods,43.11,17.58,True
+P00155,Product 155 - Common,Health,199.49,91.1,True
+P00156,Product 156 - Line,Fashion,167.49,72.01,True
+P00157,Product 157 - Approach,Home Furnishings,131.57,82.87,True
+P00158,Product 158 - Evidence,Home Furnishings,124.24,71.5,True
+P00159,Product 159 - Very,Electronics,88.4,38.56,True
+P00160,Product 160 - Simple,Fashion,185.36,96.21,True
+P00161,Product 161 - Pm,Health,42.05,24.66,True
+P00162,Product 162 - Consumer,Home,36.44,18.95,True
+P00163,Product 163 - What,Health,199.16,87.86,True
+P00164,Product 164 - Thousand,Furnishings,191.72,86.27,True
+P00165,Product 165 - Responsibility,Furnishings,113.62,68.63,True
+P00166,Product 166 - Play,Sports,126.48,65.27,True
+P00167,Product 167 - Modern,Health,48.23,32.54,True
+P00168,Product 168 - Off,Health,80.02,32.24,False
+P00169,Product 169 - Commercial,Apparel,83.05,47.66,True
+P00170,Product 170 - Than,Electronics,115.04,73.65,True
+P00171,Product 171 - Customer,Fashion,100.52,63.42,True
+P00172,Product 172 - Series,Electronics,194.78,80.11,True
+P00173,Product 173 - Free,Health,81.8,39.58,True
+P00174,Product 174 - Like,Electronics,110.56,50.7,True
+P00175,Product 175 - Good,Fashion,188.26,80.41,True
+P00176,Product 176 - Above,Furnishings,96.95,43.01,True
+P00177,Product 177 - Break,Home,176.68,86.8,True
+P00178,Product 178 - Challenge,Home Furnishings,40.56,26.73,True
+P00179,Product 179 - Mission,Home,92.08,63.58,False
+P00180,Product 180 - Whether,Electronics,124.3,64.74,True
+P00181,Product 181 - Phone,Fashion,214.9,148.7,True
+P00182,Product 182 - Pass,Electronics,150.0,84.54,True
+P00183,Product 183 - Bring,Electronics,121.21,80.28,True
+P00184,Product 184 - Face,Home,137.73,66.83,False
+P00185,Product 185 - While,Home,67.64,37.7,False
+P00186,Product 186 - Study,Electronics,117.45,52.47,True
+P00187,Product 187 - Citizen,Apparel,217.54,93.48,False
+P00188,Product 188 - History,Electronics,83.06,34.33,True
+P00189,Product 189 - Case,Apparel,63.36,41.66,True
+P00190,Product 190 - Have,Electronics,112.9,73.54,True
+P00191,Product 191 - Will,Furnishings,183.07,124.88,True
+P00192,Product 192 - Event,Electronics,63.63,37.37,True
+P00193,Product 193 - Risk,Apparel,126.6,81.06,False
+P00194,Product 194 - Hear,Fashion,99.69,46.52,True
+P00195,Product 195 - Kitchen,Electronics,163.92,66.77,True
+P00196,Product 196 - Nearly,Apparel,213.59,124.74,False
+P00197,Product 197 - Building,Electronics,62.82,36.15,True
+P00198,Product 198 - Authority,Furnishings,144.0,96.94,True
+P00199,Product 199 - From,Electronics,43.36,19.12,True
+P00200,Product 200 - Arrive,Apparel,68.48,42.3,False

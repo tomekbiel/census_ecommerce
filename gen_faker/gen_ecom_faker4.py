@@ -375,8 +375,20 @@ class EcommerceDataGenerator:
         # Track order counts by year for analysis
         yearly_orders = {year: 0 for year in range(2018, 2025)}
         
-        # Initialize order_data to avoid UnboundLocalError
-        order_data = None
+        # Initialize order template
+        order_template = {
+            'order_id': '',
+            'customer_id': '',
+            'order_date': None,
+            'status': 'completed',
+            'payment_method': 'credit_card',
+            'total_amount': 0.0,
+            'item_count': 0,
+            'total_quantity': 0,
+            'avg_discount': 0.0,
+            'product_categories': '',
+            'products_list': ''
+        }
 
         for date in tqdm(date_range, desc="Generating orders 2018-2024"):
             year, month = date.year, date.month
@@ -450,7 +462,6 @@ class EcommerceDataGenerator:
 
                 customer = eligible_customers_df.sample(1).iloc[0]
                 order_date = date + timedelta(hours=random.randint(9, 20))
-
                 order_status = random.choices(['completed', 'cancelled'], weights=[0.95, 0.05])[0]
 
                 order_data = {
@@ -459,7 +470,9 @@ class EcommerceDataGenerator:
                     'order_date': order_date,
                     'status': order_status,
                     'payment_method': random.choices(
-                        ['credit_card', 'paypal', 'bank_transfer'], weights=[0.70, 0.20, 0.10])[0],
+                        ['credit_card', 'paypal', 'bank_transfer'], 
+                        weights=[0.70, 0.20, 0.10]
+                    )[0],
                     'total_amount': 0.0,
                     'item_count': 0,
                     'total_quantity': 0,
@@ -526,13 +539,15 @@ class EcommerceDataGenerator:
                     categories.append(product['category'])
                     products_info.append(f"{product['product_id']}(x{quantity})")
 
+                    # Update order data with calculated values
                     order_data.update({
                         'total_amount': round(order_total, 2),
                         'item_count': num_items,
                         'total_quantity': total_quantity,
                         'avg_discount': round(total_discount / num_items, 2) if num_items > 0 else 0.0,
                         'product_categories': ','.join(sorted(set(categories))),
-                        'products_list': '|'.join(products_info)
+                        'products_list': '|'.join(products_info),
+                        'status': 'completed'  # Explicitly set status for completed orders
                     })
                     
                     # Add order to the list
@@ -541,32 +556,11 @@ class EcommerceDataGenerator:
                     yearly_orders[year] += 1
                     total_revenue += order_total
                     continue
-
-            # Generate order items with realistic quantities and values
-            # Adjust number of items based on year (slightly more items per order in later years)
-            base_items = 1.2 if year <= 2020 else 1.5
-            num_items = min(int(np.random.poisson(lam=base_items) + 1), 10)
-            
-            order_total = 0.0
-            total_quantity = 0
-            total_discount = 0.0
-            categories = []
-            products_info = []
-            
-            # Adjust discount rate based on year (higher discounts in later years to stimulate sales)
-            base_discount = 0.1 if year <= 2020 else 0.15
-            if year >= 2023:  # Even higher discounts during plateau
-                base_discount = 0.18
-
-            for _ in range(num_items):
-                current_month_categories = monthly_params['top_categories']
-                suitable_products = active_products[
-                    active_products['category'].isin([cat for cat in self.categories
-                                                      if any(
-                            c.lower() in cat.lower() for c in current_month_categories)])
-                ]
+                    
+                # If we get here, it's a completed order, so ensure status is set
+                order_data['status'] = 'completed'
                 
-                # Add order to the list
+                # Add the completed order to the list
                 orders.append(order_data)
                 order_id += 1
                 yearly_orders[year] += 1
@@ -578,14 +572,42 @@ class EcommerceDataGenerator:
             if yearly_orders[year] > 0:
                 print(f"{year}: {yearly_orders[year]:,} orders (€{yearly_revenue[year]:,.2f})")
         
-        # Convert to DataFrame
+        # Convert to DataFrame and ensure proper types
         orders_df = pd.DataFrame(orders)
         
         # Ensure proper date format
-        if 'order_date' in orders_df.columns:
-            orders_df['order_date'] = pd.to_datetime(orders_df['order_date'])
+        orders_df['order_date'] = pd.to_datetime(orders_df['order_date'])
+        
+        # Ensure numeric columns are float
+        numeric_cols = ['total_amount', 'avg_discount']
+        for col in numeric_cols:
+            if col in orders_df.columns:
+                orders_df[col] = pd.to_numeric(orders_df[col], errors='coerce').fillna(0.0)
+        
+        # Ensure integer columns are int
+        int_cols = ['item_count', 'total_quantity']
+        for col in int_cols:
+            if col in orders_df.columns:
+                orders_df[col] = pd.to_numeric(orders_df[col], errors='coerce').fillna(0).astype(int)
+        
+        print("\n=== Order Generation Summary ===")
+        print(f"Total orders generated: {len(orders_df):,}")
+        print(f"Total revenue: €{orders_df['total_amount'].sum():,.2f}")
+        print(f"Average order value: €{orders_df['total_amount'].mean():.2f}")
+        
+        # Print status distribution
+        if 'status' in orders_df.columns:
+            status_counts = orders_df['status'].value_counts()
+            print("\nOrder Status Distribution:")
+            print(status_counts)
         
         return orders_df
+
+    def save_to_csv(self, df: pd.DataFrame, filename: str):
+        """Save DataFrame to CSV in the data/synthetic directory."""
+        filepath = self.data_dir / filename
+        df.to_csv(filepath, index=False)
+        print(f"Saved {len(df):,} rows to {filepath}")
 
     def generate_all_data(self):
         print("Generating products...")
