@@ -6,13 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="43167f0c-ce05-42fb-bcad-777c08ba6b6d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/customers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/processed/customers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/orders.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/processed/orders.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/processed/products.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/processed/products.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce_analysis/ecommerce_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/ecommerce_analysis/ecommerce_visualization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker1.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen_faker/gen_faker3.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/synthetic/customers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/customers.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/synthetic/customers1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/synthetic/orders.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/orders.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/synthetic/orders1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/synthetic/products.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/products.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/synthetic/products1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker4.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +73,7 @@
     "Python.gen_ecom_faker.executor": "Run",
     "Python.gen_ecom_faker2.executor": "Run",
     "Python.gen_ecom_faker3 (1).executor": "Run",
+    "Python.gen_ecom_faker4.executor": "Run",
     "Python.gen_faker3.executor": "Run",
     "Python.plot_shopify_sales.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -94,29 +95,7 @@
       <command value="pip install -r requirements.txt" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.gen_ecom_faker3 (1)">
-    <configuration name="all_categories" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="census_ecommerce" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_faker/all_categories.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.gen_ecom_faker4">
     <configuration name="basic_presentation" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="census_ecommerce" />
       <option name="ENV_FILES" value="" />
@@ -228,21 +207,43 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="gen_ecom_faker4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="census_ecommerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_faker/gen_ecom_faker4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.basic_presentation" />
       <item itemvalue="Python.gen_ecom_faker3" />
       <item itemvalue="Python.gen_ecom_faker3 (1)" />
-      <item itemvalue="Python.all_categories" />
+      <item itemvalue="Python.gen_ecom_faker4" />
       <item itemvalue="Python.ecommerce_visualization" />
       <item itemvalue="Python.gen_ecom_faker2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.gen_ecom_faker4" />
+        <item itemvalue="Python.ecommerce_visualization" />
         <item itemvalue="Python.gen_ecom_faker3 (1)" />
         <item itemvalue="Python.gen_ecom_faker3" />
-        <item itemvalue="Python.ecommerce_visualization" />
         <item itemvalue="Python.gen_ecom_faker2" />
-        <item itemvalue="Python.all_categories" />
       </list>
     </recent_temporary>
   </component>

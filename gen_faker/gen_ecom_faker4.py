@@ -11,8 +11,38 @@ import re
 
 
 class EcommerceDataGenerator:
+    """
+    A class to generate synthetic e-commerce data including customers, products, and orders.
+    The data is generated to simulate realistic e-commerce patterns with growth and plateau phases.
+    
+    Key Features:
+    - Generates realistic customer data with retention patterns
+    - Creates product catalog with category-based pricing
+    - Simulates order history with seasonal variations
+    - Handles data quality aspects like missing values and duplicates
+    - Supports data generation for specific time periods (2018-2024)
+    
+    Attributes:
+        target_customers (int): Target number of unique customers for the final year (2024)
+        target_revenue (float): Target revenue for the peak year (2022)
+        missing_email_rate (float): Probability of missing email addresses in customer data
+        fake: Faker instance for generating random data
+        data_dir (Path): Directory to store generated data files
+        shopify_data (DataFrame): Loaded Shopify sales data
+        categories (list): List of product categories
+        email_cache (dict): Cache to ensure unique email addresses
+        monthly_stats (dict): Pre-calculated monthly statistics and weights
+    """
     def __init__(self, target_customers: int = 15000, target_revenue: float = 2300000,
                  missing_email_rate: float = 0.2):
+        """
+        Initialize the data generator with configuration parameters.
+        
+        Args:
+            target_customers: Desired number of unique customers in the final year (2024)
+            target_revenue: Target revenue for the peak year (2022) in euros
+            missing_email_rate: Probability of generating a missing email (0.0 to 1.0)
+        """
         self.target_customers = target_customers
         self.target_revenue = target_revenue
         self.missing_email_rate = missing_email_rate
@@ -25,30 +55,87 @@ class EcommerceDataGenerator:
         self.email_cache = {}
         self.monthly_stats = self._load_monthly_stats()
 
+
     def _load_shopify_data(self) -> pd.DataFrame:
-        shopify_file = Path(__file__).parent.parent / "data/synthetic/shopify_with_customers.csv"
-        df = pd.read_csv(shopify_file)
+        """
+        Load and preprocess Shopify sales data from CSV file.
+        
+        The data is expected to contain monthly sales metrics including:
+        - Month: Date of the record
+        - Top sales categories: Comma-separated list of top categories
+        - Sales_Weight: Relative sales weight for the month
+        - Est. Customer repeat rate: Average orders per customer
+        - Avg. order value: Average value of orders in USD
+        
+        Returns:
+            DataFrame: Processed Shopify data with date components and numeric conversions
+            
+        Raises:
+            FileNotFoundError: If the Shopify data file is not found
+            ValueError: If required columns are missing from the data
+        """
+        try:
+            shopify_file = Path(__file__).parent.parent / "data/synthetic/shopify_with_customers.csv"
+            print(f"Loading Shopify data from: {shopify_file}")
+            
+            # Check if file exists
+            if not shopify_file.exists():
+                raise FileNotFoundError(f"Shopify data file not found at: {shopify_file}")
+                
+            # Read the CSV file
+            df = pd.read_csv(shopify_file)
+            
+            # Check if required columns exist
+            required_columns = ['Month', 'Top sales categories', 'Sales_Weight', 
+                              'Est. Customer repeat rate (orders/customer)', 
+                              'Avg. order value (USD)']
+            missing_columns = [col for col in required_columns if col not in df.columns]
+            if missing_columns:
+                raise ValueError(f"Missing required columns in Shopify data: {', '.join(missing_columns)}")
 
-        # Convert date-related columns
-        df['date'] = pd.to_datetime(df['Month'])
-        df['year'] = df['date'].dt.year
-        df['month'] = df['date'].dt.month
+            # Convert date-related columns
+            df['date'] = pd.to_datetime(df['Month'])
+            df['year'] = df['date'].dt.year
+            df['month'] = df['date'].dt.month
 
-        # Ensure Estimated_customers is treated as float (it might be read as string)
-        if 'Estimated_customers' in df.columns:
-            df['Estimated_customers'] = pd.to_numeric(df['Estimated_customers'], errors='coerce')
-
-        return df
+            # Ensure Estimated_customers is treated as float (it might be read as string)
+            if 'Estimated_customers' in df.columns:
+                df['Estimated_customers'] = pd.to_numeric(df['Estimated_customers'], errors='coerce')
+                
+            print(f"Successfully loaded {len(df)} rows of Shopify data")
+            return df
+            
+        except Exception as e:
+            print(f"Error loading Shopify data: {str(e)}")
+            # Return an empty DataFrame with required columns to prevent further errors
+            return pd.DataFrame(columns=['Month', 'Top sales categories', 'Sales_Weight', 
+                                       'Est. Customer repeat rate (orders/customer)', 
+                                       'Avg. order value (USD)', 'date', 'year', 'month'])
 
     def _load_monthly_stats(self) -> Dict:
+        """
+        Calculate and organize monthly statistics from the Shopify data.
+        
+        For each month in the dataset, calculates:
+        - Sales weight (normalized sales volume)
+        - Customer repeat rate (orders per customer)
+        - Average order value (with seasonal adjustments)
+        - Top sales categories
+        - Estimated customer count
+        - Category weights for product distribution
+        
+        Returns:
+            Dictionary mapping (year, month) tuples to their respective statistics
+            
+        Note:
+            The method uses _generate_monthly_category_weights() to calculate
+            category distributions for each month based on top categories.
+        """
         """Load monthly statistics including category weights based on top categories."""
         monthly_stats = {}
 
-        # Handle case where self.categories is a list (not a dict)
-        if isinstance(self.categories, list):
-            all_cats = self.categories
-        else:
-            all_cats = list(self.categories.keys())
+        # self.categories is always a list of category names
+        all_cats = self.categories
 
         for _, row in self.shopify_data.iterrows():
             key = (row['year'], row['month'])
@@ -74,13 +161,24 @@ class EcommerceDataGenerator:
     ) -> Dict[str, float]:
         """
         Generate monthly weights for categories based on top categories.
-
+        
+        The weighting strategy:
+        - Top categories share 80% of the weight
+        - Other categories share the remaining 20%
+        - Each category gets at least a small weight (0.01)
+        - Weights are normalized to sum to 1.0
+        
         Args:
-            raw_top: List of top categories for the month
-            all_cats: List of all possible categories
-
+            raw_top: List of top categories for the month (may contain duplicates or invalid entries)
+            all_cats: Complete list of valid product categories
+            
         Returns:
-            Dictionary mapping categories to their weights for the month
+            Dictionary mapping each category to its weight for the month
+            
+        Example:
+            If raw_top = ['Electronics', 'Fashion', 'Electronics'] and all_cats = 
+            ['Electronics', 'Fashion', 'Home', 'Books'], the weights might be:
+            {'Electronics': 0.5, 'Fashion': 0.3, 'Home': 0.1, 'Books': 0.1}
         """
         # Normalize input categories (title case, remove duplicates)
         norm_top = [cat.strip().title() for cat in raw_top]
@@ -131,11 +229,21 @@ class EcommerceDataGenerator:
 
     def _load_category_distribution(self) -> List[str]:
         """
-        Extract and return a list of unique categories from the Shopify data.
-        Categories are standardized to title case and case-insensitive.
-
+        Extract and process unique product categories from the Shopify data.
+        
+        The method:
+        1. Extracts categories from 'Top sales categories' column
+        2. Splits comma-separated values
+        3. Normalizes to title case (e.g., 'electronics' -> 'Electronics')
+        4. Removes duplicates while preserving order
+        5. Returns a sorted list of unique category names
+        
         Returns:
-            List of unique category names in title case
+            List of unique category names in title case, sorted alphabetically
+            
+        Note:
+            The categories are used throughout the data generation process
+            to ensure consistency between products, orders, and sales data.
         """
         # 1. Get all 'Top sales categories' entries and split into individual categories
         raw_lists = (
@@ -155,14 +263,23 @@ class EcommerceDataGenerator:
 
     def _get_category_based_on_month(self, year: int, month: int) -> str:
         """
-        Get a category based on the year and month, using the pre-generated weights.
-
+        Select a product category based on the specified year and month.
+        
+        The selection considers:
+        - Monthly category weights (if available)
+        - Top categories for the month
+        - Fallback to global category distribution if no monthly data exists
+        
         Args:
-            year: The year
-            month: The month (1-12)
-
+            year: The target year (2018-2024)
+            month: The target month (1-12)
+            
         Returns:
-            A category name
+            str: A category name selected according to the monthly distribution
+            
+        Note:
+            This method is used when generating products to ensure that
+            product categories follow seasonal trends observed in the data.
         """
         key = (year, month)
         if key in self.monthly_stats:
@@ -198,6 +315,25 @@ class EcommerceDataGenerator:
         return random.choices(categories, weights=weights, k=1)[0]
 
     def _generate_email_from_name(self, name: str) -> str:
+        """
+        Generate a unique email address based on a customer's name.
+        
+        The email generation follows common patterns:
+        - FirstName.LastName@domain
+        - FLastName@domain
+        - FirstName_LastName@domain
+        - FirstName[number]@domain
+        
+        Args:
+            name: The customer's full name
+            
+        Returns:
+            str: A unique email address that hasn't been used before
+            
+        Note:
+            Uses an internal cache to ensure email uniqueness across all customers.
+            If a generated email already exists, appends a random number to make it unique.
+        """
         clean_name = re.sub(r'[^a-zA-Z\s]', '', name).lower().strip()
         parts = clean_name.split()
 
@@ -218,19 +354,31 @@ class EcommerceDataGenerator:
             email = f"{email_format}{random.randint(100, 999)}@{random.choice(domains)}"
 
         return email
-        
+
     def _generate_phone_number(self) -> str:
-        """Generate a phone number with inconsistent formatting.
+        """
+        Generate a phone number with realistic but inconsistent formatting.
+        
+        The phone number will be a 9-digit number formatted in one of several ways:
+        1. +48 123 456 789
+        2. 123-456-789
+        3. (123) 456-789
+        4. 123 456 789
+        5. 123456789 (no formatting)
         
         Returns:
-            str: A phone number in one of several possible formats
+            str: A phone number string in one of the common Polish formats
+            
+        Note:
+            The +48 country code is used for Polish phone numbers.
+            The actual number is randomly generated each time.
         """
         # Generate a 9-digit number
         number = self.fake.numerify('#########')
-        
+
         # Choose a random format
         format_choice = random.randint(1, 5)
-        
+
         if format_choice == 1:
             # Format: +48 123 456 789
             return f"+48 {number[:3]} {number[3:6]} {number[6:]}"
@@ -248,6 +396,27 @@ class EcommerceDataGenerator:
             return number
 
     def _get_monthly_parameters(self, year: int, month: int) -> Dict:
+        """
+        Retrieve or generate monthly business parameters for order generation.
+        
+        Parameters include:
+        - Sales weight (seasonal adjustment factor)
+        - Customer repeat rate (orders per customer)
+        - Average order value
+        - Top categories for the month
+        - Estimated customer count
+        
+        Args:
+            year: Target year (2018-2024)
+            month: Target month (1-12)
+            
+        Returns:
+            Dictionary containing all monthly parameters for order generation
+            
+        Note:
+            If no specific data exists for the requested month, generates
+            reasonable defaults with appropriate yearly growth/plateau patterns.
+        """
         key = (year, month)
         if key in self.monthly_stats:
             return self.monthly_stats[key]
@@ -293,7 +462,28 @@ class EcommerceDataGenerator:
         return params
 
     def generate_products(self, num_products: int = 200) -> pd.DataFrame:
-        """Generate product catalog with realistic pricing and categories."""
+        """
+        Generate a catalog of products with realistic attributes.
+        
+        For each product, generates:
+        - Unique product ID
+        - Descriptive name
+        - Category (based on monthly trends)
+        - Realistic pricing (based on category)
+        - Cost (40-70% of price)
+        - Active status (85% chance of being active)
+        
+        Args:
+            num_products: Number of products to generate (default: 200)
+            
+        Returns:
+            DataFrame with columns: product_id, name, category, price, cost, is_active
+            
+        Note:
+            Product prices are influenced by their category rank, with higher-ranked
+            categories having higher average prices. Prices also include random
+            variations for realism.
+        """
         products = []
 
         for i in range(1, num_products + 1):
@@ -324,9 +514,30 @@ class EcommerceDataGenerator:
 
     def generate_customers(self) -> pd.DataFrame:
         """
-        Generate customers with realistic retention & scaling,
-        but normalize so that final year (2024) has ~15,000 customers.
-        Adds 500 duplicates at the end for data quality testing.
+        Generate a realistic customer base with retention patterns.
+        
+        The generation process:
+        1. Works backwards from target_customers in 2024
+        2. Uses retention rates to calculate previous years' customer counts
+        3. Generates customers with realistic attributes
+        4. Adds 500 duplicates for data quality testing
+        
+        Customer attributes include:
+        - Unique customer ID
+        - Name
+        - Email (with missing_rate probability of being None)
+        - Phone number
+        - Join date
+        - Region
+        - Loyalty score (beta distributed between 0 and 1)
+        - Cohort year
+        
+        Returns:
+            DataFrame containing all generated customers
+            
+        Note:
+            The final output is guaranteed to have exactly target_customers + 500 rows,
+            with the last 500 being duplicates of existing customers.
         """
         customers = []
         customer_id = 1
@@ -385,25 +596,48 @@ class EcommerceDataGenerator:
         return df
 
     def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Generate order history based on customer and product data.
+        
+        The order generation process:
+        1. Iterates through each day in the date range (2018-2024)
+        2. Calculates daily order volume based on:
+           - Number of eligible customers
+           - Monthly repeat rate
+           - Seasonal adjustments
+        3. For each order:
+           - Selects a random customer
+           - Generates 1-5 order items
+           - Applies random discounts (0-30%)
+           - Tracks revenue by year
+        
+        Args:
+            customers_df: DataFrame of customer data from generate_customers()
+            products_df: DataFrame of product data from generate_products()
+            
+        Returns:
+            DataFrame containing all generated orders with line items
+            
+        Note:
+            The method includes logic to simulate business growth (2018-2022)
+            followed by a plateau phase (2023-2024) where growth stabilizes.
+            The yearly revenue is stored in self.yearly_revenue for external access.
+        """
         orders = []
         order_id = 1
-        total_revenue = 0
+        total_revenue = 0.0  # Initialize total_revenue
 
-        # Target revenue for 2022 (peak year)
-        target_peak_revenue = 2300000  # €2.3M
-
-        active_products = products_df[products_df['is_active'] == True]
+        # Filter active products only
+        active_products = products_df[products_df['is_active'] == True].copy()
         date_range = pd.date_range(start='2018-01-01', end='2024-12-31', freq='D')
 
         # Pre-calculate customer counts by join date
         customers_df['join_year'] = pd.to_datetime(customers_df['join_date']).dt.year
         customers_by_year = customers_df.groupby('join_year').size().to_dict()
 
-        # Track yearly revenue to ensure we hit targets
-        yearly_revenue = {year: 0 for year in range(2018, 2025)}
-
-        # Track order counts by year for analysis
-        yearly_orders = {year: 0 for year in range(2018, 2025)}
+        # Initialize yearly tracking
+        self.yearly_revenue = {year: 0 for year in range(2018, 2025)}  # Instance variable for external access
+        yearly_orders = {year: 0 for year in range(2018, 2025)}  # Local variable for internal use only
 
         # Initialize order template
         order_template = {
@@ -440,8 +674,8 @@ class EcommerceDataGenerator:
                 days_elapsed = (date - year_start).days
                 year_progress = days_elapsed / 365.0
 
-                target_yearly_revenue = yearly_revenue[2022]  # Target is 2022's revenue
-                current_yearly_revenue = yearly_revenue[year]
+                target_yearly_revenue = self.yearly_revenue[2022]  # Target is 2022's revenue
+                current_yearly_revenue = self.yearly_revenue[year]
 
                 # If we've already hit our target for this year, don't generate more orders
                 if current_yearly_revenue >= target_yearly_revenue * 1.05:  # Allow 5% over target
@@ -476,10 +710,10 @@ class EcommerceDataGenerator:
                 # Calculate how much revenue we've already generated this year
                 year_start = pd.Timestamp(datetime(date.year, 1, 1))
                 year_progress = (date - year_start).days / 365.0
-                target_yearly_revenue = yearly_revenue[2022]  # Target is 2022's revenue
+                target_yearly_revenue = self.yearly_revenue[2022]  # Target is 2022's revenue
 
                 # If we're already at or above target, significantly reduce orders
-                if yearly_revenue[year] >= target_yearly_revenue * 0.95:  # 95% of target
+                if self.yearly_revenue[year] >= target_yearly_revenue * 0.95:  # 95% of target
                     base_daily_orders *= 0.3  # 70% reduction if we're close to target
 
             daily_orders = int(base_daily_orders * year_factor)
@@ -565,7 +799,7 @@ class EcommerceDataGenerator:
                     total_discount += discount * quantity  # Track total discount amount
 
                     # Track revenue by year
-                    yearly_revenue[year] += item_total
+                    self.yearly_revenue[year] += item_total
 
                     categories.append(product['category'])
                     products_info.append(f"{product['product_id']}(x{quantity})")
@@ -601,7 +835,7 @@ class EcommerceDataGenerator:
         print("\n=== Yearly Order Summary ===")
         for year in range(2018, 2025):
             if yearly_orders[year] > 0:
-                print(f"{year}: {yearly_orders[year]:,} orders (€{yearly_revenue[year]:,.2f})")
+                print(f"{year}: {yearly_orders[year]:,} orders (€{self.yearly_revenue[year]:,.2f})")
 
         # Convert to DataFrame and ensure proper types
         orders_df = pd.DataFrame(orders)
@@ -635,12 +869,39 @@ class EcommerceDataGenerator:
         return orders_df
 
     def save_to_csv(self, df: pd.DataFrame, filename: str):
-        """Save DataFrame to CSV in the data/synthetic directory."""
+        """
+        Save a DataFrame to a CSV file in the configured data directory.
+        
+        Args:
+            df: DataFrame to save
+            filename: Name of the output file (will be placed in data/synthetic/)
+            
+        Note:
+            Automatically creates the output directory if it doesn't exist.
+            Uses UTF-8 encoding and includes the index in the output.
+        """
         filepath = self.data_dir / filename
         df.to_csv(filepath, index=False)
         print(f"Saved {len(df):,} rows to {filepath}")
 
     def generate_all_data(self):
+        """
+        Generate and save all synthetic e-commerce data.
+        
+        This is the main entry point that orchestrates the entire data generation process:
+        1. Generates product catalog
+        2. Generates customer base
+        3. Generates order history
+        4. Saves all data to CSV files in the data/synthetic directory
+        
+        The following files are created:
+        - products.csv: Product catalog
+        - customers.csv: Customer information
+        - orders.csv: Order history with line items
+        
+        Returns:
+            Tuple of (products_df, customers_df, orders_df) for further processing
+        """
         print("Generating products...")
         products_df = self.generate_products(num_products=200)
 
@@ -659,13 +920,16 @@ def main():
 
     generator = EcommerceDataGenerator()
 
+    # Get the dataframes and the yearly_revenue dictionary
     products_df, customers_df, orders_df = generator.generate_all_data()
-
+    
+    # Get the yearly revenue from the generator's tracking
+    yearly_revenue = generator.yearly_revenue if hasattr(generator, 'yearly_revenue') else {}
+    
     # Calculate metrics
-    completed_orders = orders_df[orders_df['status'] == 'completed']
-    total_revenue = completed_orders['total_amount'].sum()
     total_orders = len(orders_df)
     total_customers = len(customers_df)
+    total_revenue = sum(yearly_revenue.values()) if yearly_revenue else 0
 
     print(f"\n=== RESULTS ===")
     print(f"Total Customers: {total_customers:,}")
