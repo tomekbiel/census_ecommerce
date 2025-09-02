@@ -7,12 +7,14 @@
     <list default="true" id="43167f0c-ce05-42fb-bcad-777c08ba6b6d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/customers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/customers.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/customers1.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/orders.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/orders.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/orders1.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/products.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/products.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/synthetic/products1.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker4.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/powerbi/reports/ecommerce.pbix" beforeDir="false" afterPath="$PROJECT_DIR$/powerbi/reports/ecommerce.pbix" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/customer_retention_heatmap.png" beforeDir="false" afterPath="$PROJECT_DIR$/reports/customer_retention_heatmap.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/monthly_revenue_trend.png" beforeDir="false" afterPath="$PROJECT_DIR$/reports/monthly_revenue_trend.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/top_categories.png" beforeDir="false" afterPath="$PROJECT_DIR$/reports/top_categories.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/view_visualizations.html" beforeDir="false" afterPath="$PROJECT_DIR$/reports/view_visualizations.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,8 +76,11 @@
     "Python.gen_ecom_faker2.executor": "Run",
     "Python.gen_ecom_faker3 (1).executor": "Run",
     "Python.gen_ecom_faker4.executor": "Run",
+    "Python.gen_ecom_faker5.executor": "Run",
     "Python.gen_faker3.executor": "Run",
+    "Python.generate_visualizations.executor": "Run",
     "Python.plot_shopify_sales.executor": "Run",
+    "Python.update_visualizations.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -141,72 +146,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="gen_ecom_faker2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="census_ecommerce" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_faker/gen_ecom_faker2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="gen_ecom_faker3 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="census_ecommerce" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_faker/gen_ecom_faker3.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="gen_ecom_faker3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="census_ecommerce" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\python\census_ecommerce\gen_faker\gen_ecom_faker3.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="gen_ecom_faker4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="census_ecommerce" />
       <option name="ENV_FILES" value="" />
@@ -229,21 +168,87 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="gen_ecom_faker5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="census_ecommerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gen_faker" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_faker/gen_ecom_faker5.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="generate_visualizations" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="census_ecommerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reports" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reports/generate_visualizations.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="update_visualizations" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="census_ecommerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reports" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reports/update_visualizations.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.basic_presentation" />
-      <item itemvalue="Python.gen_ecom_faker3" />
-      <item itemvalue="Python.gen_ecom_faker3 (1)" />
+      <item itemvalue="Python.gen_ecom_faker5" />
       <item itemvalue="Python.gen_ecom_faker4" />
+      <item itemvalue="Python.generate_visualizations" />
+      <item itemvalue="Python.update_visualizations" />
       <item itemvalue="Python.ecommerce_visualization" />
-      <item itemvalue="Python.gen_ecom_faker2" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.gen_ecom_faker4" />
+        <item itemvalue="Python.gen_ecom_faker5" />
+        <item itemvalue="Python.generate_visualizations" />
+        <item itemvalue="Python.update_visualizations" />
         <item itemvalue="Python.ecommerce_visualization" />
-        <item itemvalue="Python.gen_ecom_faker3 (1)" />
-        <item itemvalue="Python.gen_ecom_faker3" />
-        <item itemvalue="Python.gen_ecom_faker2" />
       </list>
     </recent_temporary>
   </component>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>E-commerce Data Visualizations</title>
     <style>
         body {
@@ -111,45 +113,52 @@
 
     <!-- Monthly Revenue Trend -->
     <div class="visualization">
-        <h2>1. Monthly Revenue Trend</h2>
+        <h2>1. Monthly Revenue Trend (2018-2024)</h2>
         <p>Track the monthly revenue performance over time to identify growth trends and seasonality patterns.</p>
-        <img src="monthly_revenue_trend.png" alt="Monthly Revenue Trend">
+        <img src="images/monthly_revenue_trend.png" alt="Monthly Revenue Trend" style="max-width: 100%; height: auto;">
         <div class="insight">
-            <strong>Insight:</strong> Look for consistent growth patterns and any unusual spikes or drops in revenue.
+            <strong>Insight:</strong> This chart shows the monthly revenue trend over time. Look for consistent growth patterns, seasonal variations, and any unusual spikes or drops in revenue.
         </div>
     </div>
 
-    <!-- Customer Retention Analysis -->
+    <!-- Yearly Order Distribution -->
     <div class="visualization">
-        <h2>2. Customer Retention by Cohort</h2>
-        <p>Analyze how well customers are retained over time, grouped by their first purchase month.</p>
-        <img src="customer_retention_heatmap.png" alt="Customer Retention Heatmap">
+        <h2>2. Yearly Order Distribution</h2>
+        <p>Analyze the distribution of orders across different years to understand sales growth.</p>
+        <img src="images/yearly_orders.png" alt="Yearly Order Distribution" style="max-width: 100%; height: auto;">
         <div class="insight">
-            <strong>Insight:</strong> Higher percentages indicate better customer retention. Look for patterns where retention drops off significantly.
+            <strong>Insight:</strong> This bar chart displays the number of orders per year, helping to identify growth trends and year-over-year performance.
         </div>
     </div>
 
-    <!-- Top Categories by Revenue -->
+    <!-- Order Value Distribution -->
     <div class="visualization">
-        <h2>3. Top Categories by Revenue</h2>
-        <p>Identify which product categories generate the most revenue for your business.</p>
-        <img src="top_categories.png" alt="Top Categories by Revenue">
+        <h2>3. Order Value Distribution</h2>
+        <p>Understand the distribution of order values to identify common spending patterns and average order value.</p>
+        <img src="images/order_value_distribution.png" alt="Order Value Distribution" style="max-width: 100%; height: auto;">
         <div class="insight">
-            <strong>Insight:</strong> Focus marketing and inventory efforts on top-performing categories to maximize revenue.
+            <strong>Insight:</strong> The red dashed line shows the average order value. This helps in understanding customer spending behavior and setting appropriate price points.
         </div>
     </div>
 
-    <!-- Additional Visualizations -->
+    <!-- Payment Method Distribution -->
     <div class="visualization">
-        <h2>4. Order Value Distribution</h2>
-        <p>Understand the distribution of order values to identify common spending patterns.</p>
-        <img src="order_value_distribution.png" alt="Order Value Distribution">
+        <h2>4. Payment Method Distribution</h2>
+        <p>Analyze which payment methods customers prefer when making purchases.</p>
+        <img src="images/payment_methods.png" alt="Payment Method Distribution" style="max-width: 100%; max-height: 500px; margin: 0 auto; display: block;">
+        <div class="insight">
+            <strong>Insight:</strong> Understanding payment method preferences can help optimize the checkout process and potentially reduce cart abandonment.
+        </div>
     </div>
 
+    <!-- Order Status Distribution -->
     <div class="visualization">
-        <h2>5. Sales by Day of Week</h2>
-        <p>Identify which days of the week generate the most sales.</p>
-        <img src="sales_by_day_of_week.png" alt="Sales by Day of Week">
+        <h2>5. Order Status Distribution</h2>
+        <p>Monitor the current status of all orders to understand order fulfillment performance.</p>
+        <img src="images/order_status.png" alt="Order Status Distribution" style="max-width: 100%; height: auto;">
+        <div class="insight">
+            <strong>Insight:</strong> This chart shows the distribution of order statuses. A high number of completed orders indicates good fulfillment performance, while other statuses might require attention.
+        </div>
     </div>
 
     <div class="footer">
@@ -158,27 +167,42 @@
 
     <script>
         // Update metrics with actual values
-        document.addEventListener('DOMContentLoaded', function() {
-            // Format numbers with commas
-            function formatNumber(num) {
-                return num.toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, ",");
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load metrics from JSON file
+                const response = await fetch('images/metrics.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load metrics');
+                }
+                const metrics = await response.json();
+                
+                // Update metrics in the UI
+                document.getElementById('total-customers').textContent = 
+                    metrics.total_customers.toLocaleString();
+                document.getElementById('total-orders').textContent = 
+                    metrics.total_orders.toLocaleString();
+                document.getElementById('total-revenue').textContent = 
+                    metrics.total_revenue;
+                document.getElementById('avg-order-value').textContent = 
+                    metrics.avg_order_value;
+
+                // Update report date
+                const now = new Date();
+                document.getElementById('report-date').textContent = now.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (error) {
+                console.error('Error loading metrics:', error);
+                // Fallback to default values if there's an error
+                document.getElementById('total-customers').textContent = '15,500';
+                document.getElementById('total-orders').textContent = '30,048';
+                document.getElementById('total-revenue').textContent = '€32,843,247.26';
+                document.getElementById('avg-order-value').textContent = '€1,093.03';
             }
-
-            // Update metrics
-            document.getElementById('total-customers').textContent = '15,500';
-            document.getElementById('total-orders').textContent = '30,380';
-            document.getElementById('total-revenue').textContent = '$32,372,746.85';
-            document.getElementById('avg-order-value').textContent = '$1,065.59';
-
-            // Update report date
-            const now = new Date();
-            document.getElementById('report-date').textContent = now.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
         });
     </script>
 </body>
