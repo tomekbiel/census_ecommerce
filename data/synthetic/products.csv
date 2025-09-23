@@ -1,201 +1,201 @@
-product_id,name,category,price,cost,is_active
-P00001,Product 1 - Family,Electronics,40.8,22.66,True
-P00002,Product 2 - Line,Health,177.55,83.08,True
-P00003,Product 3 - Sit,Electronics,182.57,105.77,True
-P00004,Product 4 - Build,Home,96.76,60.56,True
-P00005,Product 5 - Attention,Furnishings,109.83,76.36,True
-P00006,Product 6 - Begin,Electronics,130.89,77.59,True
-P00007,Product 7 - Fine,Luxury Goods,148.87,70.97,True
-P00008,Product 8 - Attention,Home,137.31,81.28,True
-P00009,Product 9 - Surface,Electronics,212.45,122.57,False
-P00010,Product 10 - Serious,Electronics,213.8,103.19,True
-P00011,Product 11 - Figure,Sports,40.85,26.69,True
-P00012,Product 12 - Young,Electronics,57.84,26.05,True
-P00013,Product 13 - Eight,Electronics,190.62,129.42,True
-P00014,Product 14 - What,Home,60.0,40.32,True
-P00015,Product 15 - Tv,Sports,106.47,70.0,True
-P00016,Product 16 - Especially,Sports,30.27,20.31,True
-P00017,Product 17 - Majority,Home,122.72,49.51,True
-P00018,Product 18 - Front,Home,82.28,47.57,True
-P00019,Product 19 - Voice,Electronics,180.13,77.54,True
-P00020,Product 20 - Forward,Home,39.99,23.99,True
-P00021,Product 21 - Door,Sports,60.43,32.9,True
-P00022,Product 22 - Class,Health,194.94,119.48,True
-P00023,Product 23 - Institution,Home,73.86,36.89,True
-P00024,Product 24 - Able,Apparel,208.71,138.55,True
-P00025,Product 25 - Rock,Sports,65.75,31.04,True
-P00026,Product 26 - Simply,Electronics,132.3,78.33,False
-P00027,Product 27 - Treatment,Home,114.53,78.32,True
-P00028,Product 28 - Feeling,Electronics,36.56,20.12,True
-P00029,Product 29 - Factor,Fashion,197.6,86.61,True
-P00030,Product 30 - Each,Electronics,78.49,45.74,True
-P00031,Product 31 - Personal,Home Furnishings,80.26,34.57,True
-P00032,Product 32 - Case,Health,195.14,98.24,True
-P00033,Product 33 - Young,Home Furnishings,139.7,74.26,True
-P00034,Product 34 - Chair,Electronics,95.76,62.53,True
-P00035,Product 35 - Each,Apparel,156.08,88.88,True
-P00036,Product 36 - Order,Health,61.57,27.91,True
-P00037,Product 37 - Rather,Luxury Goods,105.52,63.02,True
-P00038,Product 38 - Site,Electronics,93.25,41.47,True
-P00039,Product 39 - Challenge,Furnishings,52.11,30.18,True
-P00040,Product 40 - Recent,Health,177.11,74.4,True
-P00041,Product 41 - Another,Home,80.1,44.36,True
-P00042,Product 42 - Several,Electronics,181.41,72.88,True
-P00043,Product 43 - Political,Sports,54.98,33.37,True
-P00044,Product 44 - Respond,Health,199.82,111.16,True
-P00045,Product 45 - Nearly,Home Furnishings,110.91,48.08,True
-P00046,Product 46 - Attorney,Home,50.36,27.27,True
-P00047,Product 47 - Nice,Home,124.52,63.33,True
-P00048,Product 48 - Matter,Electronics,100.61,45.15,False
-P00049,Product 49 - Bar,Health,75.53,51.05,True
-P00050,Product 50 - Small,Electronics,63.24,26.26,True
-P00051,Product 51 - Grow,Home Furnishings,125.94,72.96,True
-P00052,Product 52 - Pretty,Electronics,119.26,77.61,True
-P00053,Product 53 - Describe,Fashion,39.57,16.46,True
-P00054,Product 54 - Contain,Electronics,110.82,50.5,True
-P00055,Product 55 - Bill,Fashion,37.45,15.84,True
-P00056,Product 56 - Record,Fashion,158.19,88.06,True
-P00057,Product 57 - Report,Apparel,105.27,62.36,True
-P00058,Product 58 - Parent,Fashion,43.37,23.55,True
-P00059,Product 59 - Risk,Home Furnishings,128.74,82.03,True
-P00060,Product 60 - Little,Health,42.56,27.31,False
-P00061,Product 61 - Prevent,Health,172.32,77.45,False
-P00062,Product 62 - Join,Furnishings,205.75,114.56,True
-P00063,Product 63 - Agency,Electronics,45.71,20.21,True
-P00064,Product 64 - Name,Health,148.38,73.94,True
-P00065,Product 65 - So,Home,99.63,40.67,False
-P00066,Product 66 - Happen,Fashion,111.49,48.93,True
-P00067,Product 67 - Buy,Home,83.09,44.35,True
-P00068,Product 68 - Agree,Health,138.88,92.84,True
-P00069,Product 69 - Garden,Sports,133.61,75.79,True
-P00070,Product 70 - Give,Electronics,72.57,45.36,True
-P00071,Product 71 - Community,Home,136.89,80.6,True
-P00072,Product 72 - Those,Fashion,122.0,54.99,True
-P00073,Product 73 - Keep,Home,159.55,103.97,True
-P00074,Product 74 - Energy,Electronics,194.11,106.53,True
-P00075,Product 75 - Statement,Electronics,197.0,102.31,True
-P00076,Product 76 - Create,Fashion,51.91,22.79,True
-P00077,Product 77 - Ever,Fashion,48.18,25.79,True
-P00078,Product 78 - Quite,Fashion,173.07,120.38,True
-P00079,Product 79 - Inside,Electronics,62.65,26.4,True
-P00080,Product 80 - Since,Home,157.67,93.48,True
-P00081,Product 81 - Pay,Electronics,90.95,48.61,True
-P00082,Product 82 - Watch,Electronics,232.41,135.03,True
-P00083,Product 83 - Manager,Electronics,150.93,76.54,True
-P00084,Product 84 - Together,Apparel,77.13,51.77,True
-P00085,Product 85 - Whose,Fashion,196.54,128.76,True
-P00086,Product 86 - Always,Electronics,200.64,103.35,True
-P00087,Product 87 - Appear,Electronics,233.34,117.56,True
-P00088,Product 88 - Benefit,Health,121.7,85.09,True
-P00089,Product 89 - Month,Home,90.79,38.24,False
-P00090,Product 90 - Out,Home Furnishings,68.11,40.33,True
-P00091,Product 91 - Model,Apparel,159.71,75.16,True
-P00092,Product 92 - Four,Health,129.27,86.43,True
-P00093,Product 93 - Draw,Electronics,230.0,118.21,True
-P00094,Product 94 - Drug,Fashion,159.81,64.77,True
-P00095,Product 95 - Popular,Fashion,87.63,58.47,True
-P00096,Product 96 - Hear,Luxury Goods,110.62,71.96,True
-P00097,Product 97 - Student,Electronics,215.67,95.45,True
-P00098,Product 98 - Technology,Electronics,135.99,88.62,True
-P00099,Product 99 - Husband,Home,142.09,97.85,False
-P00100,Product 100 - Next,Electronics,60.94,27.2,True
-P00101,Product 101 - Without,Apparel,121.04,72.55,True
-P00102,Product 102 - Newspaper,Luxury Goods,78.12,37.85,True
-P00103,Product 103 - Crime,Home,46.0,21.55,False
-P00104,Product 104 - Social,Furnishings,45.17,21.57,True
-P00105,Product 105 - Particular,Home,126.98,61.15,True
-P00106,Product 106 - Condition,Health,190.8,76.37,True
-P00107,Product 107 - Character,Electronics,51.15,33.88,True
-P00108,Product 108 - Item,Home Furnishings,171.53,77.03,True
-P00109,Product 109 - Person,Apparel,232.36,104.9,False
-P00110,Product 110 - Ever,Fashion,113.91,58.15,True
-P00111,Product 111 - Impact,Electronics,141.13,79.05,True
-P00112,Product 112 - Technology,Electronics,225.87,101.7,False
-P00113,Product 113 - Interest,Health,80.57,34.35,True
-P00114,Product 114 - Can,Electronics,157.45,76.41,False
-P00115,Product 115 - Kind,Electronics,42.12,17.41,True
-P00116,Product 116 - Quality,Electronics,60.49,34.73,True
-P00117,Product 117 - Main,Electronics,190.44,90.93,True
-P00118,Product 118 - At,Sports,125.87,86.38,True
-P00119,Product 119 - Professor,Luxury Goods,81.07,41.14,True
-P00120,Product 120 - Early,Home,96.75,58.68,True
-P00121,Product 121 - Theory,Fashion,197.82,116.85,True
-P00122,Product 122 - Prevent,Health,165.81,70.55,True
-P00123,Product 123 - Account,Electronics,59.7,25.4,True
-P00124,Product 124 - Show,Fashion,94.35,42.24,True
-P00125,Product 125 - Continue,Health,167.87,94.18,True
-P00126,Product 126 - Soldier,Electronics,170.96,106.49,True
-P00127,Product 127 - Another,Luxury Goods,140.8,97.52,True
-P00128,Product 128 - Machine,Fashion,190.56,91.52,True
-P00129,Product 129 - Respond,Electronics,171.77,90.68,True
-P00130,Product 130 - Picture,Health,125.17,85.72,True
-P00131,Product 131 - General,Electronics,46.86,23.88,True
-P00132,Product 132 - Industry,Sports,95.41,50.0,True
-P00133,Product 133 - Program,Health,74.01,34.64,True
-P00134,Product 134 - Identify,Apparel,59.11,24.45,True
-P00135,Product 135 - Sure,Home,100.57,58.98,True
-P00136,Product 136 - Perform,Apparel,152.11,94.11,True
-P00137,Product 137 - Second,Electronics,111.38,69.99,True
-P00138,Product 138 - Whole,Home,79.19,36.33,True
-P00139,Product 139 - Still,Home,179.37,118.12,True
-P00140,Product 140 - Pay,Home Furnishings,61.75,32.4,True
-P00141,Product 141 - Likely,Health,134.28,62.77,True
-P00142,Product 142 - Defense,Fashion,128.79,58.55,True
-P00143,Product 143 - Do,Furnishings,103.88,41.81,True
-P00144,Product 144 - Identify,Sports,74.41,38.9,True
-P00145,Product 145 - Long,Sports,79.2,34.64,False
-P00146,Product 146 - Cultural,Sports,129.62,52.68,True
-P00147,Product 147 - Again,Fashion,122.49,85.54,True
-P00148,Product 148 - Perform,Fashion,102.02,69.84,True
-P00149,Product 149 - Environmental,Health,146.19,100.45,True
-P00150,Product 150 - Read,Apparel,140.41,56.64,True
-P00151,Product 151 - Vote,Electronics,152.12,64.55,True
-P00152,Product 152 - Light,Electronics,226.86,130.72,True
-P00153,Product 153 - Approach,Furnishings,110.24,56.4,True
-P00154,Product 154 - Protect,Electronics,56.39,23.33,True
-P00155,Product 155 - Take,Home,38.08,24.64,True
-P00156,Product 156 - Might,Electronics,79.6,37.45,True
-P00157,Product 157 - Such,Home Furnishings,80.63,33.14,True
-P00158,Product 158 - Happy,Luxury Goods,58.28,30.14,True
-P00159,Product 159 - Ok,Apparel,81.46,36.09,True
-P00160,Product 160 - Young,Electronics,40.36,23.95,False
-P00161,Product 161 - Identify,Fashion,126.07,55.25,True
-P00162,Product 162 - Effort,Home Furnishings,144.96,62.39,True
-P00163,Product 163 - Generation,Fashion,114.14,59.77,True
-P00164,Product 164 - Last,Health,76.01,34.75,False
-P00165,Product 165 - Professor,Electronics,84.62,53.75,True
-P00166,Product 166 - Goal,Home,84.17,52.5,True
-P00167,Product 167 - Summer,Luxury Goods,83.7,33.69,False
-P00168,Product 168 - Here,Electronics,145.89,65.08,True
-P00169,Product 169 - Look,Fashion,226.13,100.98,True
-P00170,Product 170 - Rate,Furnishings,120.23,83.55,True
-P00171,Product 171 - Create,Apparel,89.85,45.54,False
-P00172,Product 172 - Suggest,Home,179.76,108.66,True
-P00173,Product 173 - Live,Home,43.03,21.2,True
-P00174,Product 174 - Wall,Electronics,156.08,101.3,False
-P00175,Product 175 - Stock,Electronics,162.57,110.5,True
-P00176,Product 176 - Long,Electronics,103.14,47.76,True
-P00177,Product 177 - Rather,Health,132.07,78.96,True
-P00178,Product 178 - Others,Home,148.71,83.35,True
-P00179,Product 179 - Data,Health,44.82,23.96,True
-P00180,Product 180 - Until,Health,56.45,35.21,True
-P00181,Product 181 - Program,Sports,32.57,21.38,True
-P00182,Product 182 - Join,Sports,116.6,52.81,False
-P00183,Product 183 - Nothing,Home,131.14,63.0,True
-P00184,Product 184 - Force,Electronics,209.52,142.0,True
-P00185,Product 185 - Deep,Health,123.73,58.43,True
-P00186,Product 186 - Mission,Fashion,62.71,42.75,True
-P00187,Product 187 - Bit,Electronics,168.03,108.35,False
-P00188,Product 188 - Bed,Home,152.7,100.36,False
-P00189,Product 189 - Debate,Health,192.05,129.32,True
-P00190,Product 190 - Arrive,Health,146.37,79.44,True
-P00191,Product 191 - Near,Home,41.12,20.83,True
-P00192,Product 192 - Fear,Home,32.65,13.37,False
-P00193,Product 193 - Question,Electronics,81.34,37.33,True
-P00194,Product 194 - Us,Home,135.29,91.85,True
-P00195,Product 195 - Guess,Home,169.87,108.47,True
-P00196,Product 196 - Eight,Sports,65.49,33.0,False
-P00197,Product 197 - Smile,Home,86.19,48.55,True
-P00198,Product 198 - Join,Luxury Goods,112.2,65.66,True
-P00199,Product 199 - Across,Electronics,84.65,41.16,True
-P00200,Product 200 - Contain,Home,38.83,18.73,True
+product_id,sku,name,description,category,subcategory,price,cost,stock_quantity,is_active,created_at,last_updated,original_price
+1000,FAS-000001,Attention fashion including,High-quality fashion designed for whole and home. Perfect for easy and several applications. Innovative design with CadetBlue finish.,Fashion,Fashion Age,62.57,34.24,148,True,2024-11-03 18:00:03,2025-02-17 02:15:02,
+1001,FAS-000002,Thought fashion woman,High-quality fashion designed for cell and dog. Perfect for start and phone applications. Eco-friendly design with Peru finish.,Fashion,Fashion Myself,57.69,32.71,149,True,2025-06-04 04:03:00,2025-06-19 04:54:58,
+1002,HOM-000003,Forget home stand,High-quality home designed for argue and watch. Perfect for forward and news applications. Stylish design with DarkRed finish.,Home,Home Both,888.71,537.8,39,True,2023-04-22 10:24:07,2025-05-31 22:32:22,
+1003,ELE-000004,Choice electronics tax,High-quality electronics designed for oil and movie. Perfect for party and issue applications. Premium design with LawnGreen finish.,Electronics,Electronics Clearly,1360.42,749.15,35,True,2022-09-25 22:04:28,2023-11-17 08:29:13,
+1004,HOM-000005,Stay home born,High-quality home furnishings designed for up and just. Perfect for analysis and be applications. Eco-friendly design with Violet finish.,Home Furnishings,Home Furnishings Yeah,75.51,41.29,149,True,2023-08-30 03:20:55,2024-01-19 21:32:41,
+1005,FAS-000006,Discover fashion scene,High-quality fashion designed for nature and story. Perfect for glass and their applications. Stylish design with Yellow finish.,Fashion,Fashion Mention,62.95,32.34,55,True,2024-03-04 00:11:19,2025-07-13 17:23:43,
+1006,HOM-000007,Various home thought,High-quality home designed for hair and employee. Perfect for of and cold applications. Eco-friendly design with LightSkyBlue finish.,Home,Home Be,215.22,121.79,44,True,2024-07-02 14:37:24,2025-01-14 02:03:31,
+1007,FUR-000008,High furnishings visit,High-quality furnishings designed for vote and laugh. Perfect for one and simple applications. Durable design with PowderBlue finish.,Furnishings,Furnishings Doctor,74.09,39.68,110,True,2024-03-24 12:14:18,2025-02-26 16:49:37,
+1008,LUX-000009,Manage luxury sort,High-quality luxury goods designed for gun and seek. Perfect for upon and member applications. Eco-friendly design with LightSkyBlue finish.,Luxury Goods,Luxury Goods Amount,44.32,25.46,177,True,2025-03-22 16:05:12,2025-04-03 04:07:43,
+1009,HOM-000010,Money home despite,High-quality home designed for another and chance. Perfect for stage and break applications. Stylish design with Teal finish.,Home,Home Protect,491.11,299.12,31,True,2023-12-30 04:37:29,2024-07-28 00:31:12,652.07
+1010,APP-000011,Produce apparel return,High-quality apparel designed for offer and office. Perfect for parent and husband applications. Innovative design with DeepSkyBlue finish.,Apparel,Apparel Manager,45.94,27.29,133,True,2024-09-04 13:41:56,2025-07-08 06:27:47,66.52
+1011,HEA-000012,One health fear,High-quality health designed for century and read. Perfect for along and involve applications. Durable design with LightSeaGreen finish.,Health,Health We,10.92,3.91,232,True,2025-02-27 11:15:51,2025-08-17 03:34:20,
+1012,FUR-000013,Its furnishings hear,High-quality furnishings designed for agree and still. Perfect for along and her applications. Premium design with OldLace finish.,Furnishings,Furnishings Mrs,86.17,41.11,160,True,2023-03-15 13:01:38,2025-01-14 11:26:55,
+1013,ELE-000014,Thus electronics because,High-quality electronics designed for Democrat and fund. Perfect for employee and each applications. Stylish design with MediumSeaGreen finish.,Electronics,Electronics Trial,1241.94,825.6,39,True,2024-04-26 05:48:54,2024-05-06 19:18:06,
+1014,FUR-000015,Field furnishings remember,High-quality furnishings designed for able and take. Perfect for majority and fall applications. Durable design with Olive finish.,Furnishings,Furnishings Yard,78.69,38.68,93,True,2025-09-14 14:33:26,2025-09-17 17:59:15,89.18
+1015,HOM-000016,Same home position,High-quality home designed for key and movie. Perfect for drop and performance applications. Durable design with DarkViolet finish.,Home,Home Approach,285.96,185.13,54,True,2024-04-17 16:57:20,2025-08-25 13:00:13,
+1016,SPO-000017,Beautiful sports commercial,High-quality sports designed for most and money. Perfect for bar and land applications. Stylish design with Beige finish.,Sports,Sports Economy,231.67,161.2,70,True,2024-06-15 23:47:15,2025-05-03 16:47:00,
+1017,HOM-000018,People home billion,High-quality home furnishings designed for ask and ready. Perfect for window and cut applications. Innovative design with DarkSlateGray finish.,Home Furnishings,Home Furnishings Perform,68.63,44.28,97,True,2024-02-24 01:11:40,2024-07-27 08:20:55,77.87
+1018,APP-000019,Write apparel certainly,High-quality apparel designed for degree and strong. Perfect for blue and detail applications. Eco-friendly design with Thistle finish.,Apparel,Apparel Believe,34.47,16.77,136,True,2023-08-16 23:33:00,2025-04-27 23:35:06,
+1019,HOM-000020,In home keep,High-quality home furnishings designed for carry and pretty. Perfect for nothing and start applications. Premium design with Brown finish.,Home Furnishings,Home Furnishings Natural,19.44,14.27,148,True,2023-01-02 21:57:53,2025-07-03 18:05:09,26.62
+1020,LUX-000021,Four luxury anything,High-quality luxury goods designed for computer and night. Perfect for term and much applications. Premium design with DarkOrange finish.,Luxury Goods,Luxury Goods Own,24.84,18.06,232,True,2023-11-01 21:06:46,2025-08-07 13:56:44,36.4
+1021,HOM-000022,Successful home quickly,High-quality home furnishings designed for week and staff. Perfect for whole and but applications. Premium design with RosyBrown finish.,Home Furnishings,Home Furnishings Ready,66.0,26.5,110,True,2024-02-19 21:50:35,2025-02-09 07:10:57,
+1022,FAS-000023,Course fashion catch,High-quality fashion designed for environment and woman. Perfect for task and where applications. Stylish design with Coral finish.,Fashion,Fashion Role,109.82,64.92,25,True,2024-11-15 22:15:03,2025-03-06 12:21:01,151.81
+1023,HEA-000024,Scientist health open,High-quality health designed for push and himself. Perfect for crime and determine applications. Stylish design with Gold finish.,Health,Health Onto,102.23,40.98,132,True,2023-01-12 17:21:38,2025-07-13 00:53:10,
+1024,FAS-000025,Field fashion write,High-quality fashion designed for program and scene. Perfect for scene and physical applications. Durable design with Coral finish.,Fashion,Fashion Various,184.11,124.14,69,True,2024-03-28 11:50:03,2024-08-24 17:24:36,244.61
+1025,ELE-000026,That electronics later,High-quality electronics designed for return and bill. Perfect for pressure and scientist applications. Innovative design with DarkViolet finish.,Electronics,Electronics Because,206.62,107.33,67,True,2023-01-29 04:20:19,2024-09-05 19:26:03,
+1026,FAS-000027,Suggest fashion body,High-quality fashion designed for reason and poor. Perfect for exist and agree applications. Eco-friendly design with Ivory finish.,Fashion,Fashion Key,172.52,111.46,85,True,2024-02-14 15:24:10,2024-04-13 04:43:37,197.9
+1027,LUX-000028,Easy luxury record,High-quality luxury goods designed for standard and our. Perfect for outside and reveal applications. Premium design with MediumAquaMarine finish.,Luxury Goods,Luxury Goods Cause,73.0,40.54,121,True,2024-07-14 04:19:36,2025-06-10 09:15:36,
+1028,HEA-000029,Industry health a,High-quality health designed for score and group. Perfect for water and his applications. Eco-friendly design with SandyBrown finish.,Health,Health Sort,99.57,56.93,91,True,2023-05-09 13:16:51,2024-10-07 08:03:41,152.24
+1029,HOM-000030,So home executive,High-quality home designed for either and real. Perfect for another and its applications. Eco-friendly design with Indigo finish.,Home,Home Middle,501.36,229.25,42,True,2024-09-04 07:44:04,2024-12-06 17:10:47,
+1030,FAS-000031,Win fashion thank,High-quality fashion designed for partner and each. Perfect for describe and spring applications. Durable design with DarkGray finish.,Fashion,Fashion Growth,124.57,88.34,95,True,2022-11-19 11:07:41,2025-06-12 09:00:48,153.57
+1031,ELE-000032,Trial electronics family,High-quality electronics designed for blue and treatment. Perfect for team and in applications. Eco-friendly design with White finish.,Electronics,Electronics North,2230.33,1333.35,30,True,2024-09-02 17:02:02,2025-03-04 14:47:27,
+1032,FUR-000033,Represent furnishings group,High-quality furnishings designed for deal and effect. Perfect for stay and ask applications. Stylish design with Brown finish.,Furnishings,Furnishings Possible,42.58,19.33,130,True,2024-02-13 21:34:41,2024-06-11 01:20:07,
+1033,FUR-000034,Fly furnishings marriage,High-quality furnishings designed for station and another. Perfect for foot and crime applications. Stylish design with LightSteelBlue finish.,Furnishings,Furnishings Action,57.99,46.43,101,True,2025-07-16 02:28:19,2025-08-11 14:53:56,87.25
+1034,FAS-000035,Why fashion save,High-quality fashion designed for figure and possible. Perfect for lead and draw applications. Stylish design with MintCream finish.,Fashion,Fashion Well,166.96,114.43,88,True,2024-02-13 12:31:12,2025-07-10 22:13:55,215.56
+1035,ELE-000036,Front electronics wide,High-quality electronics designed for rule and opportunity. Perfect for fall and turn applications. Premium design with DarkKhaki finish.,Electronics,Electronics Our,2351.39,1276.41,12,True,2023-03-22 14:46:12,2025-08-08 21:12:52,
+1036,HOM-000037,In home discuss,High-quality home designed for director and purpose. Perfect for against and tax applications. Stylish design with DarkSlateGray finish.,Home,Home Whatever,47.82,26.7,72,True,2025-04-20 03:20:50,2025-06-13 05:20:30,57.07
+1037,APP-000038,East apparel focus,High-quality apparel designed for million and thing. Perfect for public and add applications. Durable design with FloralWhite finish.,Apparel,Apparel Southern,93.52,44.35,121,True,2023-09-26 21:58:16,2025-08-30 16:00:57,
+1038,SPO-000039,Interview sports well,High-quality sports designed for wait and high. Perfect for may and simple applications. Stylish design with DarkBlue finish.,Sports,Sports Bank,228.98,135.19,87,True,2024-12-19 01:00:37,2025-07-22 07:40:45,
+1039,SPO-000040,Enough sports son,High-quality sports designed for no and increase. Perfect for feeling and morning applications. Durable design with Chartreuse finish.,Sports,Sports Loss,115.07,74.16,103,True,2023-09-03 07:12:56,2024-03-17 21:43:27,
+1040,ELE-000041,Along electronics feeling,High-quality electronics designed for require and choose. Perfect for trip and after applications. Eco-friendly design with MediumSpringGreen finish.,Electronics,Electronics New,2465.51,1453.18,22,True,2024-04-29 13:55:53,2024-09-16 20:20:17,
+1041,SPO-000042,Produce sports drive,High-quality sports designed for person and point. Perfect for hand and fine applications. Durable design with OliveDrab finish.,Sports,Sports Its,75.73,53.58,99,True,2023-08-03 03:34:34,2025-05-13 08:25:01,
+1042,HOM-000043,Data home group,High-quality home furnishings designed for house and finally. Perfect for interest and worker applications. Eco-friendly design with SandyBrown finish.,Home Furnishings,Home Furnishings Under,30.45,15.75,130,True,2025-09-08 20:45:13,2025-09-22 08:57:52,35.24
+1043,ELE-000044,Factor electronics a,High-quality electronics designed for daughter and strategy. Perfect for director and now applications. Durable design with PowderBlue finish.,Electronics,Electronics Last,44.76,35.52,211,True,2022-09-23 21:57:32,2022-09-25 17:51:33,53.56
+1044,HEA-000045,Last health window,High-quality health designed for different and left. Perfect for manage and teacher applications. Stylish design with MediumAquaMarine finish.,Health,Health Open,56.64,24.93,167,True,2023-04-19 16:31:39,2024-03-02 02:23:42,
+1045,LUX-000046,Street luxury total,High-quality luxury goods designed for from and large. Perfect for fly and chance applications. Eco-friendly design with PowderBlue finish.,Luxury Goods,Luxury Goods Win,27.45,13.98,184,True,2024-06-17 12:16:52,2025-07-24 17:17:50,
+1046,ELE-000047,Direction electronics world,High-quality electronics designed for determine and factor. Perfect for wear and traditional applications. Durable design with IndianRed finish.,Electronics,Electronics Election,1557.13,1104.93,23,True,2025-03-10 15:54:46,2025-05-22 03:20:37,
+1047,ELE-000048,Value electronics show,High-quality electronics designed for animal and sell. Perfect for figure and anything applications. Eco-friendly design with Thistle finish.,Electronics,Electronics Mean,119.17,75.44,115,False,2022-10-10 23:55:57,2023-02-14 13:03:55,
+1048,LUX-000049,Home luxury day,High-quality luxury goods designed for image and want. Perfect for name and professor applications. Eco-friendly design with MediumAquaMarine finish.,Luxury Goods,Luxury Goods May,16.73,10.88,176,True,2024-06-08 00:01:03,2025-02-28 03:53:09,22.44
+1049,HEA-000050,Reality health job,High-quality health designed for will and price. Perfect for fill and example applications. Innovative design with Brown finish.,Health,Health Strong,80.57,37.82,113,False,2025-04-24 15:01:51,2025-04-27 04:35:29,
+1050,HEA-000051,Candidate health college,High-quality health designed for boy and organization. Perfect for forget and economy applications. Eco-friendly design with PaleGoldenRod finish.,Health,Health Speak,148.8,65.8,87,True,2025-07-08 20:21:28,2025-07-11 05:06:22,
+1051,FAS-000052,Enter fashion listen,High-quality fashion designed for let and play. Perfect for day and grow applications. Durable design with FireBrick finish.,Fashion,Fashion Say,240.16,122.51,23,True,2023-01-08 01:42:29,2025-08-04 00:36:46,
+1052,LUX-000053,Detail luxury guess,High-quality luxury goods designed for know and free. Perfect for against and article applications. Stylish design with MediumVioletRed finish.,Luxury Goods,Luxury Goods Responsibility,16.06,7.57,300,True,2023-07-15 08:16:31,2023-07-30 01:37:46,
+1053,HEA-000054,Ability health party,High-quality health designed for western and wish. Perfect for help and hundred applications. Stylish design with DarkSlateGray finish.,Health,Health Hope,31.62,13.91,146,True,2022-12-02 19:51:27,2023-07-03 20:56:39,
+1054,LUX-000055,Customer luxury boy,High-quality luxury goods designed for page and line. Perfect for could and here applications. Eco-friendly design with Azure finish.,Luxury Goods,Luxury Goods Quality,69.53,39.14,82,True,2025-06-25 06:06:24,2025-09-08 18:42:54,
+1055,FUR-000056,Staff furnishings strong,High-quality furnishings designed for military and entire. Perfect for choose and hand applications. Premium design with NavajoWhite finish.,Furnishings,Furnishings Admit,16.06,6.78,416,True,2023-02-20 10:21:43,2024-09-03 17:51:24,
+1056,ELE-000057,Commercial electronics country,High-quality electronics designed for beat and nation. Perfect for look and interest applications. Innovative design with GreenYellow finish.,Electronics,Electronics Space,1800.84,1223.22,20,True,2025-01-18 19:31:22,2025-09-22 01:13:39,
+1057,ELE-000058,Particular electronics visit,High-quality electronics designed for education and hit. Perfect for successful and base applications. Premium design with Maroon finish.,Electronics,Electronics Quality,1100.22,636.05,53,True,2023-10-31 09:40:50,2024-03-27 02:29:41,
+1058,SPO-000059,And sports foot,High-quality sports designed for alone and improve. Perfect for maybe and building applications. Stylish design with Pink finish.,Sports,Sports Source,228.7,142.91,90,True,2023-06-18 02:22:49,2025-06-04 06:55:35,
+1059,SPO-000060,Tend sports again,High-quality sports designed for involve and and. Perfect for today and visit applications. Premium design with Purple finish.,Sports,Sports Do,417.12,295.96,63,True,2024-01-22 00:12:56,2024-11-04 16:56:43,
+1060,SPO-000061,Senior sports final,High-quality sports designed for include and about. Perfect for day and form applications. Stylish design with CornflowerBlue finish.,Sports,Sports Grow,98.48,75.4,108,False,2024-10-14 17:02:09,2025-01-08 07:54:44,
+1061,LUX-000062,Audience luxury per,High-quality luxury goods designed for well and law. Perfect for stop and improve applications. Innovative design with SlateBlue finish.,Luxury Goods,Luxury Goods Fact,49.22,45.16,131,True,2024-06-16 10:49:45,2025-03-04 10:17:25,75.63
+1062,HOM-000063,House home cost,High-quality home designed for various and leg. Perfect for put and PM applications. Durable design with MistyRose finish.,Home,Home Give,903.56,409.88,36,True,2023-03-15 17:57:42,2023-09-05 13:54:49,
+1063,LUX-000064,Onto luxury major,High-quality luxury goods designed for bad and recognize. Perfect for mention and doctor applications. Stylish design with PaleGreen finish.,Luxury Goods,Luxury Goods Share,18.92,7.87,264,True,2022-10-07 00:31:00,2024-10-05 08:20:48,
+1064,HEA-000065,Woman health process,High-quality health designed for among and great. Perfect for dream and somebody applications. Premium design with Turquoise finish.,Health,Health Bank,76.69,36.57,124,True,2024-01-17 06:39:44,2024-10-28 01:35:32,
+1065,HOM-000066,One home consider,High-quality home designed for may and set. Perfect for include and to applications. Innovative design with DarkViolet finish.,Home,Home Something,900.07,448.31,23,True,2025-06-17 08:37:45,2025-07-21 06:15:52,
+1066,SPO-000067,Meet sports degree,High-quality sports designed for measure and win. Perfect for his and miss applications. Innovative design with LightSeaGreen finish.,Sports,Sports Agree,329.15,210.3,60,True,2023-12-17 08:50:49,2024-02-08 15:32:19,
+1067,HOM-000068,Home home rate,High-quality home furnishings designed for professor and foot. Perfect for them and economic applications. Eco-friendly design with Brown finish.,Home Furnishings,Home Furnishings Manager,26.04,11.38,160,True,2023-12-15 10:53:03,2025-02-11 08:32:06,
+1068,HOM-000069,Arm home behind,High-quality home furnishings designed for affect and hear. Perfect for determine and writer applications. Premium design with Khaki finish.,Home Furnishings,Home Furnishings Determine,82.53,44.76,109,True,2024-10-23 11:53:42,2025-04-15 15:16:50,
+1069,LUX-000070,With luxury friend,High-quality luxury goods designed for once and general. Perfect for approach and win applications. Eco-friendly design with LightYellow finish.,Luxury Goods,Luxury Goods Seem,66.2,33.73,87,True,2024-02-22 16:07:19,2024-04-07 19:11:27,
+1070,SPO-000071,Modern sports maintain,High-quality sports designed for worker and war. Perfect for arrive and president applications. Durable design with LightSkyBlue finish.,Sports,Sports Son,77.02,56.86,144,True,2022-10-01 08:00:36,2023-04-03 06:21:48,
+1071,LUX-000072,Nice luxury dream,High-quality luxury goods designed for position and attack. Perfect for threat and word applications. Stylish design with OrangeRed finish.,Luxury Goods,Luxury Goods You,46.81,37.39,155,True,2024-05-15 16:41:57,2025-07-25 10:02:42,74.5
+1072,LUX-000073,Left luxury laugh,High-quality luxury goods designed for some and ever. Perfect for else and individual applications. Stylish design with Moccasin finish.,Luxury Goods,Luxury Goods Think,24.59,14.9,237,False,2023-03-02 19:14:25,2024-11-14 21:47:46,33.94
+1073,HOM-000074,Talk home common,High-quality home designed for camera and sport. Perfect for cost and recent applications. Stylish design with LightCoral finish.,Home,Home Assume,449.51,241.2,39,True,2023-10-13 12:27:01,2025-03-20 11:05:29,
+1074,ELE-000075,Turn electronics president,High-quality electronics designed for meet and check. Perfect for turn and recognize applications. Innovative design with LightSalmon finish.,Electronics,Electronics Hold,1434.98,940.27,20,True,2025-08-02 08:59:15,2025-08-11 20:06:13,
+1075,HEA-000076,Describe health wind,High-quality health designed for ever and happy. Perfect for voice and oil applications. Stylish design with Snow finish.,Health,Health Lay,23.6,8.77,143,True,2022-12-08 22:40:32,2023-01-13 23:28:33,
+1076,HEA-000077,Feel health nature,High-quality health designed for finish and yard. Perfect for coach and suffer applications. Eco-friendly design with Chocolate finish.,Health,Health Food,184.09,78.25,71,True,2024-06-07 07:40:41,2024-10-03 22:03:39,
+1077,APP-000078,Daughter apparel agent,High-quality apparel designed for course and because. Perfect for itself and why applications. Innovative design with HotPink finish.,Apparel,Apparel Sea,26.27,13.5,167,True,2025-01-15 17:05:00,2025-09-11 04:14:30,
+1078,LUX-000079,Young luxury discussion,High-quality luxury goods designed for either and east. Perfect for article and surface applications. Eco-friendly design with Turquoise finish.,Luxury Goods,Luxury Goods Level,90.8,51.92,94,True,2025-09-11 13:18:16,2025-09-19 04:08:02,
+1079,FAS-000080,Maybe fashion but,High-quality fashion designed for black and always. Perfect for meeting and think applications. Premium design with OrangeRed finish.,Fashion,Fashion Any,267.79,121.71,37,True,2025-07-12 15:53:21,2025-07-24 07:20:04,
+1080,SPO-000081,System sports upon,High-quality sports designed for however and consumer. Perfect for fact and media applications. Innovative design with Tomato finish.,Sports,Sports Trip,256.52,145.06,77,True,2023-08-05 16:28:57,2025-07-04 22:11:53,
+1081,APP-000082,Law apparel perform,High-quality apparel designed for music and yourself. Perfect for prevent and officer applications. Innovative design with MediumSlateBlue finish.,Apparel,Apparel Wrong,65.56,24.68,173,True,2024-02-06 03:53:04,2025-08-29 18:16:21,
+1082,FAS-000083,Order fashion stuff,High-quality fashion designed for sister and check. Perfect for attorney and something applications. Premium design with LightGray finish.,Fashion,Fashion Tree,288.02,149.38,46,False,2023-06-07 17:33:43,2025-06-27 17:04:36,
+1083,ELE-000084,Mouth electronics once,High-quality electronics designed for fine and science. Perfect for someone and seem applications. Premium design with LightSkyBlue finish.,Electronics,Electronics Wear,2498.75,1256.04,10,True,2024-03-23 15:06:21,2024-11-14 06:59:25,
+1084,FUR-000085,So furnishings instead,High-quality furnishings designed for forward and cause. Perfect for at and special applications. Stylish design with DarkTurquoise finish.,Furnishings,Furnishings Performance,62.49,29.78,39,True,2024-06-03 04:15:17,2025-06-05 16:09:03,
+1085,FAS-000086,Benefit fashion newspaper,High-quality fashion designed for fear and power. Perfect for national and campaign applications. Stylish design with SeaGreen finish.,Fashion,Fashion The,119.74,90.1,98,True,2025-04-13 01:50:43,2025-06-13 04:12:40,192.81
+1086,HOM-000087,Hospital home too,High-quality home furnishings designed for apply and step. Perfect for sort and authority applications. Premium design with Turquoise finish.,Home Furnishings,Home Furnishings Much,21.02,11.95,221,True,2024-10-15 05:22:15,2024-11-02 09:48:25,
+1087,ELE-000088,Star electronics whose,High-quality electronics designed for may and large. Perfect for simply and argue applications. Innovative design with LightBlue finish.,Electronics,Electronics Kind,1191.99,637.22,18,True,2025-03-27 15:18:44,2025-08-25 10:01:44,
+1088,APP-000089,Final apparel to,High-quality apparel designed for agency and view. Perfect for pull and few applications. Premium design with SandyBrown finish.,Apparel,Apparel Gas,75.83,35.22,83,True,2024-06-15 13:16:52,2025-02-10 17:04:34,96.63
+1089,HEA-000090,Minute health wide,High-quality health designed for yourself and serve. Perfect for purpose and capital applications. Innovative design with Lime finish.,Health,Health Staff,115.81,52.51,91,True,2023-06-26 08:53:04,2024-05-16 15:37:23,
+1090,SPO-000091,Age sports available,High-quality sports designed for any and college. Perfect for life and husband applications. Eco-friendly design with CornflowerBlue finish.,Sports,Sports Item,29.54,15.45,269,True,2022-11-27 17:32:51,2023-08-17 03:27:03,
+1091,HOM-000092,Wait home politics,High-quality home furnishings designed for great and nature. Perfect for recognize and property applications. Eco-friendly design with HotPink finish.,Home Furnishings,Home Furnishings Ago,61.72,33.74,135,True,2023-06-16 12:18:33,2024-11-25 16:01:07,70.78
+1092,HEA-000093,Something health series,High-quality health designed for paper and in. Perfect for admit and available applications. Durable design with OldLace finish.,Health,Health Across,104.91,51.99,41,True,2024-07-09 23:56:03,2025-08-02 16:20:30,159.95
+1093,FUR-000094,Listen furnishings walk,High-quality furnishings designed for subject and bank. Perfect for major and executive applications. Durable design with DarkOliveGreen finish.,Furnishings,Furnishings Fish,51.74,34.89,109,False,2025-07-12 11:50:29,2025-07-18 07:08:46,78.62
+1094,APP-000095,Change apparel education,High-quality apparel designed for yet and effect. Perfect for interest and account applications. Innovative design with DarkViolet finish.,Apparel,Apparel Political,67.14,32.74,61,False,2024-01-13 17:00:32,2024-06-14 11:04:25,
+1095,ELE-000096,Method electronics may,High-quality electronics designed for occur and occur. Perfect for health and daughter applications. Durable design with Coral finish.,Electronics,Electronics Many,1259.28,783.55,24,True,2025-05-26 17:44:48,2025-06-29 11:54:35,
+1096,HOM-000097,Stage home plant,High-quality home furnishings designed for prepare and half. Perfect for time and anyone applications. Durable design with LavenderBlush finish.,Home Furnishings,Home Furnishings Network,75.38,34.81,98,True,2025-07-02 19:14:31,2025-09-21 22:42:52,
+1097,LUX-000098,Learn luxury heavy,High-quality luxury goods designed for group and price. Perfect for movie and campaign applications. Premium design with Crimson finish.,Luxury Goods,Luxury Goods Gas,51.36,26.48,67,False,2023-04-19 09:22:33,2024-12-21 08:13:42,
+1098,FUR-000099,Big furnishings second,High-quality furnishings designed for south and assume. Perfect for exist and member applications. Premium design with Tomato finish.,Furnishings,Furnishings Camera,54.89,35.05,94,True,2024-12-28 22:04:36,2025-04-01 16:21:12,78.02
+1099,FAS-000100,Need fashion religious,High-quality fashion designed for mission and long. Perfect for class and of applications. Innovative design with Coral finish.,Fashion,Fashion Style,281.39,114.1,42,True,2024-09-15 06:56:54,2024-12-03 15:54:28,
+1100,ELE-000101,Tv electronics level,High-quality electronics designed for training and chance. Perfect for form and young applications. Durable design with LightYellow finish.,Electronics,Electronics Pressure,114.67,76.06,92,True,2023-12-16 09:11:57,2025-09-04 07:03:59,
+1101,APP-000102,At apparel might,High-quality apparel designed for fact and understand. Perfect for leave and structure applications. Stylish design with SkyBlue finish.,Apparel,Apparel Establish,199.49,98.78,88,True,2025-09-20 00:42:33,2025-09-22 06:49:21,
+1102,LUX-000103,Push luxury create,High-quality luxury goods designed for test and ago. Perfect for use and agreement applications. Eco-friendly design with Beige finish.,Luxury Goods,Luxury Goods Financial,28.27,20.65,186,True,2023-10-11 00:00:06,2025-06-08 08:52:55,36.66
+1103,FAS-000104,Project fashion reflect,High-quality fashion designed for toward and ever. Perfect for again and provide applications. Eco-friendly design with Fuchsia finish.,Fashion,Fashion Material,122.41,56.77,126,True,2024-12-21 10:57:10,2025-02-10 02:56:51,
+1104,FAS-000105,Computer fashion contain,High-quality fashion designed for memory and who. Perfect for certain and amount applications. Stylish design with Linen finish.,Fashion,Fashion Everything,135.61,76.04,81,True,2024-04-06 20:14:54,2025-02-12 08:27:51,182.26
+1105,HOM-000106,Buy home difficult,High-quality home furnishings designed for sort and law. Perfect for any and film applications. Durable design with HoneyDew finish.,Home Furnishings,Home Furnishings Reduce,87.23,41.75,65,True,2025-07-11 08:46:13,2025-08-15 00:56:16,
+1106,FUR-000107,Medical furnishings allow,High-quality furnishings designed for hair and experience. Perfect for candidate and wonder applications. Innovative design with AntiqueWhite finish.,Furnishings,Furnishings Newspaper,80.5,39.92,90,False,2025-04-16 22:11:57,2025-04-22 22:19:17,
+1107,SPO-000108,Various sports no,High-quality sports designed for month and might. Perfect for moment and market applications. Eco-friendly design with Green finish.,Sports,Sports Pull,470.76,333.9,48,True,2025-04-03 19:04:15,2025-06-24 02:56:23,
+1108,SPO-000109,Thus sports enough,High-quality sports designed for real and prepare. Perfect for cultural and from applications. Durable design with FireBrick finish.,Sports,Sports Ground,235.61,221.55,42,True,2024-06-05 13:46:05,2025-08-22 03:47:13,361.18
+1109,FAS-000110,Drive fashion thank,High-quality fashion designed for become and picture. Perfect for your and heavy applications. Eco-friendly design with MediumAquaMarine finish.,Fashion,Fashion Worker,123.2,65.45,87,True,2023-07-15 23:38:46,2025-07-15 19:41:03,
+1110,ELE-000111,Range electronics fight,High-quality electronics designed for off and garden. Perfect for smile and defense applications. Durable design with SlateBlue finish.,Electronics,Electronics Beat,565.43,401.43,41,True,2025-02-17 21:47:47,2025-08-19 04:26:01,
+1111,FAS-000112,Foot fashion thus,High-quality fashion designed for seem and myself. Perfect for above and war applications. Eco-friendly design with Orange finish.,Fashion,Fashion Company,70.07,36.4,170,True,2025-09-08 04:11:10,2025-09-10 05:40:18,
+1112,APP-000113,Side apparel manager,High-quality apparel designed for marriage and easy. Perfect for fly and begin applications. Durable design with Navy finish.,Apparel,Apparel Talk,66.15,31.49,94,True,2025-05-06 12:36:13,2025-06-27 13:38:32,
+1113,FAS-000114,Order fashion peace,High-quality fashion designed for public and between. Perfect for thing and grow applications. Innovative design with Tan finish.,Fashion,Fashion Wall,179.61,126.89,61,True,2022-11-05 03:05:55,2022-11-21 10:11:21,290.22
+1114,ELE-000115,Large electronics position,High-quality electronics designed for large and under. Perfect for cover and democratic applications. Premium design with Coral finish.,Electronics,Electronics According,772.6,460.22,27,True,2025-04-21 17:37:47,2025-05-13 20:41:41,
+1115,FUR-000116,Difficult furnishings standard,High-quality furnishings designed for time and factor. Perfect for usually and yourself applications. Durable design with GreenYellow finish.,Furnishings,Furnishings Prepare,80.92,36.88,101,True,2025-08-14 04:16:14,2025-08-25 09:32:02,
+1116,LUX-000117,Cause luxury short,High-quality luxury goods designed for table and direction. Perfect for either and charge applications. Stylish design with MediumAquaMarine finish.,Luxury Goods,Luxury Goods Civil,63.26,31.23,125,True,2025-05-27 23:52:59,2025-06-09 07:35:09,74.28
+1117,HOM-000118,Safe home set,High-quality home designed for common and because. Perfect for data and night applications. Premium design with ForestGreen finish.,Home,Home Season,104.96,67.34,101,True,2024-01-11 12:19:48,2024-06-25 18:30:09,
+1118,FAS-000119,Your fashion there,High-quality fashion designed for tree and fire. Perfect for can and air applications. Stylish design with DarkSeaGreen finish.,Fashion,Fashion Sell,64.92,34.45,121,True,2024-12-04 20:58:23,2025-02-18 09:16:12,
+1119,LUX-000120,Control luxury identify,High-quality luxury goods designed for strong and voice. Perfect for entire and trip applications. Premium design with Tan finish.,Luxury Goods,Luxury Goods Great,56.56,33.35,149,True,2023-11-23 23:11:23,2024-07-29 14:16:27,
+1120,ELE-000121,Growth electronics can,High-quality electronics designed for last and image. Perfect for adult and teacher applications. Durable design with SlateBlue finish.,Electronics,Electronics Probably,1985.3,1353.11,10,True,2025-09-19 00:31:35,2025-09-21 13:43:13,
+1121,LUX-000122,Education luxury push,High-quality luxury goods designed for often and quite. Perfect for hospital and must applications. Stylish design with LawnGreen finish.,Luxury Goods,Luxury Goods Discover,25.5,15.12,255,True,2023-08-17 17:56:57,2025-07-15 10:36:29,
+1122,HOM-000123,Hair home process,High-quality home designed for explain and kitchen. Perfect for at and two applications. Innovative design with Black finish.,Home,Home They,55.13,41.01,90,True,2024-12-15 18:31:28,2024-12-17 06:27:03,79.46
+1123,HOM-000124,Matter home usually,High-quality home furnishings designed for its and culture. Perfect for whether and off applications. Stylish design with Cornsilk finish.,Home Furnishings,Home Furnishings Wind,22.8,11.52,349,True,2024-07-01 22:23:15,2024-10-09 08:47:03,
+1124,LUX-000125,Federal luxury will,High-quality luxury goods designed for blood and great. Perfect for respond and either applications. Eco-friendly design with SlateGray finish.,Luxury Goods,Luxury Goods Find,82.02,39.17,125,False,2024-03-25 19:32:20,2024-04-15 01:42:54,
+1125,LUX-000126,Guy luxury say,High-quality luxury goods designed for blood and reality. Perfect for example and order applications. Innovative design with Tomato finish.,Luxury Goods,Luxury Goods Pressure,16.71,9.38,250,True,2025-08-28 17:42:37,2025-09-15 16:58:10,
+1126,APP-000127,Himself apparel child,High-quality apparel designed for class and mouth. Perfect for tell and hope applications. Durable design with Aquamarine finish.,Apparel,Apparel Image,160.08,65.89,137,True,2025-08-24 09:26:16,2025-09-02 12:46:31,
+1127,HOM-000128,Various home ever,High-quality home designed for across and work. Perfect for perhaps and commercial applications. Durable design with Fuchsia finish.,Home,Home Ago,488.57,280.9,35,True,2024-08-01 11:58:19,2025-02-02 00:45:33,
+1128,HOM-000129,Watch home when,High-quality home designed for owner and middle. Perfect for resource and for applications. Premium design with DimGray finish.,Home,Home If,672.56,400.7,36,True,2023-10-02 20:35:53,2025-01-09 14:04:02,
+1129,LUX-000130,Either luxury letter,High-quality luxury goods designed for trouble and just. Perfect for give and piece applications. Durable design with AntiqueWhite finish.,Luxury Goods,Luxury Goods Many,86.62,35.59,102,True,2023-04-20 10:44:47,2024-10-13 11:35:46,
+1130,HOM-000131,Professor home fact,High-quality home furnishings designed for radio and training. Perfect for take and itself applications. Premium design with NavajoWhite finish.,Home Furnishings,Home Furnishings And,24.1,17.47,216,True,2024-01-04 06:45:18,2025-03-30 00:12:32,34.87
+1131,SPO-000132,Operation sports season,High-quality sports designed for measure and market. Perfect for pull and interesting applications. Innovative design with MediumAquaMarine finish.,Sports,Sports Environmental,259.2,174.19,81,False,2025-05-03 15:39:18,2025-08-20 22:39:31,
+1132,HOM-000133,Day home occur,High-quality home furnishings designed for drop and source. Perfect for order and agree applications. Eco-friendly design with Tan finish.,Home Furnishings,Home Furnishings Quality,20.57,12.59,260,True,2023-09-09 16:19:34,2023-10-04 12:17:05,25.18
+1133,ELE-000134,Share electronics lot,High-quality electronics designed for least and when. Perfect for join and perhaps applications. Innovative design with Black finish.,Electronics,Electronics Possible,2128.41,1337.57,16,True,2024-12-25 15:20:00,2025-07-12 21:39:13,
+1134,ELE-000135,Attention electronics wind,High-quality electronics designed for charge and test. Perfect for natural and only applications. Innovative design with Tan finish.,Electronics,Electronics Thing,1434.13,1210.95,24,True,2024-04-27 02:11:39,2024-09-04 23:52:55,1880.07
+1135,HOM-000136,Dream home instead,High-quality home designed for great and fish. Perfect for century and through applications. Innovative design with Chartreuse finish.,Home,Home Safe,695.3,378.15,35,True,2024-05-21 04:09:04,2025-01-12 14:50:26,
+1136,SPO-000137,Whose sports conference,High-quality sports designed for reflect and along. Perfect for until and something applications. Stylish design with DarkGray finish.,Sports,Sports Want,68.45,45.5,67,True,2023-02-04 09:06:23,2024-05-23 14:16:23,
+1137,ELE-000138,Morning electronics eye,High-quality electronics designed for decision and accept. Perfect for lose and class applications. Durable design with SteelBlue finish.,Electronics,Electronics Structure,929.62,607.77,35,True,2023-11-05 10:33:13,2024-06-28 03:02:26,
+1138,ELE-000139,White electronics media,High-quality electronics designed for or and another. Perfect for tonight and feeling applications. Stylish design with Green finish.,Electronics,Electronics Man,1008.61,1097.15,29,True,2022-12-30 01:30:10,2023-04-18 21:34:01,1677.85
+1139,APP-000140,State apparel bad,High-quality apparel designed for garden and report. Perfect for local and level applications. Durable design with Indigo finish.,Apparel,Apparel Two,86.46,31.31,91,True,2024-07-15 10:00:49,2025-04-24 19:03:13,
+1140,LUX-000141,Hot luxury if,High-quality luxury goods designed for garden and court. Perfect for beyond and consumer applications. Stylish design with DarkRed finish.,Luxury Goods,Luxury Goods Lead,41.29,27.28,95,True,2024-09-19 19:00:26,2024-12-20 16:37:08,51.22
+1141,HOM-000142,List home health,High-quality home designed for try and day. Perfect for figure and yard applications. Innovative design with Thistle finish.,Home,Home Event,414.08,272.17,58,True,2025-02-18 21:53:39,2025-05-21 20:20:51,
+1142,HEA-000143,Present health he,High-quality health designed for TV and computer. Perfect for term and yeah applications. Stylish design with DarkOliveGreen finish.,Health,Health Bar,58.32,28.79,49,True,2025-08-05 18:37:05,2025-09-08 03:55:11,74.92
+1143,APP-000144,Age apparel drug,High-quality apparel designed for go and whatever. Perfect for fish and push applications. Innovative design with Wheat finish.,Apparel,Apparel Force,31.43,19.11,118,True,2023-07-20 16:59:32,2025-05-21 12:14:19,47.11
+1144,HEA-000145,Color health smile,High-quality health designed for cell and return. Perfect for read and glass applications. Innovative design with Plum finish.,Health,Health Magazine,66.08,25.22,146,True,2023-07-04 06:14:58,2024-06-05 01:24:03,
+1145,ELE-000146,Total electronics exist,High-quality electronics designed for group and others. Perfect for matter and spend applications. Eco-friendly design with YellowGreen finish.,Electronics,Electronics Behavior,1240.55,640.86,22,True,2024-01-10 10:09:06,2025-07-10 14:36:07,
+1146,FUR-000147,Six furnishings customer,High-quality furnishings designed for notice and audience. Perfect for image and subject applications. Innovative design with Aquamarine finish.,Furnishings,Furnishings Moment,76.06,33.93,48,True,2025-03-24 20:47:29,2025-05-05 15:54:19,
+1147,HOM-000148,Manage home determine,High-quality home furnishings designed for contain and wear. Perfect for crime and store applications. Stylish design with BlueViolet finish.,Home Furnishings,Home Furnishings Do,31.58,17.11,136,True,2025-01-29 19:19:58,2025-08-29 14:26:22,39.92
+1148,HOM-000149,Although home second,High-quality home designed for certainly and window. Perfect for environmental and much applications. Eco-friendly design with Green finish.,Home,Home Born,834.87,462.79,30,True,2023-04-05 00:13:30,2023-07-09 10:17:37,
+1149,ELE-000150,Executive electronics beyond,High-quality electronics designed for occur and area. Perfect for great and day applications. Durable design with LightYellow finish.,Electronics,Electronics Trade,1562.46,1093.82,20,True,2023-01-03 02:02:41,2024-01-11 11:21:06,
+1150,APP-000151,Stuff apparel think,High-quality apparel designed for real and economy. Perfect for drop and include applications. Premium design with MediumVioletRed finish.,Apparel,Apparel Difficult,64.58,30.76,170,True,2024-11-15 07:39:34,2025-01-19 16:45:19,
+1151,FAS-000152,Beautiful fashion defense,High-quality fashion designed for pick and big. Perfect for manager and during applications. Premium design with Blue finish.,Fashion,Fashion Lead,226.02,133.06,55,True,2024-04-22 20:56:24,2024-08-02 08:05:20,
+1152,APP-000153,Detail apparel color,High-quality apparel designed for reality and low. Perfect for relate and language applications. Stylish design with Pink finish.,Apparel,Apparel Join,120.92,75.73,71,True,2023-04-30 15:53:29,2024-12-28 14:51:38,179.9
+1153,LUX-000154,Debate luxury politics,High-quality luxury goods designed for project and if. Perfect for participant and short applications. Innovative design with CornflowerBlue finish.,Luxury Goods,Luxury Goods Factor,18.08,12.32,233,True,2024-11-29 11:44:10,2025-08-16 23:30:58,21.68
+1154,FUR-000155,Push furnishings easy,High-quality furnishings designed for interesting and cell. Perfect for adult and program applications. Durable design with MediumAquaMarine finish.,Furnishings,Furnishings Toward,19.52,7.96,334,True,2025-02-10 00:55:42,2025-04-20 09:41:50,
+1155,HOM-000156,Whatever home college,High-quality home designed for wonder and itself. Perfect for fight and ground applications. Premium design with MediumBlue finish.,Home,Home Front,250.15,127.88,55,True,2024-06-03 16:56:09,2025-07-11 22:31:21,
+1156,HEA-000157,Boy health benefit,High-quality health designed for white and lead. Perfect for fight and expert applications. Stylish design with Orchid finish.,Health,Health Hour,127.43,42.46,64,False,2025-09-19 19:52:19,2025-09-22 14:25:41,
+1157,APP-000158,Technology apparel build,High-quality apparel designed for opportunity and performance. Perfect for exist and week applications. Innovative design with Gray finish.,Apparel,Apparel Wonder,40.68,20.84,144,True,2023-08-07 03:04:11,2024-11-09 11:13:13,
+1158,SPO-000159,Relationship sports think,High-quality sports designed for him and weight. Perfect for hit and result applications. Eco-friendly design with MediumSlateBlue finish.,Sports,Sports Early,129.51,118.31,78,False,2025-09-15 06:49:23,2025-09-23 04:53:42,170.62
+1159,HOM-000160,Whose home environmental,High-quality home designed for mention and hundred. Perfect for over and a applications. Stylish design with OliveDrab finish.,Home,Home Reach,612.58,286.16,78,True,2024-11-09 07:22:48,2025-08-17 15:57:52,
+1160,HEA-000161,Sense health product,High-quality health designed for tell and raise. Perfect for several and forward applications. Stylish design with OrangeRed finish.,Health,Health May,53.16,25.3,105,True,2024-01-07 11:31:41,2024-05-06 20:40:57,
+1161,APP-000162,Require apparel I,High-quality apparel designed for design and reach. Perfect for week and field applications. Durable design with PaleVioletRed finish.,Apparel,Apparel Today,35.71,14.26,221,True,2023-07-12 11:50:26,2023-08-07 15:59:01,
+1162,LUX-000163,Step luxury apply,High-quality luxury goods designed for watch and ready. Perfect for present and effect applications. Eco-friendly design with Indigo finish.,Luxury Goods,Luxury Goods Beyond,33.46,15.77,241,True,2025-07-29 12:03:23,2025-09-17 02:51:01,
+1163,FUR-000164,Wife furnishings speak,High-quality furnishings designed for nation and establish. Perfect for bag and land applications. Durable design with GhostWhite finish.,Furnishings,Furnishings Chair,79.66,34.54,73,True,2023-09-26 06:36:07,2024-03-15 05:09:35,
+1164,LUX-000165,Apply luxury reveal,High-quality luxury goods designed for democratic and media. Perfect for continue and cell applications. Eco-friendly design with DarkRed finish.,Luxury Goods,Luxury Goods Machine,25.63,12.69,224,True,2025-04-21 16:25:18,2025-05-21 07:43:08,
+1165,HOM-000166,Different home whom,High-quality home designed for choice and according. Perfect for but and responsibility applications. Eco-friendly design with LawnGreen finish.,Home,Home Blue,205.64,104.46,75,True,2023-09-17 22:48:40,2024-10-30 06:41:53,
+1166,HEA-000167,Near health church,High-quality health designed for organization and conference. Perfect for follow and ok applications. Stylish design with Gold finish.,Health,Health Whether,143.26,55.07,49,True,2024-01-22 12:58:36,2024-04-23 07:11:44,162.06
+1167,HOM-000168,Sign home class,High-quality home designed for music and whether. Perfect for discover and hand applications. Stylish design with DarkCyan finish.,Home,Home Herself,20.78,9.89,227,True,2024-07-06 12:01:57,2024-07-15 04:50:12,
+1168,APP-000169,Various apparel history,High-quality apparel designed for hold and opportunity. Perfect for involve and charge applications. Eco-friendly design with Wheat finish.,Apparel,Apparel War,157.24,69.55,107,True,2023-03-26 05:20:58,2025-03-03 20:55:28,
+1169,ELE-000170,Wait electronics sell,High-quality electronics designed for decide and will. Perfect for position and clearly applications. Stylish design with HoneyDew finish.,Electronics,Electronics Article,311.29,185.89,71,True,2024-10-12 10:59:41,2025-02-28 09:28:57,
+1170,HOM-000171,Society home sit,High-quality home designed for trial and growth. Perfect for feeling and parent applications. Durable design with MediumSeaGreen finish.,Home,Home Yet,350.37,182.51,42,True,2023-08-03 13:06:10,2023-09-05 23:28:03,
+1171,LUX-000172,Around luxury cost,High-quality luxury goods designed for student and information. Perfect for concern and certain applications. Stylish design with MediumBlue finish.,Luxury Goods,Luxury Goods Standard,13.4,5.41,286,True,2022-12-26 10:49:08,2023-09-28 09:01:26,
+1172,HEA-000173,Cell health key,High-quality health designed for personal and model. Perfect for indicate and popular applications. Durable design with IndianRed finish.,Health,Health Interest,82.4,39.38,97,True,2023-07-05 23:36:55,2024-06-17 17:42:47,
+1173,HEA-000174,Fine health front,High-quality health designed for dog and eat. Perfect for large and push applications. Eco-friendly design with PaleVioletRed finish.,Health,Health Large,58.3,19.67,87,True,2025-01-15 05:01:18,2025-02-27 17:53:38,
+1174,LUX-000175,Minute luxury nearly,High-quality luxury goods designed for pressure and maybe. Perfect for claim and brother applications. Premium design with LightSlateGray finish.,Luxury Goods,Luxury Goods Miss,64.64,39.76,98,True,2022-12-11 02:32:40,2025-05-23 20:10:44,85.11
+1175,SPO-000176,Method sports policy,High-quality sports designed for if and age. Perfect for another and around applications. Eco-friendly design with Bisque finish.,Sports,Sports Exactly,168.24,117.01,110,True,2024-04-28 19:44:03,2024-09-30 15:10:25,
+1176,APP-000177,Near apparel bad,High-quality apparel designed for maybe and yet. Perfect for over and since applications. Durable design with LightSalmon finish.,Apparel,Apparel Value,90.44,36.85,84,True,2025-01-11 14:49:48,2025-07-12 14:10:08,
+1177,FAS-000178,Page fashion way,High-quality fashion designed for between and reveal. Perfect for attorney and child applications. Stylish design with GreenYellow finish.,Fashion,Fashion Item,219.64,114.28,88,True,2024-03-20 14:03:16,2024-06-28 19:49:11,
+1178,LUX-000179,Possible luxury career,High-quality luxury goods designed for bank and people. Perfect for short and world applications. Eco-friendly design with SlateGray finish.,Luxury Goods,Luxury Goods Our,11.52,5.37,414,True,2024-11-03 09:27:09,2025-02-22 23:19:10,
+1179,ELE-000180,Tv electronics economic,High-quality electronics designed for discover and trouble. Perfect for say and standard applications. Eco-friendly design with DarkMagenta finish.,Electronics,Electronics Social,2471.02,1549.64,20,True,2023-09-01 19:44:06,2023-12-20 08:49:35,
+1180,FUR-000181,Long furnishings mission,High-quality furnishings designed for general and up. Perfect for art and will applications. Stylish design with Plum finish.,Furnishings,Furnishings Social,36.17,27.53,150,False,2023-11-23 16:02:10,2025-01-12 13:37:12,57.89
+1181,SPO-000182,Operation sports nothing,High-quality sports designed for significant and kitchen. Perfect for learn and person applications. Premium design with SteelBlue finish.,Sports,Sports Economic,172.24,131.55,75,True,2025-04-11 10:35:26,2025-06-03 03:24:41,
+1182,FUR-000183,Alone furnishings morning,High-quality furnishings designed for child and miss. Perfect for interest and city applications. Durable design with MediumSpringGreen finish.,Furnishings,Furnishings Sell,28.3,16.19,260,False,2024-06-04 22:48:19,2025-04-21 20:02:17,35.97
+1183,LUX-000184,One luxury arrive,High-quality luxury goods designed for production and important. Perfect for admit and several applications. Premium design with MintCream finish.,Luxury Goods,Luxury Goods War,43.56,22.44,147,True,2024-08-29 06:38:59,2025-02-12 06:18:17,
+1184,FAS-000185,Direction fashion exactly,High-quality fashion designed for throughout and generation. Perfect for heart and win applications. Innovative design with GhostWhite finish.,Fashion,Fashion True,212.41,121.9,95,True,2025-03-20 21:33:25,2025-04-01 13:31:13,
+1185,APP-000186,Best apparel section,High-quality apparel designed for against and find. Perfect for town and together applications. Stylish design with RoyalBlue finish.,Apparel,Apparel Such,21.31,10.34,242,True,2023-09-14 03:16:45,2023-11-30 15:26:49,
+1186,HEA-000187,Direction health physical,High-quality health designed for team and clearly. Perfect for crime and push applications. Premium design with Purple finish.,Health,Health What,23.49,10.26,231,True,2025-09-17 11:21:05,2025-09-21 22:17:10,
+1187,HOM-000188,Class home feel,High-quality home designed for game and few. Perfect for another and push applications. Premium design with Crimson finish.,Home,Home Future,238.45,150.18,85,True,2023-05-19 00:28:42,2025-06-28 06:01:39,303.94
+1188,ELE-000189,Eat electronics wind,High-quality electronics designed for list and big. Perfect for ball and reveal applications. Stylish design with Navy finish.,Electronics,Electronics Guy,331.85,172.97,53,True,2024-05-20 13:28:09,2025-08-03 07:52:31,
+1189,LUX-000190,Economic luxury early,High-quality luxury goods designed for follow and service. Perfect for particular and expert applications. Premium design with Navy finish.,Luxury Goods,Luxury Goods Computer,81.74,37.0,93,True,2024-01-05 13:22:36,2024-11-19 07:42:20,
+1190,HOM-000191,Couple home lead,High-quality home designed for page and structure. Perfect for than and nearly applications. Eco-friendly design with Green finish.,Home,Home Special,198.74,103.56,90,True,2025-08-08 22:17:59,2025-08-25 00:46:27,
+1191,LUX-000192,Second luxury run,High-quality luxury goods designed for audience and while. Perfect for name and economy applications. Innovative design with Tomato finish.,Luxury Goods,Luxury Goods Beautiful,87.89,40.28,134,True,2024-11-04 06:11:53,2025-08-27 10:13:35,
+1192,FUR-000193,Paper furnishings never,High-quality furnishings designed for child and recent. Perfect for should and chair applications. Innovative design with LightPink finish.,Furnishings,Furnishings Fine,17.46,10.47,209,True,2024-02-03 10:40:43,2025-05-15 03:20:41,
+1193,SPO-000194,Big sports consumer,High-quality sports designed for campaign and lead. Perfect for question and art applications. Innovative design with SpringGreen finish.,Sports,Sports Election,182.81,103.89,68,True,2025-06-28 16:40:04,2025-07-15 21:35:02,
+1194,APP-000195,Enough apparel bar,High-quality apparel designed for charge and anyone. Perfect for turn and some applications. Eco-friendly design with ForestGreen finish.,Apparel,Apparel True,46.57,24.95,208,True,2023-12-29 05:55:53,2025-01-21 01:08:28,
+1195,HOM-000196,Yard home artist,High-quality home furnishings designed for see and certain. Perfect for chance and ground applications. Stylish design with Gainsboro finish.,Home Furnishings,Home Furnishings Lose,10.24,4.87,372,False,2025-09-11 20:35:02,2025-09-12 12:21:30,
+1196,LUX-000197,Network luxury feel,High-quality luxury goods designed for enjoy and specific. Perfect for reflect and because applications. Innovative design with LightPink finish.,Luxury Goods,Luxury Goods Suggest,51.81,29.35,143,True,2024-07-27 04:48:03,2025-08-14 10:46:41,
+1197,APP-000198,Energy apparel collection,High-quality apparel designed for participant and professional. Perfect for front and worker applications. Premium design with DarkOrchid finish.,Apparel,Apparel Lose,43.01,18.51,145,True,2024-06-08 11:43:15,2025-02-25 15:39:41,
+1198,FUR-000199,Same furnishings remember,High-quality furnishings designed for pay and off. Perfect for ready and claim applications. Eco-friendly design with GoldenRod finish.,Furnishings,Furnishings Too,25.53,17.94,198,True,2024-01-13 04:54:31,2025-05-09 22:17:58,39.55
+1199,FUR-000200,Into furnishings coach,High-quality furnishings designed for when and million. Perfect for character and former applications. Eco-friendly design with PowderBlue finish.,Furnishings,Furnishings Likely,36.9,18.34,73,False,2024-02-27 23:49:00,2024-04-26 13:23:15,42.74

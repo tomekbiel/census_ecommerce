@@ -615,9 +615,9 @@ class EcommerceDataGenerator:
             
             # Generate join date (2018-2024)
             join_year = random.randint(2018, 2024)
-            join_date = self.fake.date_between(
-                start_date=f"{join_year}-01-01",
-                end_date=f"{join_year}-12-31"
+            join_date = self.fake.date_time_between_dates(
+                datetime_start=datetime(join_year, 1, 1),
+                datetime_end=datetime(join_year, 12, 31, 23, 59, 59)
             )
             
             # Get first order date - POPRAWIONE logika
@@ -636,10 +636,15 @@ class EcommerceDataGenerator:
             loyalty_score = max(0, min(1, loyalty_score))
             
             # Generate last purchase date (after first order)
-            last_purchase_date = self.fake.date_between(
-                start_date=first_order_date,
-                end_date=min(datetime.now(), datetime(2024, 12, 31))
-            )
+            end_date = min(datetime.now(), datetime(2024, 12, 31, 23, 59, 59))
+            # Ensure first_order_date is not after end_date
+            if first_order_date >= end_date:
+                last_purchase_date = first_order_date
+            else:
+                last_purchase_date = self.fake.date_time_between_dates(
+                    datetime_start=first_order_date,
+                    datetime_end=end_date
+                )
             
             # Generate address components
             street_address = self.fake.street_address()
@@ -747,12 +752,8 @@ class EcommerceDataGenerator:
         
         # Generate products
         for i in tqdm(range(num_products), desc="Products"):
-            # Select category based on weights
-            category = random.choices(
-                population=all_categories,
-                weights=[self.categories[cat] for cat in all_categories],
-                k=1
-            )[0]
+            # Select category with equal probability
+            category = random.choice(all_categories)
             
             # Get pricing for this category
             pricing = self._get_category_pricing(category)
@@ -820,8 +821,7 @@ class EcommerceDataGenerator:
         
         return df
 
-    def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> Tuple[
-        pd.DataFrame, pd.DataFrame]:
+    def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         Generate order data with associated order items.
 
@@ -839,23 +839,274 @@ class EcommerceDataGenerator:
             - Order items will reference valid product_ids
             - Order totals will be calculated automatically
         """
-        # TODO: Implement order and order items generation
-        return pd.DataFrame(), pd.DataFrame()
+        print("Generating orders...")
+        
+        # Initialize lists to store orders and order items
+        orders = []
+        order_items = []
+        order_id_counter = 1
+        item_id_counter = 1
+        
+        # Filter active products
+        active_products = products_df[products_df['is_active'] == True]
+        if active_products.empty:
+            raise ValueError("No active products available for order generation")
+        
+        # Convert product IDs to list for faster access
+        product_ids = active_products['product_id'].tolist()
+        
+        # Get monthly stats for order distribution
+        monthly_stats = self._load_monthly_stats()
+        
+        # Generate orders for each customer
+        for _, customer in tqdm(customers_df.iterrows(), total=len(customers_df), desc="Generating customer orders"):
+            customer_id = customer['customer_id']
+            join_date = pd.to_datetime(customer['join_date'])
+            
+            # Determine customer order pattern (single or multiple orders)
+            order_count = self._get_customer_order_count(join_date)
+            
+            # Generate orders for this customer
+            for _ in range(order_count):
+                # Determine order date (after join date, before today)
+                order_date = self._generate_order_date(join_date)
+                
+                # Get monthly stats for this order date
+                month_key = (order_date.year, order_date.month)
+                if month_key not in monthly_stats:
+                    continue  # Skip if no stats for this month
+                    
+                month_stats = monthly_stats[month_key]
+                
+                # Generate order items (1-5 items per order)
+                num_items = random.choices([1, 2, 3, 4, 5], weights=[0.1, 0.25, 0.35, 0.2, 0.1])[0]
+                selected_products = random.sample(product_ids, min(num_items, len(product_ids)))
+                
+                # Create order
+                order = {
+                    'order_id': f"ORD{order_id_counter:08d}",
+                    'customer_id': customer_id,
+                    'order_date': order_date.strftime('%Y-%m-%d %H:%M:%S'),
+                    'status': 'completed',  # For now, all orders are completed
+                    'payment_method': random.choices(
+                        ['credit_card', 'paypal', 'bank_transfer', 'apple_pay', 'google_pay'],
+                        weights=[0.6, 0.15, 0.1, 0.1, 0.05]
+                    )[0],
+                    'subtotal': 0.0,
+                    'tax': 0.0,
+                    'shipping': 0.0,
+                    'discount': 0.0,
+                    'total': 0.0,
+                    'created_at': order_date.strftime('%Y-%m-%d %H:%M:%S'),
+                    'last_updated': order_date.strftime('%Y-%m-%d %H:%M:%S')
+                }
+                
+                # Add order items
+                order_subtotal = 0.0
+                for product_id in selected_products:
+                    product = products_df[products_df['product_id'] == product_id].iloc[0]
+                    
+                    # Random quantity (1-3 for most items, 1 for high-value items)
+                    max_qty = 3 if product['price'] < 100 else 1
+                    quantity = random.randint(1, max_qty)
+                    
+                    # Apply random discount (0-30% for some items)
+                    discount_rate = random.choices(
+                        [0.0, 0.1, 0.15, 0.2, 0.25, 0.3],
+                        weights=[0.7, 0.1, 0.05, 0.05, 0.05, 0.05]
+                    )[0]
+                    
+                    # Calculate prices
+                    unit_price = float(product['price'])
+                    discount = unit_price * discount_rate * quantity
+                    total_price = (unit_price * quantity) - discount
+                    
+                    # Add to order items
+                    order_items.append({
+                        'order_item_id': item_id_counter,
+                        'order_id': order['order_id'],
+                        'product_id': product_id,
+                        'quantity': quantity,
+                        'unit_price': unit_price,
+                        'total_price': total_price,
+                        'discount': discount,
+                        'created_at': order['created_at'],
+                        'last_updated': order['last_updated']
+                    })
+                    
+                    order_subtotal += total_price
+                    item_id_counter += 1
+                
+                # Calculate order totals
+                tax_rate = 0.08  # 8% tax rate
+                shipping = 0.0 if order_subtotal > 50 else 4.99  # Free shipping over $50
+                tax = order_subtotal * tax_rate
+                
+                # Apply order-level discount (10% off for some orders)
+                order_discount = 0.0
+                if random.random() < 0.1:  # 10% chance of order discount
+                    order_discount = order_subtotal * 0.1
+                
+                # Update order with calculated values
+                order['subtotal'] = round(order_subtotal, 2)
+                order['tax'] = round(tax, 2)
+                order['shipping'] = round(shipping, 2)
+                order['discount'] = round(order_discount, 2)
+                order['total'] = round(order_subtotal + tax + shipping - order_discount, 2)
+                
+                orders.append(order)
+                order_id_counter += 1
+        
+        # Convert to DataFrames
+        orders_df = pd.DataFrame(orders)
+        order_items_df = pd.DataFrame(order_items)
+        
+        return orders_df, order_items_df
+        
+    def _get_customer_order_count(self, join_date: datetime) -> int:
+        """
+        Determine how many orders a customer makes based on join date.
+        More recent customers have fewer orders on average.
+        """
+        days_since_join = (datetime.now() - join_date).days
+        months_since_join = max(1, days_since_join // 30)  # At least 1 month
+        
+        # Base order count based on how long the customer has been with us
+        if months_since_join < 3:
+            return random.choices([0, 1, 2], weights=[0.3, 0.5, 0.2])[0]
+        elif months_since_join < 12:
+            return random.choices([1, 2, 3, 4], weights=[0.2, 0.4, 0.3, 0.1])[0]
+        else:
+            return random.choices([2, 3, 4, 5, 6], weights=[0.1, 0.2, 0.4, 0.2, 0.1])[0]
+    
+    def _generate_order_date(self, join_date: datetime) -> datetime:
+        """
+        Generate a random order date after the customer's join date.
+        More likely to be closer to the join date.
+        """
+        days_since_join = (datetime.now() - join_date).days
+        if days_since_join <= 0:
+            return join_date
+            
+        # Use exponential distribution to favor dates closer to join date
+        days_offset = int(random.expovariate(1.0 / (days_since_join / 3)))
+        days_offset = min(days_offset, days_since_join)
+        
+        # Add some randomness to the time of day
+        hour = random.choices(
+            range(24),
+            weights=[0.01] * 6 + [0.04] * 6 + [0.1] * 6 + [0.15] * 6  # More likely during business hours
+        )[0]
+        minute = random.randint(0, 59)
+        second = random.randint(0, 59)
+        
+        return join_date + timedelta(days=days_offset, hours=hour, minutes=minute, seconds=second)
 
     def generate_order_items(self, orders_df: pd.DataFrame, products_df: pd.DataFrame) -> pd.DataFrame:
         """
         Generate order items data with associated order and product information.
+
+        This method creates detailed line items for each order, ensuring referential integrity
+        with both orders and products tables.
 
         Args:
             orders_df: DataFrame of orders from generate_orders()
             products_df: DataFrame of products from generate_products()
 
         Returns:
-            DataFrame with columns: order_item_id, order_id, product_id, quantity,
-            unit_price, total_price, discount, created_at, last_updated
+            DataFrame with columns: 
+            - order_item_id: Unique identifier for each order item
+            - order_id: Reference to the parent order
+            - product_id: Reference to the ordered product
+            - quantity: Number of units ordered
+            - unit_price: Price per unit at time of order
+            - total_price: Total price (quantity * unit_price - discount)
+            - discount: Discount amount applied to this line item
+            - created_at: Timestamp when the item was created
+            - last_updated: Timestamp of last update (same as created for new items)
         """
-        # TODO: Implement order items generation
-        return pd.DataFrame()
+        print("Generating order items...")
+        
+        if orders_df.empty:
+            print("⚠️ No orders found. Cannot generate order items.")
+            return pd.DataFrame(columns=[
+                'order_item_id', 'order_id', 'product_id', 'quantity',
+                'unit_price', 'total_price', 'discount', 'created_at', 'last_updated'
+            ])
+        
+        # Convert products to dict for faster lookups
+        products_dict = products_df.set_index('product_id').to_dict('index')
+        
+        order_items = []
+        item_id_counter = 1
+        
+        # Process each order to generate its items
+        for _, order in tqdm(orders_df.iterrows(), total=len(orders_df), desc="Generating order items"):
+            order_id = order['order_id']
+            order_date = pd.to_datetime(order['order_date'])
+            
+            # Determine number of items in this order (1-5 items)
+            num_items = random.choices(
+                [1, 2, 3, 4, 5],
+                weights=[0.1, 0.25, 0.35, 0.2, 0.1],
+                k=1
+            )[0]
+            
+            # Select random products for this order
+            available_products = list(products_dict.keys())
+            selected_products = random.sample(
+                available_products,
+                min(num_items, len(available_products))
+            )
+            
+            # Create order items
+            for product_id in selected_products:
+                product = products_dict[product_id]
+                
+                # Determine quantity (1-3 for regular items, 1 for expensive items)
+                max_qty = 3 if product['price'] < 100 else 1
+                quantity = random.randint(1, max_qty)
+                
+                # Apply random discount (0-30% with decreasing probability)
+                discount_rate = random.choices(
+                    [0.0, 0.1, 0.15, 0.2, 0.25, 0.3],
+                    weights=[0.7, 0.1, 0.05, 0.05, 0.05, 0.05],
+                    k=1
+                )[0]
+                
+                # Calculate prices
+                unit_price = float(product['price'])
+                discount = unit_price * discount_rate * quantity
+                total_price = (unit_price * quantity) - discount
+                
+                # Add to order items
+                order_items.append({
+                    'order_item_id': item_id_counter,
+                    'order_id': order_id,
+                    'product_id': product_id,
+                    'quantity': quantity,
+                    'unit_price': round(unit_price, 2),
+                    'total_price': round(total_price, 2),
+                    'discount': round(discount, 2),
+                    'created_at': order_date.strftime('%Y-%m-%d %H:%M:%S'),
+                    'last_updated': order_date.strftime('%Y-%m-%d %H:%M:%S')
+                })
+                
+                item_id_counter += 1
+        
+        # Create DataFrame with proper column order
+        columns = [
+            'order_item_id', 'order_id', 'product_id', 'quantity',
+            'unit_price', 'total_price', 'discount', 'created_at', 'last_updated'
+        ]
+        
+        order_items_df = pd.DataFrame(order_items, columns=columns)
+        
+        # Print summary
+        print(f"✅ Generated {len(order_items_df):,} order items for {len(orders_df):,} orders")
+        print(f"📊 Average items per order: {len(order_items_df)/len(orders_df):.2f}")
+        
+        return order_items_df
 
     def generate_all_data(self) -> Dict[str, pd.DataFrame]:
         """
