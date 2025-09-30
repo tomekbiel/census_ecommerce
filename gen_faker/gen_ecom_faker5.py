@@ -24,7 +24,7 @@ class EcommerceDataGenerator:
     """
 
     def __init__(self, target_customers: int = 15000, target_revenue: float = 2300000,
-                 missing_email_rate: float = 0.2):
+                 missing_email_rate: float = 0.2, num_duplicates: int = 500):
         """
         Initialize the data generator with configuration parameters.
 
@@ -32,10 +32,12 @@ class EcommerceDataGenerator:
             target_customers: Desired number of unique customers in the final year (2024)
             target_revenue: Target revenue for the peak year (2022) in euros
             missing_email_rate: Probability of generating a missing email (0.0 to 1.0)
+            num_duplicates: Number of duplicate customer records to add for data quality testing
         """
         self.target_customers = target_customers
         self.target_revenue = target_revenue
         self.missing_email_rate = missing_email_rate
+        self.num_duplicates = num_duplicates
         self.fake = Faker()
         self.data_dir = Path("C:/python/census_ecommerce/data/synthetic")
         self.data_dir.mkdir(parents=True, exist_ok=True)
@@ -686,6 +688,20 @@ class EcommerceDataGenerator:
         print(f"📊 {immediate_orders} ({immediate_orders/total_generated*100:.1f}%) ordered immediately")
         print(f"📊 {later_orders} ({later_orders/total_generated*100:.1f}%) ordered later")
         
+        # Add duplicate customers for data quality testing
+        if self.num_duplicates > 0 and len(df) > 0:
+            # Ensure we don't try to create more duplicates than we have customers
+            num_duplicates = min(self.num_duplicates, len(df))
+            duplicates = df.sample(n=num_duplicates, random_state=42).copy()
+            
+            # Modify the customer_id to indicate these are duplicates
+            max_id = df['customer_id'].str[1:].astype(int).max()
+            duplicates['customer_id'] = ['D' + str(max_id + i + 1).zfill(5) for i in range(len(duplicates))]
+            
+            # Append duplicates to the original DataFrame
+            df = pd.concat([df, duplicates], ignore_index=True)
+            print(f"✅ Added {num_duplicates} duplicate customer records for data quality testing")
+        
         return df
 
     def _get_category_pricing(self, category: str) -> Dict[str, float]:
@@ -821,39 +837,26 @@ class EcommerceDataGenerator:
         
         return df
 
-    def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> pd.DataFrame:
         """
-        Generate order data with associated order items.
+        Generate order headers (without order items).
 
         Args:
             customers_df: DataFrame of customers from generate_customers()
             products_df: DataFrame of products from generate_products()
 
         Returns:
-            Tuple of (orders_df, order_items_df) where:
-            - orders_df contains order headers (one row per order)
-            - order_items_df contains individual line items (multiple per order)
+            DataFrame containing order headers (one row per order)
 
         Note:
             - Orders will be generated with realistic patterns over time
-            - Order items will reference valid product_ids
-            - Order totals will be calculated automatically
+            - Order items are generated separately in generate_order_items()
         """
-        print("Generating orders...")
+        print("Generating order headers...")
         
-        # Initialize lists to store orders and order items
+        # Initialize list to store orders
         orders = []
-        order_items = []
         order_id_counter = 1
-        item_id_counter = 1
-        
-        # Filter active products
-        active_products = products_df[products_df['is_active'] == True]
-        if active_products.empty:
-            raise ValueError("No active products available for order generation")
-        
-        # Convert product IDs to list for faster access
-        product_ids = active_products['product_id'].tolist()
         
         # Get monthly stats for order distribution
         monthly_stats = self._load_monthly_stats()
@@ -876,12 +879,6 @@ class EcommerceDataGenerator:
                 if month_key not in monthly_stats:
                     continue  # Skip if no stats for this month
                     
-                month_stats = monthly_stats[month_key]
-                
-                # Generate order items (1-5 items per order)
-                num_items = random.choices([1, 2, 3, 4, 5], weights=[0.1, 0.25, 0.35, 0.2, 0.1])[0]
-                selected_products = random.sample(product_ids, min(num_items, len(product_ids)))
-                
                 # Create order
                 order = {
                     'order_id': f"ORD{order_id_counter:08d}",
@@ -892,76 +889,22 @@ class EcommerceDataGenerator:
                         ['credit_card', 'paypal', 'bank_transfer', 'apple_pay', 'google_pay'],
                         weights=[0.6, 0.15, 0.1, 0.1, 0.05]
                     )[0],
-                    'subtotal': 0.0,
-                    'tax': 0.0,
-                    'shipping': 0.0,
-                    'discount': 0.0,
-                    'total': 0.0,
+                    'subtotal': 0.0,  # Will be updated in generate_order_items
+                    'tax': 0.0,       # Will be updated in generate_order_items
+                    'shipping': 0.0,   # Will be updated in generate_order_items
+                    'discount': 0.0,   # Will be updated in generate_order_items
+                    'total': 0.0,      # Will be updated in generate_order_items
                     'created_at': order_date.strftime('%Y-%m-%d %H:%M:%S'),
-                    'last_updated': order_date.strftime('%Y-%m-%d %H:%M:%S')
+                    'last_updated': order_date.strftime('%Y-%m-%d %H:%M:%S'),
+                    'year_month': order_date.strftime('%Y-%m')  # Added for easier grouping
                 }
-                
-                # Add order items
-                order_subtotal = 0.0
-                for product_id in selected_products:
-                    product = products_df[products_df['product_id'] == product_id].iloc[0]
-                    
-                    # Random quantity (1-3 for most items, 1 for high-value items)
-                    max_qty = 3 if product['price'] < 100 else 1
-                    quantity = random.randint(1, max_qty)
-                    
-                    # Apply random discount (0-30% for some items)
-                    discount_rate = random.choices(
-                        [0.0, 0.1, 0.15, 0.2, 0.25, 0.3],
-                        weights=[0.7, 0.1, 0.05, 0.05, 0.05, 0.05]
-                    )[0]
-                    
-                    # Calculate prices
-                    unit_price = float(product['price'])
-                    discount = unit_price * discount_rate * quantity
-                    total_price = (unit_price * quantity) - discount
-                    
-                    # Add to order items
-                    order_items.append({
-                        'order_item_id': item_id_counter,
-                        'order_id': order['order_id'],
-                        'product_id': product_id,
-                        'quantity': quantity,
-                        'unit_price': unit_price,
-                        'total_price': total_price,
-                        'discount': discount,
-                        'created_at': order['created_at'],
-                        'last_updated': order['last_updated']
-                    })
-                    
-                    order_subtotal += total_price
-                    item_id_counter += 1
-                
-                # Calculate order totals
-                tax_rate = 0.08  # 8% tax rate
-                shipping = 0.0 if order_subtotal > 50 else 4.99  # Free shipping over $50
-                tax = order_subtotal * tax_rate
-                
-                # Apply order-level discount (10% off for some orders)
-                order_discount = 0.0
-                if random.random() < 0.1:  # 10% chance of order discount
-                    order_discount = order_subtotal * 0.1
-                
-                # Update order with calculated values
-                order['subtotal'] = round(order_subtotal, 2)
-                order['tax'] = round(tax, 2)
-                order['shipping'] = round(shipping, 2)
-                order['discount'] = round(order_discount, 2)
-                order['total'] = round(order_subtotal + tax + shipping - order_discount, 2)
                 
                 orders.append(order)
                 order_id_counter += 1
         
-        # Convert to DataFrames
+        # Convert to DataFrame
         orders_df = pd.DataFrame(orders)
-        order_items_df = pd.DataFrame(order_items)
-        
-        return orders_df, order_items_df
+        return orders_df
         
     def _get_customer_order_count(self, join_date: datetime) -> int:
         """
@@ -1002,76 +945,58 @@ class EcommerceDataGenerator:
         
         return join_date + timedelta(days=days_offset, hours=hour, minutes=minute, seconds=second)
 
-    def generate_order_items(self, orders_df: pd.DataFrame, products_df: pd.DataFrame) -> pd.DataFrame:
+    def generate_order_items(self, orders_df: pd.DataFrame, products_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         Generate order items data with associated order and product information.
-
-        This method creates detailed line items for each order, ensuring referential integrity
-        with both orders and products tables.
+        This method also updates the order totals in the orders DataFrame.
 
         Args:
             orders_df: DataFrame of orders from generate_orders()
             products_df: DataFrame of products from generate_products()
 
         Returns:
-            DataFrame with columns: 
-            - order_item_id: Unique identifier for each order item
-            - order_id: Reference to the parent order
-            - product_id: Reference to the ordered product
-            - quantity: Number of units ordered
-            - unit_price: Price per unit at time of order
-            - total_price: Total price (quantity * unit_price - discount)
-            - discount: Discount amount applied to this line item
-            - created_at: Timestamp when the item was created
-            - last_updated: Timestamp of last update (same as created for new items)
+            Tuple of (order_items_df, orders_df) where:
+            - order_items_df: DataFrame with order line items
+            - orders_df: Updated orders DataFrame with calculated totals
         """
         print("Generating order items...")
-        
-        if orders_df.empty:
-            print("⚠️ No orders found. Cannot generate order items.")
-            return pd.DataFrame(columns=[
-                'order_item_id', 'order_id', 'product_id', 'quantity',
-                'unit_price', 'total_price', 'discount', 'created_at', 'last_updated'
-            ])
-        
-        # Convert products to dict for faster lookups
-        products_dict = products_df.set_index('product_id').to_dict('index')
         
         order_items = []
         item_id_counter = 1
         
-        # Process each order to generate its items
-        for _, order in tqdm(orders_df.iterrows(), total=len(orders_df), desc="Generating order items"):
+        # Filter active products
+        active_products = products_df[products_df['is_active'] == True]
+        if active_products.empty:
+            raise ValueError("No active products available for order items")
+        
+        # Convert product IDs to list for faster access
+        product_ids = active_products['product_id'].tolist()
+        
+        # Create a copy of orders_df to avoid modifying the original during iteration
+        orders_updated = orders_df.copy()
+        
+        # Process each order
+        for order_idx, order in tqdm(orders_df.iterrows(), total=len(orders_df), desc="Generating order items"):
             order_id = order['order_id']
-            order_date = pd.to_datetime(order['order_date'])
             
-            # Determine number of items in this order (1-5 items)
-            num_items = random.choices(
-                [1, 2, 3, 4, 5],
-                weights=[0.1, 0.25, 0.35, 0.2, 0.1],
-                k=1
-            )[0]
+            # Generate 1-5 items per order
+            num_items = random.choices([1, 2, 3, 4, 5], weights=[0.1, 0.25, 0.35, 0.2, 0.1])[0]
+            selected_products = random.sample(product_ids, min(num_items, len(product_ids)))
             
-            # Select random products for this order
-            available_products = list(products_dict.keys())
-            selected_products = random.sample(
-                available_products,
-                min(num_items, len(available_products))
-            )
+            order_subtotal = 0.0
             
             # Create order items
             for product_id in selected_products:
-                product = products_dict[product_id]
+                product = products_df[products_df['product_id'] == product_id].iloc[0]
                 
-                # Determine quantity (1-3 for regular items, 1 for expensive items)
+                # Random quantity (1-3 for most items, 1 for high-value items)
                 max_qty = 3 if product['price'] < 100 else 1
                 quantity = random.randint(1, max_qty)
                 
-                # Apply random discount (0-30% with decreasing probability)
+                # Apply random discount (0-30% for some items)
                 discount_rate = random.choices(
                     [0.0, 0.1, 0.15, 0.2, 0.25, 0.3],
-                    weights=[0.7, 0.1, 0.05, 0.05, 0.05, 0.05],
-                    k=1
+                    weights=[0.7, 0.1, 0.05, 0.05, 0.05, 0.05]
                 )[0]
                 
                 # Calculate prices
@@ -1085,28 +1010,52 @@ class EcommerceDataGenerator:
                     'order_id': order_id,
                     'product_id': product_id,
                     'quantity': quantity,
-                    'unit_price': round(unit_price, 2),
-                    'total_price': round(total_price, 2),
-                    'discount': round(discount, 2),
-                    'created_at': order_date.strftime('%Y-%m-%d %H:%M:%S'),
-                    'last_updated': order_date.strftime('%Y-%m-%d %H:%M:%S')
+                    'unit_price': unit_price,
+                    'total_price': total_price,
+                    'discount': discount,
+                    'created_at': order['created_at'],
+                    'last_updated': order['last_updated']
                 })
                 
+                order_subtotal += total_price
                 item_id_counter += 1
+            
+            # Calculate order totals
+            tax_rate = 0.08  # 8% tax rate
+            shipping = 0.0 if order_subtotal > 50 else 4.99  # Free shipping over $50
+            tax = order_subtotal * tax_rate
+            
+            # Apply order-level discount (10% off for some orders)
+            order_discount = 0.0
+            if random.random() < 0.1:  # 10% chance of order discount
+                order_discount = order_subtotal * 0.1
+            
+            # Update the order in the DataFrame
+            orders_updated.loc[orders_updated['order_id'] == order_id, [
+                'subtotal', 'tax', 'shipping', 'discount', 'total'
+            ]] = [
+                round(order_subtotal, 2),
+                round(tax, 2),
+                round(shipping, 2),
+                round(order_discount, 2),
+                round(order_subtotal + tax + shipping - order_discount, 2)
+            ]
         
-        # Create DataFrame with proper column order
-        columns = [
-            'order_item_id', 'order_id', 'product_id', 'quantity',
-            'unit_price', 'total_price', 'discount', 'created_at', 'last_updated'
-        ]
+        # Convert to DataFrames
+        order_items_df = pd.DataFrame(order_items)
+        return order_items_df, orders_updated
+
+    def save_to_csv(self, data_dict):
+        """
+        Save all dataframes to CSV files in the data directory.
         
-        order_items_df = pd.DataFrame(order_items, columns=columns)
-        
-        # Print summary
-        print(f"✅ Generated {len(order_items_df):,} order items for {len(orders_df):,} orders")
-        print(f"📊 Average items per order: {len(order_items_df)/len(orders_df):.2f}")
-        
-        return order_items_df
+        Args:
+            data_dict: Dictionary containing DataFrames to save. Keys are used for filenames.
+        """
+        for name, df in data_dict.items():
+            filepath = self.data_dir / f"{name}.csv"
+            df.to_csv(filepath, index=False)
+            print(f"Saved {len(df):,} rows to {filepath}")
 
     def generate_all_data(self) -> Dict[str, pd.DataFrame]:
         """
@@ -1116,47 +1065,46 @@ class EcommerceDataGenerator:
             Dictionary containing four DataFrames:
             - 'customers': Customer information
             - 'products': Product catalog
-            - 'orders': Order headers
+            - 'orders': Order headers with calculated totals
             - 'order_items': Individual order line items
-
-        Note:
-            Tables will have proper foreign key relationships for Power BI
         """
-        print("Generating customers...")
+        print("Generating complete e-commerce dataset...")
+
+        # Generate customers
+        print("\n=== Generating Customers ===")
         customers_df = self.generate_customers()
 
-        print("Generating products...")
+        # Generate products
+        print("\n=== Generating Products ===")
         products_df = self.generate_products()
 
-        print("Generating orders and order items...")
-        orders_df, order_items_df = self.generate_orders(customers_df, products_df)
+        # Generate orders (headers only)
+        print("\n=== Generating Order Headers ===")
+        orders_df = self.generate_orders(customers_df, products_df)
 
-        print("Generating order items...")
-        order_items_df = self.generate_order_items(orders_df, products_df)
+        # Generate order items and update order totals
+        print("\n=== Generating Order Items ===")
+        order_items_df, orders_updated_df = self.generate_order_items(orders_df, products_df)
+
+        # Ensure all DataFrames have the correct column types
+        customers_df['customer_id'] = customers_df['customer_id'].astype(str)
+        products_df['product_id'] = products_df['product_id'].astype(int)
+        orders_updated_df['order_id'] = orders_updated_df['order_id'].astype(str)
+        orders_updated_df['customer_id'] = orders_updated_df['customer_id'].astype(str)
+        order_items_df['order_item_id'] = order_items_df['order_item_id'].astype(int)
+        order_items_df['order_id'] = order_items_df['order_id'].astype(str)
+        order_items_df['product_id'] = order_items_df['product_id'].astype(int)
+
+        # Add year_month column to orders for easier time-based analysis if not already present
+        if 'year_month' not in orders_updated_df.columns and 'order_date' in orders_updated_df.columns:
+            orders_updated_df['year_month'] = pd.to_datetime(orders_updated_df['order_date']).dt.strftime('%Y-%m')
 
         return {
             'customers': customers_df,
             'products': products_df,
-            'orders': orders_df,
+            'orders': orders_updated_df,
             'order_items': order_items_df
         }
-
-    def save_to_csv(self, data: Dict[str, pd.DataFrame], output_dir: Path = None) -> None:
-        """
-        Save generated data to CSV files.
-
-        Args:
-            data: Dictionary of DataFrames from generate_all_data()
-            output_dir: Directory to save files (defaults to self.data_dir)
-        """
-        output_dir = output_dir or self.data_dir
-        output_dir.mkdir(parents=True, exist_ok=True)
-
-        for name, df in data.items():
-            file_path = output_dir / f"{name}.csv"
-            df.to_csv(file_path, index=False)
-            print(f"Saved {len(df)} {name} to {file_path}")
-
 
 def main():
     """Main function to run the data generation process."""
