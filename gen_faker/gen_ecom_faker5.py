@@ -39,7 +39,8 @@ class EcommerceDataGenerator:
         self.missing_email_rate = missing_email_rate
         self.num_duplicates = num_duplicates
         self.fake = Faker()
-        self.data_dir = Path("C:/python/census_ecommerce/data/synthetic")
+        # Use a path relative to the script location
+        self.data_dir = Path(__file__).parent.parent / "data" / "synthetic"
         self.data_dir.mkdir(parents=True, exist_ok=True)
 
         # Initialize data structures
@@ -60,39 +61,39 @@ class EcommerceDataGenerator:
             'Illinois': 0.045, 'Pennsylvania': 0.040, 'Ohio': 0.035, 'Georgia': 0.033,
             'North Carolina': 0.032, 'Michigan': 0.030
         }
-        
+
         # Next 10 states (25% of sales)
         mid_states = {
             'New Jersey': 0.028, 'Virginia': 0.027, 'Washington': 0.026, 'Arizona': 0.025,
             'Massachusetts': 0.024, 'Indiana': 0.023, 'Tennessee': 0.022, 'Missouri': 0.021,
             'Maryland': 0.020, 'Wisconsin': 0.019
         }
-        
+
         # Remaining states (20% of sales)
         other_states = [
-            'Alabama', 'Alaska', 'Arkansas', 'Colorado', 'Connecticut', 'Delaware', 
-            'Hawaii', 'Idaho', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 
-            'Minnesota', 'Mississippi', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 
-            'New Mexico', 'North Dakota', 'Oklahoma', 'Oregon', 'Rhode Island', 
+            'Alabama', 'Alaska', 'Arkansas', 'Colorado', 'Connecticut', 'Delaware',
+            'Hawaii', 'Idaho', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
+            'Minnesota', 'Mississippi', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+            'New Mexico', 'North Dakota', 'Oklahoma', 'Oregon', 'Rhode Island',
             'South Carolina', 'South Dakota', 'Utah', 'Vermont', 'West Virginia', 'Wyoming'
         ]
-        
+
         # Calculate weight for each remaining state (20% / 30 states)
         other_weight = 0.20 / len(other_states)
         other_states_dict = {state: other_weight for state in other_states}
-        
+
         # Combine all states - POPRAWIONE: używamy update zamiast **
         all_states = {}
-        all_states.update(top_states)      # 55%
-        all_states.update(mid_states)      # 25% 
-        all_states.update(other_states_dict) # 20%
-        
+        all_states.update(top_states)  # 55%
+        all_states.update(mid_states)  # 25%
+        all_states.update(other_states_dict)  # 20%
+
         # Verify the sum is exactly 1.0
         total_weight = sum(all_states.values())
         if abs(total_weight - 1.0) > 0.001:
             # Normalize if needed
-            all_states = {k: v/total_weight for k, v in all_states.items()}
-            
+            all_states = {k: v / total_weight for k, v in all_states.items()}
+
         return all_states
 
     def _load_shopify_data(self) -> pd.DataFrame:
@@ -518,32 +519,32 @@ class EcommerceDataGenerator:
     def _generate_phone_number(self) -> str:
         # Generate area code and exchange (NPA-NXX)
         area_code = f"{random.randint(200, 999):03d}"  # 200-999
-        exchange = f"{random.randint(200, 999):03d}"   # 200-999
-        line = f"{random.randint(1000, 9999):04d}"      # 1000-9999
-        
+        exchange = f"{random.randint(200, 999):03d}"  # 200-999
+        line = f"{random.randint(1000, 9999):04d}"  # 1000-9999
+
         # Randomly choose a format
         format_choice = random.choices([1, 2, 3], weights=[0.4, 0.4, 0.2], k=1)[0]
-        
+
         if format_choice == 1:
             return f"({area_code}) {exchange}-{line}"
         elif format_choice == 2:
             return f"{area_code}-{exchange}-{line}"
         else:
             return f"{area_code}{exchange}{line}"
-            
+
     def _generate_zip_code(self, state: str) -> str:
         """
         Generate a realistic ZIP code for the given US state.
-        
+
         Args:
             state: US state name
-            
+
         Returns:
             str: 5-digit ZIP code as a string
         """
         # First digit ranges by region (1-9)
         zip_ranges = {
-            'ME': '039-049', 'NH': '030-039', 'VT': '050-059', 'MA': '010-027', 'RI': '028-029', 
+            'ME': '039-049', 'NH': '030-039', 'VT': '050-059', 'MA': '010-027', 'RI': '028-029',
             'CT': '060-069', 'NY': '100-149', 'NJ': '070-089', 'PA': '150-196', 'DE': '197-199',
             'MD': '206-219', 'VA': '220-246', 'WV': '247-269', 'NC': '270-289', 'SC': '290-299',
             'GA': '300-319', 'FL': '320-349', 'OH': '430-459', 'IN': '460-479', 'IL': '600-629',
@@ -554,7 +555,7 @@ class EcommerceDataGenerator:
             'NM': '870-884', 'AZ': '850-865', 'UT': '840-847', 'NV': '889-898', 'ID': '832-838',
             'WA': '980-994', 'OR': '970-979', 'CA': '900-961', 'AK': '995-999', 'HI': '967-968'
         }
-        
+
         # Get state abbreviation
         state_abbr = {
             'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA',
@@ -569,16 +570,16 @@ class EcommerceDataGenerator:
             'Texas': 'TX', 'Utah': 'UT', 'Vermont': 'VT', 'Virginia': 'VA', 'Washington': 'WA',
             'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY'
         }
-        
+
         state_abbr = state_abbr.get(state, 'NY')  # Default to NY if state not found
-        
+
         # Get ZIP code range for the state
         zip_range = zip_ranges.get(state_abbr, '100-999')  # Default to NY range
         start, end = map(int, zip_range.split('-'))
-        
+
         # Generate a random ZIP code in the range
         zip_code = random.randint(start, end)
-        
+
         # Format with leading zeros if needed
         return f"{zip_code:05d}"
 
@@ -598,45 +599,45 @@ class EcommerceDataGenerator:
     def generate_customers(self) -> pd.DataFrame:
         """POPRAWIONE: Uwzględnia tylko klientów z zamówieniami"""
         print("Generating customers...")
-        
+
         customers = []
         states = list(self.state_distribution.keys())
         state_weights = list(self.state_distribution.values())
-        
+
         # Generate only customers who will place orders
         # Since we want 15,000 customers WITH orders, we need to generate more initially
         # to account for the 20% that never order
         total_to_generate = int(self.target_customers / 0.8)  # Generate 20% more
-        
+
         for i in range(total_to_generate):
             first_name = self.fake.first_name()
             last_name = self.fake.last_name()
             full_name = f"{first_name} {last_name}"
-            
+
             email = None if random.random() < self.missing_email_rate else self._generate_email_from_name(full_name)
-            
+
             # Generate join date (2018-2024)
             join_year = random.randint(2018, 2024)
             join_date = self.fake.date_time_between_dates(
                 datetime_start=datetime(join_year, 1, 1),
                 datetime_end=datetime(join_year, 12, 31, 23, 59, 59)
             )
-            
+
             # Get first order date - POPRAWIONE logika
             first_order_date = self._get_first_order_date(join_date)
-            
+
             # Only include customers who placed orders
             if first_order_date is None:
                 continue  # Skip customers who never order
-                
+
             state = random.choices(states, weights=state_weights, k=1)[0]
-            
+
             # Calculate loyalty score based on order history
             years_since_join = 2024 - join_date.year
             base_loyalty = min(0.9, years_since_join * 0.15)
             loyalty_score = round(np.random.normal(base_loyalty, 0.1), 2)
             loyalty_score = max(0, min(1, loyalty_score))
-            
+
             # Generate last purchase date (after first order)
             end_date = min(datetime.now(), datetime(2024, 12, 31, 23, 59, 59))
             # Ensure first_order_date is not after end_date
@@ -647,12 +648,12 @@ class EcommerceDataGenerator:
                     datetime_start=first_order_date,
                     datetime_end=end_date
                 )
-            
+
             # Generate address components
             street_address = self.fake.street_address()
             city = self.fake.city()
             zip_code = self._generate_zip_code(state)
-            
+
             customers.append({
                 'customer_id': f"C{100000 + i}",
                 'first_name': first_name,
@@ -669,65 +670,64 @@ class EcommerceDataGenerator:
                 'email_optin': random.random() > 0.3,
                 'last_purchase_date': last_purchase_date
             })
-            
+
             # Stop when we have enough customers with orders
             if len(customers) >= self.target_customers:
                 break
-        
+
         df = pd.DataFrame(customers)
         df['join_date'] = pd.to_datetime(df['join_date'])
         df['first_order_date'] = pd.to_datetime(df['first_order_date'])
         df['last_purchase_date'] = pd.to_datetime(df['last_purchase_date'])
-        
+
         # Analysis
         total_generated = len(df)
         immediate_orders = (df['first_order_date'] == df['join_date']).sum()
         later_orders = total_generated - immediate_orders
-        
+
         print(f"✅ Generated {total_generated} customers WITH orders")
-        print(f"📊 {immediate_orders} ({immediate_orders/total_generated*100:.1f}%) ordered immediately")
-        print(f"📊 {later_orders} ({later_orders/total_generated*100:.1f}%) ordered later")
-        
+        print(f"📊 {immediate_orders} ({immediate_orders / total_generated * 100:.1f}%) ordered immediately")
+        print(f"📊 {later_orders} ({later_orders / total_generated * 100:.1f}%) ordered later")
+
         # Add duplicate customers for data quality testing
         if self.num_duplicates > 0 and len(df) > 0:
             # Ensure we don't try to create more duplicates than we have customers
             num_duplicates = min(self.num_duplicates, len(df))
             duplicates = df.sample(n=num_duplicates, random_state=42).copy()
-            
+
             # Modify the customer_id to indicate these are duplicates
             max_id = df['customer_id'].str[1:].astype(int).max()
             duplicates['customer_id'] = ['D' + str(max_id + i + 1).zfill(5) for i in range(len(duplicates))]
-            
+
             # Append duplicates to the original DataFrame
             df = pd.concat([df, duplicates], ignore_index=True)
             print(f"✅ Added {num_duplicates} duplicate customer records for data quality testing")
-        
+
         return df
 
     def _get_category_pricing(self, category: str) -> Dict[str, float]:
         """
         Get pricing parameters for a product category based on Shopify data.
         Uses exact category names as they appear in the Shopify data.
-        
+
         Args:
             category: Product category from Shopify data (case-sensitive)
-            
+
         Returns:
             Dictionary with min_price, max_price, and cost_multiplier
         """
         # Exact category pricing from Shopify data
         pricing = {
-            # Main categories
-            'Electronics': {'min': 49.99, 'max': 2499.99, 'cost_multiplier': 0.6},
-            'Fashion': {'min': 14.99, 'max': 299.99, 'cost_multiplier': 0.5},
-            'Apparel': {'min': 9.99, 'max': 199.99, 'cost_multiplier': 0.45},  # More specific than Fashion
-            'Health': {'min': 4.99, 'max': 199.99, 'cost_multiplier': 0.4},
-            'Home': {'min': 19.99, 'max': 999.99, 'cost_multiplier': 0.55},
-            'Sports': {'min': 24.99, 'max': 499.99, 'cost_multiplier': 0.65},
-            'Home furnishings': {'min': 29.99, 'max': 1499.99, 'cost_multiplier': 0.5},
-            'Luxury goods': {'min': 99.99, 'max': 9999.99, 'cost_multiplier': 0.7}
+            'Electronics': {'min': 24.99, 'max': 149.99, 'cost_multiplier': 0.6},
+            'Fashion': {'min': 12.99, 'max': 89.99, 'cost_multiplier': 0.5},
+            'Apparel': {'min': 8.99, 'max': 69.99, 'cost_multiplier': 0.45},
+            'Health': {'min': 5.99, 'max': 59.99, 'cost_multiplier': 0.4},
+            'Home': {'min': 14.99, 'max': 99.99, 'cost_multiplier': 0.55},
+            'Sports': {'min': 16.99, 'max': 129.99, 'cost_multiplier': 0.6},
+            'Home furnishings': {'min': 19.99, 'max': 149.99, 'cost_multiplier': 0.5},
+            'Luxury goods': {'min': 39.99, 'max': 199.99, 'cost_multiplier': 0.65}
         }
-        
+
         # Return exact match or default pricing
         return pricing.get(category, {'min': 9.99, 'max': 99.99, 'cost_multiplier': 0.5})
 
@@ -741,12 +741,12 @@ class EcommerceDataGenerator:
     def generate_products(self, num_products: int = 200) -> pd.DataFrame:
         """
         Generate product catalog with realistic attributes and pricing.
-        
+
         Args:
             num_products: Number of products to generate (default: 200)
-            
+
         Returns:
-            DataFrame with columns: 
+            DataFrame with columns:
             - product_id: Unique product identifier
             - sku: Stock Keeping Unit
             - name: Product name
@@ -762,28 +762,28 @@ class EcommerceDataGenerator:
         """
         print("Generating products...")
         products = []
-        
+
         # Get all available categories
         all_categories = list(self.categories)
-        
+
         # Generate products
         for i in tqdm(range(num_products), desc="Products"):
             # Select category with equal probability
             category = random.choice(all_categories)
-            
+
             # Get pricing for this category
             pricing = self._get_category_pricing(category)
-            
+
             # Generate realistic price within category range
             price = round(random.uniform(pricing['min'], pricing['max']), 2)
-            
+
             # Calculate cost (40-70% of price, with some randomness)
             cost_multiplier = pricing['cost_multiplier'] * random.uniform(0.8, 1.2)
             cost = round(price * cost_multiplier, 2)
-            
+
             # Generate product name based on category
             name = f"{self.fake.word().capitalize()} {category.split()[0].lower()} {self.fake.word()}"
-            
+
             # Generate description
             description = (
                 f"High-quality {category.lower()} designed for {self.fake.word()} and {self.fake.word()}. "
@@ -791,21 +791,21 @@ class EcommerceDataGenerator:
                 f"{random.choice(['Premium', 'Durable', 'Eco-friendly', 'Innovative', 'Stylish'])} "
                 f"design with {self.fake.color_name()} finish."
             )
-            
+
             # Generate subcategory (simplified for now)
             subcategory = f"{category} {self.fake.word().capitalize()}"
-            
+
             # Generate stock quantity (more for cheaper items)
             base_quantity = int(1000 / (price ** 0.5))
             stock_quantity = max(10, int(random.normalvariate(base_quantity, base_quantity * 0.3)))
-            
+
             # 90% chance of being active
             is_active = random.random() < 0.9
-            
+
             # Generate timestamps
             created_at = self.fake.date_time_between(start_date='-3y', end_date='now')
             last_updated = self.fake.date_time_between(start_date=created_at, end_date='now')
-            
+
             products.append({
                 'product_id': i + 1000,  # Start from 1000
                 'sku': self._generate_sku(category, i + 1),
@@ -820,21 +820,22 @@ class EcommerceDataGenerator:
                 'created_at': created_at,
                 'last_updated': last_updated
             })
-        
+
         # Create DataFrame
         df = pd.DataFrame(products)
-        
+
         # Add some products with discounts (sale items)
         discount_mask = np.random.random(len(df)) < 0.2  # 20% of products on sale
         df.loc[discount_mask, 'original_price'] = df.loc[discount_mask, 'price']
-        df.loc[discount_mask, 'price'] = df.loc[discount_mask, 'price'] * np.random.uniform(0.6, 0.9, size=discount_mask.sum())
+        df.loc[discount_mask, 'price'] = df.loc[discount_mask, 'price'] * np.random.uniform(0.6, 0.9,
+                                                                                            size=discount_mask.sum())
         df['price'] = df['price'].round(2)
-        
+
         print(f"✅ Generated {len(df)} products across {df['category'].nunique()} categories")
         print("📊 Category distribution:")
         print(df['category'].value_counts().to_string())
         print(f"💰 Price range: ${df['price'].min():.2f} - ${df['price'].max():.2f}")
-        
+
         return df
 
     def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> pd.DataFrame:
@@ -853,32 +854,32 @@ class EcommerceDataGenerator:
             - Order items are generated separately in generate_order_items()
         """
         print("Generating order headers...")
-        
+
         # Initialize list to store orders
         orders = []
         order_id_counter = 1
-        
+
         # Get monthly stats for order distribution
         monthly_stats = self._load_monthly_stats()
-        
+
         # Generate orders for each customer
         for _, customer in tqdm(customers_df.iterrows(), total=len(customers_df), desc="Generating customer orders"):
             customer_id = customer['customer_id']
             join_date = pd.to_datetime(customer['join_date'])
-            
+
             # Determine customer order pattern (single or multiple orders)
             order_count = self._get_customer_order_count(join_date)
-            
+
             # Generate orders for this customer
             for _ in range(order_count):
                 # Determine order date (after join date, before today)
                 order_date = self._generate_order_date(join_date)
-                
+
                 # Get monthly stats for this order date
                 month_key = (order_date.year, order_date.month)
                 if month_key not in monthly_stats:
                     continue  # Skip if no stats for this month
-                    
+
                 # Create order
                 order = {
                     'order_id': f"ORD{order_id_counter:08d}",
@@ -890,22 +891,19 @@ class EcommerceDataGenerator:
                         weights=[0.6, 0.15, 0.1, 0.1, 0.05]
                     )[0],
                     'subtotal': 0.0,  # Will be updated in generate_order_items
-                    'tax': 0.0,       # Will be updated in generate_order_items
-                    'shipping': 0.0,   # Will be updated in generate_order_items
-                    'discount': 0.0,   # Will be updated in generate_order_items
-                    'total': 0.0,      # Will be updated in generate_order_items
-                    'created_at': order_date.strftime('%Y-%m-%d %H:%M:%S'),
-                    'last_updated': order_date.strftime('%Y-%m-%d %H:%M:%S'),
-                    'year_month': order_date.strftime('%Y-%m')  # Added for easier grouping
+                    'tax': 0.0,  # Will be updated in generate_order_items
+                    'shipping': 0.0,  # Will be updated in generate_order_items
+                    'discount': 0.0,  # Will be updated in generate_order_items
+                    'total': 0.0,  # Will be updated in generate_order_items
                 }
-                
+
                 orders.append(order)
                 order_id_counter += 1
-        
+
         # Convert to DataFrame
         orders_df = pd.DataFrame(orders)
         return orders_df
-        
+
     def _get_customer_order_count(self, join_date: datetime) -> int:
         """
         Determine how many orders a customer makes based on join date.
@@ -913,7 +911,7 @@ class EcommerceDataGenerator:
         """
         days_since_join = (datetime.now() - join_date).days
         months_since_join = max(1, days_since_join // 30)  # At least 1 month
-        
+
         # Base order count based on how long the customer has been with us
         if months_since_join < 3:
             return random.choices([0, 1, 2], weights=[0.3, 0.5, 0.2])[0]
@@ -921,7 +919,7 @@ class EcommerceDataGenerator:
             return random.choices([1, 2, 3, 4], weights=[0.2, 0.4, 0.3, 0.1])[0]
         else:
             return random.choices([2, 3, 4, 5, 6], weights=[0.1, 0.2, 0.4, 0.2, 0.1])[0]
-    
+
     def _generate_order_date(self, join_date: datetime) -> datetime:
         """
         Generate a random order date after the customer's join date.
@@ -930,11 +928,11 @@ class EcommerceDataGenerator:
         days_since_join = (datetime.now() - join_date).days
         if days_since_join <= 0:
             return join_date
-            
+
         # Use exponential distribution to favor dates closer to join date
         days_offset = int(random.expovariate(1.0 / (days_since_join / 3)))
         days_offset = min(days_offset, days_since_join)
-        
+
         # Add some randomness to the time of day
         hour = random.choices(
             range(24),
@@ -942,10 +940,11 @@ class EcommerceDataGenerator:
         )[0]
         minute = random.randint(0, 59)
         second = random.randint(0, 59)
-        
+
         return join_date + timedelta(days=days_offset, hours=hour, minutes=minute, seconds=second)
 
-    def generate_order_items(self, orders_df: pd.DataFrame, products_df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    def generate_order_items(self, orders_df: pd.DataFrame, products_df: pd.DataFrame) -> Tuple[
+        pd.DataFrame, pd.DataFrame]:
         """
         Generate order items data with associated order and product information.
         This method also updates the order totals in the orders DataFrame.
@@ -960,50 +959,50 @@ class EcommerceDataGenerator:
             - orders_df: Updated orders DataFrame with calculated totals
         """
         print("Generating order items...")
-        
+
         order_items = []
         item_id_counter = 1
-        
+
         # Filter active products
         active_products = products_df[products_df['is_active'] == True]
         if active_products.empty:
             raise ValueError("No active products available for order items")
-        
+
         # Convert product IDs to list for faster access
         product_ids = active_products['product_id'].tolist()
-        
+
         # Create a copy of orders_df to avoid modifying the original during iteration
         orders_updated = orders_df.copy()
-        
+
         # Process each order
         for order_idx, order in tqdm(orders_df.iterrows(), total=len(orders_df), desc="Generating order items"):
             order_id = order['order_id']
-            
+
             # Generate 1-5 items per order
             num_items = random.choices([1, 2, 3, 4, 5], weights=[0.1, 0.25, 0.35, 0.2, 0.1])[0]
             selected_products = random.sample(product_ids, min(num_items, len(product_ids)))
-            
+
             order_subtotal = 0.0
-            
+
             # Create order items
             for product_id in selected_products:
                 product = products_df[products_df['product_id'] == product_id].iloc[0]
-                
+
                 # Random quantity (1-3 for most items, 1 for high-value items)
                 max_qty = 3 if product['price'] < 100 else 1
                 quantity = random.randint(1, max_qty)
-                
+
                 # Apply random discount (0-30% for some items)
                 discount_rate = random.choices(
                     [0.0, 0.1, 0.15, 0.2, 0.25, 0.3],
                     weights=[0.7, 0.1, 0.05, 0.05, 0.05, 0.05]
                 )[0]
-                
+
                 # Calculate prices
                 unit_price = float(product['price'])
                 discount = unit_price * discount_rate * quantity
                 total_price = (unit_price * quantity) - discount
-                
+
                 # Add to order items
                 order_items.append({
                     'order_item_id': item_id_counter,
@@ -1012,24 +1011,22 @@ class EcommerceDataGenerator:
                     'quantity': quantity,
                     'unit_price': unit_price,
                     'total_price': total_price,
-                    'discount': discount,
-                    'created_at': order['created_at'],
-                    'last_updated': order['last_updated']
+                    'discount': discount
                 })
-                
+
                 order_subtotal += total_price
                 item_id_counter += 1
-            
+
             # Calculate order totals
             tax_rate = 0.08  # 8% tax rate
             shipping = 0.0 if order_subtotal > 50 else 4.99  # Free shipping over $50
             tax = order_subtotal * tax_rate
-            
+
             # Apply order-level discount (10% off for some orders)
             order_discount = 0.0
             if random.random() < 0.1:  # 10% chance of order discount
                 order_discount = order_subtotal * 0.1
-            
+
             # Update the order in the DataFrame
             orders_updated.loc[orders_updated['order_id'] == order_id, [
                 'subtotal', 'tax', 'shipping', 'discount', 'total'
@@ -1040,7 +1037,7 @@ class EcommerceDataGenerator:
                 round(order_discount, 2),
                 round(order_subtotal + tax + shipping - order_discount, 2)
             ]
-        
+
         # Convert to DataFrames
         order_items_df = pd.DataFrame(order_items)
         return order_items_df, orders_updated
@@ -1048,7 +1045,7 @@ class EcommerceDataGenerator:
     def save_to_csv(self, data_dict):
         """
         Save all dataframes to CSV files in the data directory.
-        
+
         Args:
             data_dict: Dictionary containing DataFrames to save. Keys are used for filenames.
         """
@@ -1095,9 +1092,7 @@ class EcommerceDataGenerator:
         order_items_df['order_id'] = order_items_df['order_id'].astype(str)
         order_items_df['product_id'] = order_items_df['product_id'].astype(int)
 
-        # Add year_month column to orders for easier time-based analysis if not already present
-        if 'year_month' not in orders_updated_df.columns and 'order_date' in orders_updated_df.columns:
-            orders_updated_df['year_month'] = pd.to_datetime(orders_updated_df['order_date']).dt.strftime('%Y-%m')
+        # year_month column removed as it's redundant with order_date
 
         return {
             'customers': customers_df,
@@ -1105,6 +1100,7 @@ class EcommerceDataGenerator:
             'orders': orders_updated_df,
             'order_items': order_items_df
         }
+
 
 def main():
     """Main function to run the data generation process."""

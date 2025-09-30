@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43167f0c-ce05-42fb-bcad-777c08ba6b6d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/census_ecommerce.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/census_ecommerce.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/customers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/customers.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/order_items.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/order_items.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/orders.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/orders.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/synthetic/products.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/synthetic/products.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen_faker/gen_ecom_faker5.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen_faker/gen_ecom_faker5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/powerbi/reports/ecommerce.pbix" beforeDir="false" afterPath="$PROJECT_DIR$/powerbi/reports/ecommerce.pbix" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +260,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-4c141bd692a7-e2d783800521-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.26927.90" />
+        <option value="bundled-python-sdk-41e8cd69c857-64d779b69b7a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26927.90" />
       </set>
     </attachedChunks>
   </component>
