@@ -1,48 +1,44 @@
+from pathlib import Path
 import pandas as pd
-from gen_ecom_faker5 import EcommerceDataGenerator
 
-def test_apply_revenue_scaling():
-    # Inicjalizacja generatora
-    generator = EcommerceDataGenerator(target_revenue=2_300_000)
-    
-    # Pobranie oryginalnych danych
-    shopify_data = generator._load_shopify_data()
-    
-    # Utworzenie kopii danych do skalowania
-    data_to_scale = shopify_data[['date', 'total_sales_usd']].copy()
-    
-    # Skalowanie danych
-    scaled_data = generator._apply_revenue_scaling(data_to_scale.copy())
-    
-    # Dodanie kolumny z rokiem
-    shopify_data['year'] = pd.to_datetime(shopify_data['date']).dt.year
-    scaled_data['year'] = pd.to_datetime(scaled_data['date']).dt.year
-    
-    # Grupowanie roczne
-    yearly_shopify = shopify_data.groupby('year')['total_sales_usd'].sum().reset_index()
-    yearly_scaled = scaled_data.groupby('year')['total_sales_usd'].sum().reset_index()
-    
-    # Połączenie danych w jedną tabelę
-    comparison = pd.merge(
-        yearly_shopify, 
-        yearly_scaled, 
-        on='year', 
-        suffixes=('_shopify', '_scaled')
-    )
-    
-    # Obliczenie różnicy
-    comparison['difference'] = comparison['total_sales_usd_scaled'] - comparison['total_sales_usd_shopify']
-    
-    # Formatowanie wyjścia
-    pd.options.display.float_format = '{:,.2f}'.format
-    print("\n=== PORÓWNANIE ROCZNE ===")
-    print("Rok | Shopify | Po skalowaniu | Różnica")
-    print("-" * 45)
-    
-    for _, row in comparison.iterrows():
-        print(f"{int(row['year'])} | {row['total_sales_usd_shopify']:,.2f} | {row['total_sales_usd_scaled']:,.2f} | {row['difference']:,.2f}")
-    
-    return comparison
+data_dir = Path("C:/Users/User/PycharmProjects/census_ecommerce/data/synthetic")
+orders = pd.read_csv(data_dir / "orders.csv")
+order_items = pd.read_csv(data_dir / "order_items.csv")
 
-if __name__ == "__main__":
-    test_apply_revenue_scaling()
+# Convert dates and extract year
+orders['order_date'] = pd.to_datetime(orders['order_date'])
+orders['year'] = orders['order_date'].dt.year
+
+# Calculate current 2023 revenue
+current_2023_revenue = (
+    orders.merge(order_items, on='order_id')
+    .query('year == 2023')['total_price']
+    .sum()
+)
+
+# Calculate scale factor to reach $2.3M target for 2023
+target_2023_revenue = 2_300_000
+scale_factor = target_2023_revenue / current_2023_revenue
+
+print(f"Current 2023 revenue: ${current_2023_revenue:,.2f}")
+print(f"Target 2023 revenue: ${target_2023_revenue:,.2f}")
+print(f"Calculated scale factor: {scale_factor:.6f}\n")
+
+# Apply scaling to order items
+order_items['total_price'] = order_items['total_price'] * scale_factor
+
+# Calculate and display annual revenue
+revenue = (orders.merge(order_items, on='order_id')
+                 .groupby('year')['total_price']
+                 .sum()
+                 .reset_index()
+                 .rename(columns={'total_price': 'Revenue (USD)'}))
+
+# Format and display results
+pd.set_option('display.float_format', '{:,.2f}'.format)
+print("Annual Revenue After Scaling:")
+print(revenue)
+
+# Optionally save the scaled data
+# order_items.to_csv(data_dir / "order_items_scaled.csv", index=False)
+# print(f"\nSaved scaled order items to {data_dir / 'order_items_scaled.csv'}")
