@@ -295,8 +295,8 @@ class EcommerceDataGenerator:
         second_period_start = pd.to_datetime('2023-04-01')
 
         # Scale factors
-        first_scale = 3438.0  # For Jan 2018 - Jun 2022
-        second_scale = 3860.0  # For Apr 2023 - Sep 2024
+        first_scale = 3570.0  # For Jan 2018 - Jun 2022
+        second_scale = 4300.0  # For Apr 2023 - Sep 2024
 
         # Apply first scale factor to initial period (Jan 2018 - Jun 2022)
         mask_first = df['date'] <= first_period_end
