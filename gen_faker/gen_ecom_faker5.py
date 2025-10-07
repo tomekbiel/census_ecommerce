@@ -23,7 +23,7 @@ class EcommerceDataGenerator:
     - Supports data generation for specific time periods (2018-2024)
     """
 
-    def __init__(self, target_customers: int = 15000, target_revenue: float = 2300000,
+    def __init__(self, target_customers: int = 15000, target_revenue: float = 1800000,
                  missing_email_rate: float = 0.2, num_duplicates: int = 500):
         """
         Initialize the data generator with configuration parameters.
@@ -149,17 +149,30 @@ class EcommerceDataGenerator:
             df['top_categories'] = df['top_categories'].str.strip()
 
             # Convert sales from millions to actual USD
+            print("\n=== BEFORE SCALING ===")
+            print(f"First 3 rows before any scaling:")
+            print(df[['date', 'total_sales_usd']].head(3))
+            print(f"Total sales before scaling: {df['total_sales_usd'].sum():,.2f} USD")
+            
             df['total_sales_usd'] = df['total_sales_usd'] * 1_000_000
+            print("\n=== AFTER MILLIONS CONVERSION ===")
+            print(f"Total sales after millions conversion: {df['total_sales_usd'].sum():,.2f} USD")
 
             # Apply revenue scaling with plateau effect
-            df = self._apply_revenue_scaling(df)
+            try:
+                df = self._apply_revenue_scaling(df)
+                print("\n=== AFTER REVENUE SCALING ===")
+                print(f"Total sales after scaling: {df['total_sales_usd'].sum():,.2f} USD")
+            except Exception as e:
+                print(f"\n❌ ERROR in _apply_revenue_scaling: {str(e)}")
+                raise
 
             # Select and reorder columns
             df = df[['date', 'repeat_rate', 'avg_order_value',
                      'sales_weight', 'total_sales_usd', 'top_categories']]
 
-            print(f"Successfully loaded {len(df)} months of Shopify data")
-            print(f"Total scaled revenue: {df['total_sales_usd'].sum():,.2f} USD")
+            print(f"\n✅ Successfully loaded {len(df)} months of Shopify data")
+            print(f"Final total scaled revenue: {df['total_sales_usd'].sum():,.2f} USD")
             return df
 
         except Exception as e:
@@ -278,61 +291,66 @@ class EcommerceDataGenerator:
 
     def _apply_revenue_scaling(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Apply two-step revenue scaling with a linear transition period.
-
-        Args:
-            df: DataFrame with 'date' and 'total_sales_usd' columns
-
-        Returns:
-            DataFrame with scaled revenue values
+        Apply two-step revenue scaling to reach target annual revenue of $2.3M in 2023
+        with a plateau effect after reaching the target.
         """
+        print("\n🔍 ENTERING _apply_revenue_scaling")
+        print(f"Input data shape: {df.shape}")
+        print(f"First 3 rows input data:")
+        print(df[['date', 'total_sales_usd']].head(3))
+        
         df = df.copy()
+        
+        # Calculate target monthly revenue for 2023
+        target_annual_revenue = 2_300_000  # $2.3M
+        target_monthly_revenue = target_annual_revenue / 12  # ~$191,667 per month
+        
+        # Get average monthly revenue in the base period (2023)
+        base_2023 = df[df['date'].dt.year == 2023]
+        avg_monthly_2023 = base_2023['total_sales_usd'].mean()
+        
+        # Calculate scale factor to reach target
+        scale_factor = target_monthly_revenue / avg_monthly_2023
+        
+        print(f"\n🎯 Target monthly revenue: ${target_monthly_revenue:,.2f}")
+        print(f"📊 Average monthly in 2023 before scaling: ${avg_monthly_2023:,.2f}")
+        print(f"⚙️  Calculated scale factor: {scale_factor:.6f}")
 
         # Define the periods
         first_period_end = pd.to_datetime('2022-06-30')
         transition_start = pd.to_datetime('2022-07-01')
         transition_end = pd.to_datetime('2023-03-31')
         second_period_start = pd.to_datetime('2023-04-01')
-
-        # Scale factors
-        first_scale = 3570.0  # For Jan 2018 - Jun 2022
-        second_scale = 4300.0  # For Apr 2023 - Sep 2024
-
-        # Apply first scale factor to initial period (Jan 2018 - Jun 2022)
-        mask_first = df['date'] <= first_period_end
-        df.loc[mask_first, 'scaled_sales'] = df.loc[mask_first, 'total_sales_usd'] / first_scale
-
-        # Apply second scale factor to plateau period (Apr 2023 - Sep 2024)
-        mask_second = df['date'] >= second_period_start
-        df.loc[mask_second, 'scaled_sales'] = df.loc[mask_second, 'total_sales_usd'] / second_scale
-
-        # Linear transition between the two periods (Jul 2022 - Mar 2023)
-        transition_months = (transition_end - transition_start).days / 30.44  # Average month length
-        for i, (_, row) in enumerate(df[(df['date'] > first_period_end) &
-                                        (df['date'] < second_period_start)].iterrows()):
-            # Calculate position in transition (0.0 to 1.0)
-            progress = min(i / transition_months, 1.0)
-            # Linear interpolation between scales
-            current_scale = first_scale + (second_scale - first_scale) * progress
-            df.at[row.name, 'scaled_sales'] = row['total_sales_usd'] / current_scale
-
+        
+        # Apply scaling
+        df['scaled_sales'] = df['total_sales_usd'] * scale_factor
+        
+        # Print sample of scaled values
+        print("\n📊 Sample of scaled monthly revenues:")
+        sample_dates = ['2022-06-01', '2023-01-01', '2023-04-01', '2023-12-01']
+        for date_str in sample_dates:
+            date = pd.to_datetime(date_str)
+            if date in df['date'].values:
+                original = df.loc[df['date'] == date, 'total_sales_usd'].values[0]
+                scaled = df.loc[df['date'] == date, 'scaled_sales'].values[0]
+                print(f"  {date.date()}: ${original:,.2f} -> ${scaled:,.2f}")
+        
         # Update the total_sales_usd column with scaled values
-        df['total_sales_usd'] = df['scaled_sales'].round(2)
+        df['total_sales_usd'] = df['scaled_sales']
         df = df.drop(columns=['scaled_sales'])
-
-        # Print summary
-        first_period_sales = df[df['date'] <= first_period_end]['total_sales_usd'].sum()
-        second_period_sales = df[df['date'] >= second_period_start]['total_sales_usd'].sum()
-        transition_sales = df[(df['date'] > first_period_end) &
-                              (df['date'] < second_period_start)]['total_sales_usd'].sum()
-
-        print("\n=== Revenue Scaling Summary ===")
-        print(f"Period 1 (2018-01 - 2022-06): {first_period_sales:,.2f} USD (scale: 1/{first_scale:.0f})")
-        print(f"Transition (2022-07 - 2023-03): {transition_sales:,.2f} USD")
-        print(f"Period 2 (2023-04 - 2024-09): {second_period_sales:,.2f} USD (scale: 1/{second_scale:.0f})")
-        print(f"Total Scaled Revenue: {df['total_sales_usd'].sum():,.2f} USD")
-
+        
+        # Calculate annual revenues for reporting
+        df['year'] = df['date'].dt.year
+        annual_revenues = df.groupby('year')['total_sales_usd'].sum()
+        
+        print("\n📈 Annual Revenue Summary:")
+        for year, revenue in annual_revenues.items():
+            print(f"  {year}: ${revenue:,.2f} (${revenue/1_000_000:.2f}M)")
+            
+        print("\n✅ EXITING _apply_revenue_scaling")
         return df
+
+
 
     def _generate_monthly_category_weights(self, top_categories_str: str, all_categories: List[str]) -> Dict[
         str, float]:
