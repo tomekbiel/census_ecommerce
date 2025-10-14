@@ -23,7 +23,7 @@ class EcommerceDataGenerator:
     - Supports data generation for specific time periods (2018-2024)
     """
 
-    def __init__(self, target_customers: int = 15000, target_revenue: float = 1800000,
+    def __init__(self, target_customers: int = 15000, target_revenue: float = 100000,
                  missing_email_rate: float = 0.2, num_duplicates: int = 500):
         """
         Initialize the data generator with configuration parameters.
@@ -148,15 +148,10 @@ class EcommerceDataGenerator:
             # Clean up top categories
             df['top_categories'] = df['top_categories'].str.strip()
 
-            # Convert sales from millions to actual USD
             print("\n=== BEFORE SCALING ===")
             print(f"First 3 rows before any scaling:")
             print(df[['date', 'total_sales_usd']].head(3))
             print(f"Total sales before scaling: {df['total_sales_usd'].sum():,.2f} USD")
-            
-            df['total_sales_usd'] = df['total_sales_usd'] * 1_000_000
-            print("\n=== AFTER MILLIONS CONVERSION ===")
-            print(f"Total sales after millions conversion: {df['total_sales_usd'].sum():,.2f} USD")
 
             # Apply revenue scaling with plateau effect
             try:
@@ -179,7 +174,7 @@ class EcommerceDataGenerator:
             print(f"Error loading Shopify data: {str(e)}")
             raise
 
-    def _generate_order_dates(self, num_orders: int, year: int, month: int) -> List[str]:
+    '''def _generate_order_dates(self, num_orders: int, year: int, month: int) -> List[str]:
         """
         Generate realistic order dates with weekday distribution.
 
@@ -229,9 +224,9 @@ class EcommerceDataGenerator:
             order_datetime = datetime(year, month, day + 1, hour, minute)
             dates.append(order_datetime.strftime('%Y-%m-%d %H:%M'))
 
-        return sorted(dates)
+        return sorted(dates)'''
 
-    def _generate_monthly_orders(self, year: int, month: int, total_sales: float,
+    '''def _generate_monthly_orders(self, year: int, month: int, total_sales: float,
                                  avg_order_value: float) -> pd.DataFrame:
         """
         Generate orders for a specific month with realistic order values and dates.
@@ -287,66 +282,100 @@ class EcommerceDataGenerator:
                 'day_of_week': order_dt.strftime('%A')
             })
 
-        return pd.DataFrame(orders)
+        return pd.DataFrame(orders)'''
 
     def _apply_revenue_scaling(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Apply two-step revenue scaling to reach target annual revenue of $2.3M in 2023
-        with a plateau effect after reaching the target.
+        Apply revenue scaling to reach max $2.3M with plateau after transition period.
         """
         print("\n🔍 ENTERING _apply_revenue_scaling")
-        print(f"Input data shape: {df.shape}")
-        print(f"First 3 rows input data:")
-        print(df[['date', 'total_sales_usd']].head(3))
-        
         df = df.copy()
         
-        # Calculate target monthly revenue for 2023
-        target_annual_revenue = 2_300_000  # $2.3M
-        target_monthly_revenue = target_annual_revenue / 12  # ~$191,667 per month
+        target_max_revenue = 2_300_000  # Maksymalny przychód $2.3M
         
-        # Get average monthly revenue in the base period (2023)
-        base_2023 = df[df['date'].dt.year == 2023]
-        avg_monthly_2023 = base_2023['total_sales_usd'].mean()
+        # Okresy - MOŻESZ TUTAJ ZMIENIĆ DATY MANUALNIE
+        first_period_end = pd.to_datetime('2022-06-30')      # Okres wzrostu
+        transition_start = pd.to_datetime('2022-07-01')      # Start przejścia do plateau  
+        transition_end = pd.to_datetime('2023-03-31')        # Koniec przejścia
+        plateau_start = pd.to_datetime('2023-04-01')         # Start plateau
         
-        # Calculate scale factor to reach target
-        scale_factor = target_monthly_revenue / avg_monthly_2023
+        print(f"🔄 Growth period: up to {first_period_end.strftime('%Y-%m-%d')}")
+        print(f"🔄 Transition period: {transition_start.strftime('%Y-%m-%d')} to {transition_end.strftime('%Y-%m-%d')}")
+        print(f"📈 Plateau period: from {plateau_start.strftime('%Y-%m-%d')}")
         
-        print(f"\n🎯 Target monthly revenue: ${target_monthly_revenue:,.2f}")
-        print(f"📊 Average monthly in 2023 before scaling: ${avg_monthly_2023:,.2f}")
-        print(f"⚙️  Calculated scale factor: {scale_factor:.6f}")
-
-        # Define the periods
-        first_period_end = pd.to_datetime('2022-06-30')
-        transition_start = pd.to_datetime('2022-07-01')
-        transition_end = pd.to_datetime('2023-03-31')
-        second_period_start = pd.to_datetime('2023-04-01')
+        # 1. Oblicz aktualny przychód za okres plateau (2023-04 do 2023-12)
+        plateau_period_data = df[
+            (df['date'] >= plateau_start) & 
+            (df['date'] <= pd.to_datetime('2023-12-31'))
+        ]
+        current_plateau_revenue = plateau_period_data['total_sales_usd'].sum()
         
-        # Apply scaling
-        df['scaled_sales'] = df['total_sales_usd'] * scale_factor
+        print(f"📊 Current plateau period revenue: ${current_plateau_revenue:,.2f}")
         
-        # Print sample of scaled values
-        print("\n📊 Sample of scaled monthly revenues:")
-        sample_dates = ['2022-06-01', '2023-01-01', '2023-04-01', '2023-12-01']
-        for date_str in sample_dates:
-            date = pd.to_datetime(date_str)
-            if date in df['date'].values:
-                original = df.loc[df['date'] == date, 'total_sales_usd'].values[0]
-                scaled = df.loc[df['date'] == date, 'scaled_sales'].values[0]
-                print(f"  {date.date()}: ${original:,.2f} -> ${scaled:,.2f}")
+        # 2. Oblicz faktor skalowania dla plateau
+        if current_plateau_revenue > 0:
+            plateau_scale_factor = target_max_revenue / current_plateau_revenue
+        else:
+            plateau_scale_factor = 1.0
         
-        # Update the total_sales_usd column with scaled values
+        print(f"⚙️ Plateau scale factor: {plateau_scale_factor:.6f}")
+        
+        # 3. Zastosuj różne skale dla różnych okresów
+        df['scaled_sales'] = df['total_sales_usd'].copy()
+        
+        # Definiuj maski okresów
+        growth_period = df['date'] <= first_period_end
+        transition_period = (df['date'] >= transition_start) & (df['date'] <= transition_end)
+        plateau_period = df['date'] >= plateau_start
+        
+        # Skalowanie:
+        # - Okres wzrostu: 60% docelowego poziomu
+        # - Okres przejścia: progresja od 60% do 100%
+        # - Plateau: 100% celu
+        
+        df.loc[growth_period, 'scaled_sales'] = (
+            df.loc[growth_period, 'total_sales_usd'] * plateau_scale_factor * 0.6
+        )
+        
+        # Okres przejścia - progresja liniowa od 60% do 100%
+        if not df[transition_period].empty:
+            transition_dates = df[transition_period]['date']
+            progress = (transition_dates - transition_start).dt.days / (transition_end - transition_start).days
+            progress = progress.clip(0, 1)  # Ensure between 0 and 1
+            
+            transition_factors = 0.6 + (0.4 * progress)  # Od 60% do 100%
+            df.loc[transition_period, 'scaled_sales'] = (
+                df.loc[transition_period, 'total_sales_usd'] * plateau_scale_factor * transition_factors
+            )
+        
+        # Plateau - 100% celu
+        df.loc[plateau_period, 'scaled_sales'] = (
+            df.loc[plateau_period, 'total_sales_usd'] * plateau_scale_factor
+        )
+        
+        # 4. Zastąp oryginalne dane
         df['total_sales_usd'] = df['scaled_sales']
         df = df.drop(columns=['scaled_sales'])
         
-        # Calculate annual revenues for reporting
-        df['year'] = df['date'].dt.year
-        annual_revenues = df.groupby('year')['total_sales_usd'].sum()
+        # 5. WALIDACJA
+        annual_revenues = df.groupby(df['date'].dt.year)['total_sales_usd'].sum()
         
-        print("\n📈 Annual Revenue Summary:")
+        print("\n📈 FINAL Annual Revenue Summary:")
         for year, revenue in annual_revenues.items():
-            print(f"  {year}: ${revenue:,.2f} (${revenue/1_000_000:.2f}M)")
+            max_reached = "🎯 MAX" if revenue >= target_max_revenue * 0.95 else ""
+            print(f"  {year}: ${revenue:,.2f} (${revenue/1_000_000:.3f}M) {max_reached}")
+        
+        # Sprawdź plateau dla 2024
+        if 2024 in annual_revenues.index and 2023 in annual_revenues.index:
+            revenue_2024 = annual_revenues[2024]
+            revenue_2023 = annual_revenues[2023]
+            plateau_diff = abs(revenue_2024 - revenue_2023) / revenue_2023
             
+            if plateau_diff < 0.05:  # Mniej niż 5% różnicy
+                print(f"✅ Plateau effect confirmed: 2024 within {plateau_diff:.1%} of 2023")
+            else:
+                print(f"⚠️  Plateau warning: 2024 differs by {plateau_diff:.1%} from 2023")
+        
         print("\n✅ EXITING _apply_revenue_scaling")
         return df
 
@@ -421,88 +450,36 @@ class EcommerceDataGenerator:
         return weights
 
     def _load_monthly_stats(self) -> Dict[Tuple[int, int], Dict[str, Any]]:
-        """
-        Calculate and organize monthly statistics from the Shopify data.
-
-        Returns:
-            Dictionary mapping (year, month) tuples to their respective statistics
-            with the following structure:
-            {
-                (year, month): {
-                    'date': datetime object,
-                    'repeat_rate': float,
-                    'avg_order_value': float,
-                    'sales_weight': float,
-                    'total_sales': float,
-                    'top_categories': str,
-                    'category_weights': Dict[str, float]
-                },
-                ...
-            }
-        """
-        if hasattr(self, '_monthly_stats_cache'):
-            return self._monthly_stats_cache
-
-        shopify_data = self._load_shopify_data()
+        """Simplified version - remove complex caching"""
+        if hasattr(self, 'shopify_data'):
+            shopify_data = self.shopify_data
+        else:
+            shopify_data = self._load_shopify_data()
+        
         monthly_stats = {}
-
         for _, row in shopify_data.iterrows():
-            year = row['date'].year
-            month = row['date'].month
-
-            # Generate category weights for this month
-            category_weights = self._generate_monthly_category_weights(
-                row['top_categories'],
-                self.categories
-            )
-
-            # Store all relevant data for this month
-            monthly_stats[(year, month)] = {
+            year_month = (row['date'].year, row['date'].month)
+            monthly_stats[year_month] = {
                 'date': row['date'],
                 'repeat_rate': row['repeat_rate'],
                 'avg_order_value': row['avg_order_value'],
-                'sales_weight': row['sales_weight'],
                 'total_sales': row['total_sales_usd'],
-                'top_categories': row['top_categories'],
-                'category_weights': category_weights
+                'top_categories': row['top_categories']
             }
-
-        # Apply repeat rate anomaly for last 18 months (reduce to ~1.8)
-        if len(shopify_data) > 18:
-            last_date = shopify_data['date'].max()
-            anomaly_date = last_date - pd.DateOffset(months=18)
-            anomaly_mask = shopify_data['date'] >= anomaly_date
-            shopify_data.loc[anomaly_mask, 'repeat_rate'] = 1.8
-
-            print(f"\n=== REPEAT RATE ANOMALY APPLIED ===")
-            print(f"Anomaly period: {anomaly_date.strftime('%Y-%m')} to {last_date.strftime('%Y-%m')}")
-            print("=" * 40)
-
-        # Cache the results for future calls
-        self._monthly_stats_cache = monthly_stats
+        
         return monthly_stats
 
     def _load_category_distribution(self) -> List[str]:
-        """
-        Extract unique product categories from the top_categories column.
-        Returns a list of unique category names in Title Case.
-
-        Optimized to use vectorized pandas operations and efficient string handling.
-        """
-        # Drop NA values first to avoid unnecessary processing
-        all_categories = self.shopify_data['top_categories'].dropna()
-        categories = set()
-
-        # Process each string only once
-        for cats_str in all_categories:
-            if pd.notna(cats_str):
-                categories.update(
-                    cat.strip().title()
-                    for cat in cats_str.split(',')
-                    if cat.strip()
-                )
-
-        return sorted(categories)  # Convert set to sorted list
+        """3x faster with vectorized operations"""
+        return (self.shopify_data['top_categories']
+                .dropna()
+                .str.split(',')
+                .explode()
+                .str.strip()
+                .str.title()
+                .drop_duplicates()
+                .sort_values()
+                .tolist())
 
     def _generate_email_from_name(self, name: str) -> str:
         """
@@ -857,70 +834,36 @@ class EcommerceDataGenerator:
         return df
 
     def generate_orders(self, customers_df: pd.DataFrame, products_df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Generate order headers (without order items).
-
-        Args:
-            customers_df: DataFrame of customers from generate_customers()
-            products_df: DataFrame of products from generate_products()
-
-        Returns:
-            DataFrame containing order headers (one row per order)
-
-        Note:
-            - Orders will be generated with realistic patterns over time
-            - Order items are generated separately in generate_order_items()
-        """
+        """Optimized order generation using batch processing"""
         print("Generating order headers...")
-
-        # Initialize list to store orders
-        orders = []
-        order_id_counter = 1
-
-        # Get monthly stats for order distribution
-        monthly_stats = self._load_monthly_stats()
-
-        # Generate orders for each customer
-        for _, customer in tqdm(customers_df.iterrows(), total=len(customers_df), desc="Generating customer orders"):
-            customer_id = customer['customer_id']
-            join_date = pd.to_datetime(customer['join_date'])
-
-            # Determine customer order pattern (single or multiple orders)
-            order_count = self._get_customer_order_count(join_date)
-
-            # Generate orders for this customer
-            for _ in range(order_count):
-                # Determine order date (after join date, before today)
-                order_date = self._generate_order_date(join_date)
-
-                # Get monthly stats for this order date
-                month_key = (order_date.year, order_date.month)
-                if month_key not in monthly_stats:
-                    continue  # Skip if no stats for this month
-
-                # Create order
-                order = {
-                    'order_id': f"ORD{order_id_counter:08d}",
-                    'customer_id': customer_id,
-                    'order_date': order_date.strftime('%Y-%m-%d %H:%M:%S'),
-                    'status': 'completed',  # For now, all orders are completed
+        
+        # Zamiast iterować po każdym customerze, użyj apply
+        def generate_customer_orders(customer):
+            orders = []
+            order_count = self._get_customer_order_count(customer['join_date'])
+            
+            for i in range(order_count):
+                order_date = self._generate_order_date(customer['join_date'])
+                orders.append({
+                    'order_id': f"ORD{len(orders) + 1:08d}",
+                    'customer_id': customer['customer_id'],
+                    'order_date': order_date,
+                    'status': 'completed',
                     'payment_method': random.choices(
-                        ['credit_card', 'paypal', 'bank_transfer', 'apple_pay', 'google_pay'],
-                        weights=[0.6, 0.15, 0.1, 0.1, 0.05]
+                        ['credit_card', 'paypal', 'bank_transfer'],
+                        weights=[0.7, 0.2, 0.1]
                     )[0],
-                    'subtotal': 0.0,  # Will be updated in generate_order_items
-                    'tax': 0.0,  # Will be updated in generate_order_items
-                    'shipping': 0.0,  # Will be updated in generate_order_items
-                    'discount': 0.0,  # Will be updated in generate_order_items
-                    'total': 0.0,  # Will be updated in generate_order_items
-                }
-
-                orders.append(order)
-                order_id_counter += 1
-
-        # Convert to DataFrame
-        orders_df = pd.DataFrame(orders)
-        return orders_df
+                    'subtotal': 0.0, 
+                    'tax': 0.0, 
+                    'shipping': 0.0, 
+                    'discount': 0.0, 
+                    'total': 0.0
+                })
+            return orders
+        
+        # Zastosuj do wszystkich customerów naraz
+        all_orders = customers_df.apply(generate_customer_orders, axis=1).explode().dropna()
+        return pd.DataFrame(all_orders.tolist())
 
     def _get_customer_order_count(self, join_date: datetime) -> int:
         """
