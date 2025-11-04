@@ -1,5 +1,6 @@
 import pandas as pd
 from pathlib import Path
+from datetime import datetime
 
 # Set up paths
 data_dir = Path(r"C:\Users\User\PycharmProjects\census_ecommerce\data\synthetic")
@@ -79,10 +80,50 @@ orders[monetary_cols] = orders[monetary_cols].round(2)
 # Drop temporary columns
 orders = orders.drop(columns=['year', 'scale', 'discount'])
 
+def process_products(products_path, output_path, scale_factors, year_col='created_at'):
+    """
+    Process products data with the same scaling logic as order_items.
+    
+    Args:
+        products_path: Path to the input products CSV file
+        output_path: Path where to save the processed products CSV
+        scale_factors: Dictionary with years as keys and scale factors as values
+        year_col: Name of the column containing the date to determine the year
+    """
+    print("\n🔄 Przetwarzanie produktów...")
+    
+    # Load products data
+    products = pd.read_csv(products_path)
+    
+    # Convert date column to datetime and extract year
+    products['year'] = pd.to_datetime(products[year_col]).dt.year
+    
+    # Apply scaling factors based on year
+    products['scale'] = products['year'].map(scale_factors)
+    
+    # If year is not in scale_factors, use the default (X for 2018-2022)
+    products['scale'] = products['scale'].fillna(scale_factors.get('default', 1.0))
+    
+    # Scale price-related columns
+    price_cols = ['price', 'cost']
+    if 'original_price' in products.columns:
+        price_cols.append('original_price')
+    
+    for col in price_cols:
+        products[col] = round(products[col] * products['scale'], 2)
+    
+    # Drop temporary columns
+    products = products.drop(columns=['year', 'scale'])
+    
+    # Save to CSV
+    products.to_csv(output_path, index=False)
+    print(f"✅ Zapisano przetworzone produkty do: {output_path}")
+
 # 6. Save the results
 print("\n💾 Zapisuję przeskalowane dane...")
 output_orders = data_dir / 'orders2.csv'
 output_order_items = data_dir / 'order_items2.csv'
+output_products = data_dir / 'products2.csv'  # New output file for products
 
 # Reorder columns to match original structure (with loyalty_discount instead of discount)
 orders = orders[['order_id', 'customer_id', 'order_date', 'status', 'payment_method', 
@@ -92,9 +133,22 @@ orders = orders[['order_id', 'customer_id', 'order_date', 'status', 'payment_met
 orders.to_csv(output_orders, index=False)
 order_items.to_csv(output_order_items, index=False)
 
+# Process products with the same scaling factors
+scale_factors = {
+    'default': X,  # 2018-2022
+    2023: Y,
+    2024: Z
+}
+process_products(
+    products_path=data_dir / 'products.csv',
+    output_path=output_products,
+    scale_factors=scale_factors
+)
+
 print(f"\n✅ ZAPISANO NOWE PLIKI:")
 print(f"📁 {output_orders}")
 print(f"📁 {output_order_items}")
+print(f"📁 {output_products}")
 
 # Validation
 print("\n📊 WERYFIKACJA WYNIKÓW:")
