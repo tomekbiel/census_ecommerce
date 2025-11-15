@@ -1,20 +1,30 @@
-# Census E-commerce Data Explorer
+# E-commerce Data Analysis Project
 
-Narzędzie do eksploracji i eksportu danych o handlu elektronicznym z amerykańskiego Biura Spisu Ludności (U.S. Census Bureau).
+Comprehensive toolkit for analyzing and generating synthetic e-commerce data, with a focus on customer behavior and sales trends.
 
-## Features
+## Project Structure
 
-- **Data Collection**: Fetch up-to-date e-commerce and retail sales data from FRED
-- **Data Processing**: Clean and transform raw data into analysis-ready format
-- **Export Capabilities**: Save processed data to CSV for use in Power BI, Excel, or other tools
-- **Customizable**: Easily modify the script to include additional economic indicators
+- `ecommerce/` - Core e-commerce data analysis modules
+  - `analysis/` - Data analysis scripts and visualizations
+  - `processing/` - Data processing and transformation utilities
+  - `data_sources_catalog.py` - Catalog of data sources and schemas
+  - `ecommerce_data_catalog.csv` - Metadata for e-commerce datasets
+
+- `gen_faker/` - Synthetic data generation
+  - See [gen_faker/README.md](gen_faker/README.md) for detailed documentation
+
+- `green_space_analysis/` - Analysis of green space impact on e-commerce
+
+- `data/` - Data storage
+  - `synthetic/` - Generated synthetic datasets
+  - `raw/` - Raw data sources
+  - `processed/` - Processed and cleaned datasets
 
 ## Getting Started
 
 ### Prerequisites
-
-- Python 3.8 or higher
-- FRED API key (free account available at [fred.stlouisfed.org](https://fred.stlouisfed.org))
+- Python 3.8+
+- Required packages (see `requirements.txt`)
 
 ### Installation
 
@@ -24,30 +34,31 @@ Narzędzie do eksploracji i eksportu danych o handlu elektronicznym z amerykańs
    cd census_ecommerce
    ```
 
-2. Install the required packages:
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Create a `.env` file in the project root and add your FRED API key:
-   ```
-   FRED_API_KEY=your_fred_api_key_here
-   ```
-
 ## Usage
 
-Run the main analysis script:
+### 1. Data Generation
+Generate synthetic e-commerce data:
 ```bash
-python ecommerce_data_analysis.py
+cd gen_faker
+python gen_ecom_faker5.py
 ```
 
-This will:
-1. Fetch the latest e-commerce and retail sales data from FRED
-2. Process and clean the data
-3. Save the results to `data/processed/` with a timestamped filename
-4. Create/update `ecommerce_analysis_latest.csv` for easy access
+### 2. Data Analysis
+Run analysis scripts from the `ecommerce/analysis/` directory.
 
-### Output Files
+### 3. Green Space Analysis
+Explore the impact of green spaces on e-commerce metrics in the `green_space_analysis/` directory.
+
+## Documentation
+
+- [Synthetic Data Generation](gen_faker/README.md) - Complete guide to generating and processing synthetic e-commerce data
+- [Data Catalog](ecommerce/ecommerce_data_catalog.csv) - Documentation of available datasets and their schemas
+- [Data Processing](ecommerce/processing/) - Documentation of data processing workflows
 - `data/processed/ecommerce_analysis_YYYYMMDD_HHMMSS.csv` - Timestamped data export
 - `data/processed/ecommerce_analysis_latest.csv` - Always points to the most recent export
 

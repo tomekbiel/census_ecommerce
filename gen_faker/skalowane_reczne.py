@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Set up paths
-data_dir = Path(r"C:\Users\User\PycharmProjects\census_ecommerce\data\synthetic")
+data_dir = Path(r"C:\python\census_ecommerce\data\synthetic")
 
 # Load the data
 print("🔍# 1. Load the data...")

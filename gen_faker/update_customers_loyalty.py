@@ -59,7 +59,7 @@ def calculate_new_loyalty_scores(customers_df, orders_df):
 
 def main():
     # Set up paths
-    data_dir = Path(r"C:\Users\User\PycharmProjects\census_ecommerce\data\synthetic")
+    data_dir = Path(r"C:\python\census_ecommerce\data\synthetic")
     
     print("🔍 Wczytywanie danych...")
     # Load the data

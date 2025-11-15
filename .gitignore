@@ -48,4 +48,7 @@ data/raw/
 .Spotlight-V100
 .Trashes
 ehthumbs.db
+
+# Local backup directories
+gen_faker_backup/
 Thumbs.db

@@ -24,7 +24,7 @@ def update_file_paths(file_path, replacements):
 
 def main():
     # Define the directory containing the HTML files
-    base_dir = Path(r"C:\Users\User\PycharmProjects\census_ecommerce\gen_faker")
+    base_dir = Path(r"C:\python\census_ecommerce\gen_faker")
     
     # Define the files to update
     html_files = [

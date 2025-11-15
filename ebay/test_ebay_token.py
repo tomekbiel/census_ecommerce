@@ -1,9 +1,12 @@
 import os
 import requests
 from dotenv import load_dotenv
+from pathlib import Path
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from the ebay/.env file
+env_path = Path(__file__).resolve().parent / 'ebay/.env'
+print(f"Loading .env from: {env_path}")
+load_dotenv(env_path)
 
 # Get the production token
 access_token = os.getenv('EBAY_PRODUCTION_ACCESS_TOKEN')

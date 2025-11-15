@@ -1,42 +1,35 @@
-# Advanced E-commerce and Retail Data
+# E-commerce Processed Data
 
-This dataset contains comprehensive e-commerce and retail data from multiple sources, including:
-- National-level e-commerce and retail sales
-- State-level retail metrics
-- Demographic and economic indicators
+This directory contains processed e-commerce data, including customer information, product details, and analysis reports.
 
 ## Data Files
 
-### 1. National E-commerce Data (`national_ecommerce_data_*.csv`)
-- Time series of national e-commerce and retail metrics
-- Includes economic indicators like unemployment and consumer sentiment
-- Date range: Varies by series
+### 1. Customers Data (`customers.csv`)
+- Contains customer information and demographics
+- Size: ~4.4 MB
 
-### 2. State E-commerce Data (`state_ecommerce_data_*.csv`)
-- State-level retail and e-commerce metrics
-- Can be joined with national data on date
-- Includes state codes for mapping in Power BI
+### 2. Products Data (`products.csv`)
+- Contains product information and categories
+- Size: ~10.9 KB
 
-### 3. Census Demographic Data (`census_demographic_data_*.csv`)
-- Demographic and economic data by state
-- Can be joined with state data on State_Code
+### 3. E-commerce Analysis Reports
+- `ecommerce_analysis_latest.csv` - Most recent analysis (65.2 KB)
+- `ecommerce_analysis_20250812_003834.csv` - Analysis from August 12, 2025 (65.2 KB)
+- `ecommerce_analysis_20250805_095843.csv` - Analysis from August 5, 2025 (47.4 KB)
 
-## Power BI Integration
+### 4. Macro Indicators (`ecommerce_makro_indicators.csv`)
+- Contains macroeconomic indicators relevant to e-commerce
+- Size: ~4.8 KB
 
-1. **Import all CSV files** into Power BI
-2. **Create relationships** between tables:
-   - Link `national_ecommerce_data` and `state_ecommerce_data` on `date`
-   - Link `state_ecommerce_data` and `census_demographic_data` on `State_Code`
+## Notes
+- The `orders.csv` file is scheduled for removal as it's being managed in the `synthetic` directory
+- All analysis files are derived from the main datasets
 
-3. **Recommended visualizations**:
-   - Time series of national e-commerce growth
-   - Choropleth map of state-level metrics
-   - Scatter plots of e-commerce vs. demographic factors
-   - Small multiples by state or region
-
-## Data Dictionary
-
-### National Data Columns:
+## Data Usage
+These processed files are ready for:
+- Business intelligence dashboards
+- Data analysis
+- Machine learning model training
 
 ## Last Updated
-Data last fetched on: 2025-08-01 08:52:36
+Data last updated on: 2025-11-14 08:00:00

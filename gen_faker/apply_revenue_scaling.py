@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-data_dir = Path("C:/Users/User/PycharmProjects/census_ecommerce/data/synthetic")
+data_dir = Path("C:/python/census_ecommerce/data/synthetic")
 orders = pd.read_csv(data_dir / "orders.csv")
 order_items = pd.read_csv(data_dir / "order_items.csv")
 

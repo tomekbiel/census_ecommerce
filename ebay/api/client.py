@@ -2,8 +2,16 @@ import os
 import requests
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+# Load environment variables from the ebay/.env file
+env_path = Path(__file__).resolve().parent.parent / '.env'
+print(f"Loading .env from: {env_path}")
+load_dotenv(env_path)
+
+# Debug: Print if token is loaded
+print(f"EBAY_PRODUCTION_ACCESS_TOKEN exists: {'EBAY_PRODUCTION_ACCESS_TOKEN' in os.environ}")
+print(f"EBAY_SANDBOX_ACCESS_TOKEN exists: {'EBAY_SANDBOX_ACCESS_TOKEN' in os.environ}")
 
 
 class EBayClient:
@@ -23,11 +31,22 @@ class EBayClient:
     def _make_request(self, method, endpoint, **kwargs):
         """Wykonuje zapytanie do API eBay"""
         url = f"{self.base_url}{endpoint}"
+        
+        # Debug: Print token and headers before request
+        print(f"Using token: {'*' * 10 + self.token[-4:] if self.token else 'NOT FOUND'}")
+        
         headers = {
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json"
         }
-        headers.update(kwargs.pop('headers', {}))
+        # Make sure we're not overriding the Authorization header
+        if 'headers' in kwargs:
+            headers.update(kwargs['headers'])
+            del kwargs['headers']
+            
+        print(f"Request headers: {headers}")
+        print(f"Making {method} request to: {url}")
+        print(f"Params: {kwargs.get('params', {})}")
 
         try:
             response = requests.request(
@@ -53,6 +72,13 @@ class EBayClient:
             '/buy/browse/v1/item_summary/search',
             params={'q': query, 'limit': limit}
         )
+        
+    def get_headers(self):
+        """Returns the headers with the access token"""
+        return {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json"
+        }
 
     def get_item(self, item_id):
         """Pobiera szczegóły przedmiotu"""
@@ -64,6 +90,19 @@ class EBayClient:
 
 # Przykład użycia
 if __name__ == "__main__":
-    client = EBayClient(env='production')
-    results = client.search_items("laptop", limit=3)
-    print("Search results:", results)
+    # Use sandbox by default for testing
+    client = EBayClient(env='sandbox')
+    print(f"Using {client.env} environment")
+    print(f"Base URL: {client.base_url}")
+    
+    try:
+        results = client.search_items("laptop", limit=3)
+        print("\nSearch successful! Results:")
+        print(f"Found {len(results.get('itemSummaries', []))} items")
+    except Exception as e:
+        print(f"\nError occurred: {str(e)}")
+        print("\nPlease check:")
+        print("1. Your .env file contains valid eBay API credentials")
+        print("2. The token is not expired")
+        print("3. You have the necessary permissions for the API")
+        print("4. You're using the correct environment (sandbox/production)")
